@@ -1,0 +1,190 @@
+.pageHeader {
+  padding: 100px 0 70px;
+  position: relative;
+  overflow: hidden;
+}
+.headerBg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 52px 52px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.headerH1 {
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+  line-height: 1.06;
+  position: relative;
+}
+.hlBlue { color: var(--accent); }
+.headerSub {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 560px;
+  line-height: 1.85;
+  font-weight: 300;
+  position: relative;
+}
+
+/* Alt background for alternating sections */
+.altBg {
+  background: var(--bg2);
+  transition: background 0.3s;
+}
+
+/* Service layout */
+.svcLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.svcLayoutReverse { direction: rtl; }
+.svcLayoutReverse > * { direction: ltr; }
+
+@media (max-width: 820px) {
+  .svcLayout, .svcLayoutReverse { grid-template-columns: 1fr; direction: ltr; gap: 3rem; }
+}
+
+.svcNumChip {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--text4);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.svcTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.svcCta { margin-top: 2rem; }
+
+/* Service card */
+.svcCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.svcCardHead {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  transition: background 0.3s;
+}
+
+.svcCardIcon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: var(--accent-dim);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.svcCardTitle {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.svcCardSub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.svcCardDivider { height: 1px; background: var(--border); }
+
+.svcItems {
+  padding: 1.25rem 1.5rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.svcItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 0.88rem;
+  color: var(--text2);
+  font-weight: 300;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.18s, padding-left 0.18s;
+}
+.svcItem:last-child { border-bottom: none; }
+.svcItem:hover { color: var(--text); padding-left: 4px; }
+
+.svcItemDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* Bottom CTA */
+.bottomCta {
+  background: var(--accent2);
+  border-radius: var(--radius-xl);
+  padding: 70px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.bottomCtaBg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.bottomCtaContent { position: relative; z-index: 1; max-width: 560px; }
+.bottomCtaH2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.bottomCtaSub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+@media (max-width: 540px) {
+  .bottomCta { padding: 40px 28px; }
+}
