@@ -20,7 +20,9 @@ export default function NotFound() {
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </Link>
-            <Link href="/contact" className="btn-secondary">Contact Us</Link>
+            <Link href="/contact#form" className="btn-secondary">
+              Contact Us
+            </Link>
           </div>
         </div>
       </div>

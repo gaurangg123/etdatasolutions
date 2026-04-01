@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 export function useReveal() {
   useEffect(() => {
     const els = document.querySelectorAll('.reveal')
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -14,8 +15,9 @@ export function useReveal() {
           }
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
+
     els.forEach(el => observer.observe(el))
     return () => observer.disconnect()
   }, [])

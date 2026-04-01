@@ -4,8 +4,8 @@
   z-index: 100;
   background: var(--nav-bg);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   transition: background 0.3s, border-color 0.3s;
 }
 
@@ -13,7 +13,7 @@
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 2rem;
-  height: 68px;
+  height: 66px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,31 +23,22 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
   flex-shrink: 0;
 }
 
-.logoIcon {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background 0.18s;
+.logoImg {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.18s, filter 0.3s;
+  border-radius: 4px;
 }
-.logo:hover .logoIcon { background: var(--accent2); }
+.logo:hover .logoImg { opacity: 0.85; }
 
-.logoText {
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
-  color: var(--text);
-  transition: color 0.18s;
+/* In dark mode the white-bg logo has a white square — invert it so it matches the dark nav */
+.logoImgDark {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85);
 }
 
 .links {
@@ -58,33 +49,34 @@
 }
 
 .link {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
+  font-size: 0.875rem;
+  font-weight: 450;
+  letter-spacing: -0.01em;
   color: var(--text2);
   text-decoration: none;
-  padding: 7px 14px;
+  padding: 7px 13px;
   border-radius: var(--radius-sm);
   transition: color 0.18s, background 0.18s;
 }
-.link:hover { color: var(--accent); background: var(--accent-dim); }
+.link:hover { color: var(--text); background: var(--bg2); }
 .active { color: var(--accent) !important; }
 
 .ctaLink {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: -0.01em;
   color: #fff;
   text-decoration: none;
   padding: 8px 18px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   background: var(--accent);
-  margin-left: 8px;
-  transition: background 0.18s;
+  margin-left: 10px;
+  transition: background 0.18s, transform 0.15s;
 }
-.ctaLink:hover { background: var(--accent2); }
+.ctaLink:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
 
 .right {
   display: flex;
@@ -94,12 +86,12 @@
 }
 
 .themeBtn {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border2);
+  border: 1px solid var(--border);
   background: transparent;
-  color: var(--text2);
+  color: var(--text3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,36 +116,36 @@
 
 .burgerLine {
   display: block;
-  width: 22px;
-  height: 2px;
+  width: 20px;
+  height: 1.5px;
   background: var(--text2);
   border-radius: 2px;
   transition: transform 0.25s, opacity 0.25s;
 }
 
-.bl1Open { transform: translateY(7px) rotate(45deg); }
+.bl1Open { transform: translateY(6.5px) rotate(45deg); }
 .bl2Open { opacity: 0; }
-.bl3Open { transform: translateY(-7px) rotate(-45deg); }
+.bl3Open { transform: translateY(-6.5px) rotate(-45deg); }
 
 @media (max-width: 768px) {
   .burger { display: flex; }
 
   .links {
     position: fixed;
-    top: 68px;
+    top: 66px;
     left: 0;
     right: 0;
     background: var(--nav-bg);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     flex-direction: column;
     align-items: stretch;
     padding: 1rem 1.5rem;
-    gap: 4px;
+    gap: 2px;
     transform: translateY(-110%);
     opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.28s ease, opacity 0.28s ease;
     pointer-events: none;
   }
 
@@ -163,6 +155,6 @@
     pointer-events: all;
   }
 
-  .link { padding: 12px 16px; }
+  .link { padding: 11px 14px; }
   .ctaLink { margin: 8px 0 4px; text-align: center; padding: 12px; }
 }

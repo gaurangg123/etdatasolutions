@@ -1,32 +1,70 @@
 # ET Data Solutions — Next.js Website
 
-**Stack:** Next.js 14 · TypeScript · CSS Modules  
-**Deployment:** IONOS VPS · Docker · Nginx · Let's Encrypt SSL
+**Stack:** Next.js 14 · TypeScript · CSS Modules · Inter font  
+**Theme:** Orange-red palette · Dark / light toggle  
+**Deployment:** GitHub → Vercel (preview) → etdatasolutions.com (live)
 
 ---
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── layout.tsx          # Root layout (Navbar + Footer wrapped)
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Design tokens, utility classes, dark/light theme
-│   ├── about/
-│   │   └── page.tsx
-│   ├── services/
-│   │   └── page.tsx
-│   └── contact/
-│       └── page.tsx
-├── components/
-│   ├── ThemeProvider.tsx   # Dark/light toggle context
-│   ├── Navbar.tsx
-│   └── Footer.tsx
-└── lib/
-    ├── services.ts         # All 4 service verticals data
-    └── useReveal.ts        # Scroll-reveal IntersectionObserver hook
+etds/
+├── public/
+│   ├── logo-white-bg.jpg      # Logo on light backgrounds (Navbar light mode)
+│   ├── logo-dark-bg.jpg       # Logo on dark backgrounds (Navbar dark mode)
+│   ├── logo-square.jpg        # Square logo variant
+│   ├── logo-video-1.mp4       # Animated logo — hero section
+│   └── logo-video-2.mp4       # Animated logo — alternate
+│
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx          # Root layout — wraps Navbar, Footer, ThemeProvider
+│   │   ├── globals.css         # Design tokens, dark/light CSS variables, utility classes
+│   │   ├── page.tsx            # Home page
+│   │   ├── page.module.css
+│   │   ├── not-found.tsx       # 404 page
+│   │   ├── about/
+│   │   │   ├── page.tsx
+│   │   │   └── about.module.css
+│   │   ├── services/
+│   │   │   ├── page.tsx
+│   │   │   └── services.module.css
+│   │   └── contact/
+│   │       ├── page.tsx
+│   │       └── contact.module.css
+│   │
+│   ├── components/
+│   │   ├── Navbar.tsx          # Sticky nav, mobile menu, dark/light toggle, real logo
+│   │   ├── Navbar.module.css
+│   │   ├── Footer.tsx
+│   │   ├── Footer.module.css
+│   │   └── ThemeProvider.tsx   # Dark/light context, persists to localStorage
+│   │
+│   └── lib/
+│       ├── services.ts         # All 4 service verticals — single source of truth
+│       └── useReveal.ts        # Scroll-reveal IntersectionObserver hook
+│
+├── Dockerfile                  # Production Docker build
+├── docker-compose.yml          # Run on VPS
+├── nginx.conf                  # Reverse proxy config for IONOS VPS
+├── next.config.js
+├── tsconfig.json
+└── package.json
 ```
+
+---
+
+## Services (in order)
+
+| # | Service | Key Tags |
+|---|---------|----------|
+| 01 | Staffing, VA & Recruitment | RPO, Virtual Assistant, Recruitment |
+| 02 | Data & Excel | Data Entry, Excel Automation, OCR/ICR |
+| 03 | QA Testing — App & Web | Manual User Testing, Web, Mobile |
+| 04 | Data Engineering & Visualizations | Snowflake, Databricks, Microsoft Fabric, Power BI |
+
+To edit any service: update **`src/lib/services.ts`** — changes reflect everywhere automatically.
 
 ---
 
@@ -34,171 +72,139 @@ src/
 
 ### Prerequisites
 - Node.js 20+
-- npm 9+
-
-### Setup
 
 ```bash
-# 1. Install dependencies
+# Install dependencies
 npm install
 
-# 2. Run dev server
+# Run dev server
 npm run dev
 # → http://localhost:3000
 ```
 
 ---
 
-## Build for Production
+## Recommended Workflow: GitHub + Vercel
+
+### Step 1 — Push to GitHub
 
 ```bash
-npm run build
-npm start
+cd etds
+git init
+git add .
+git commit -m "initial commit"
+
+# Create a repo at github.com, then:
+git remote add origin https://github.com/YOURUSERNAME/etdatasolutions.git
+git push -u origin main
 ```
+
+### Step 2 — Deploy on Vercel (free preview)
+
+1. Go to [vercel.com](https://vercel.com) → sign up with GitHub
+2. Click **Add New Project** → import `etdatasolutions`
+3. Click **Deploy** — done in ~30 seconds
+4. Your site is live at `etdatasolutions.vercel.app`
+
+### Step 3 — Every update is automatic
+
+```bash
+# Make changes, then:
+git add .
+git commit -m "your change description"
+git push
+# → Vercel redeploys in ~30 seconds automatically
+```
+
+### Step 4 — Connect etdatasolutions.com (when ready to go live)
+
+**In Vercel:**
+1. Project → Settings → Domains → Add `etdatasolutions.com`
+2. Vercel shows you two DNS values
+
+**In IONOS DNS panel:**
+
+| Type  | Host | Value                  |
+|-------|------|------------------------|
+| A     | @    | `76.76.21.21`          |
+| CNAME | www  | `cname.vercel-dns.com` |
+
+SSL is automatic and free via Vercel.
 
 ---
 
-## Deploy to IONOS VPS
+## Alternative: Deploy on IONOS VPS (Docker)
 
-### 1. Server Requirements
-- Ubuntu 22.04 LTS (recommended)
-- 1GB+ RAM
-- Docker + Docker Compose installed
-- Nginx installed
-- Domain pointed to VPS IP (see DNS section below)
+If you prefer self-hosting on your IONOS VPS:
 
-### 2. Install Docker on VPS
+### On the VPS
 
 ```bash
+# Install Docker + Nginx
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y docker.io docker-compose nginx certbot python3-certbot-nginx
 sudo systemctl enable docker
-sudo usermod -aG docker $USER
-```
 
-### 3. Upload Project to VPS
-
-```bash
-# From your local machine — zip and upload
-zip -r etds.zip . -x "node_modules/*" ".next/*"
+# Upload project (from your machine)
+zip -r etds.zip etds/ -x "*/node_modules/*" "*/.next/*"
 scp etds.zip user@YOUR_VPS_IP:/home/user/
 
-# On the VPS
-unzip etds.zip -d etdatasolutions
-cd etdatasolutions
-```
-
-### 4. Build & Run with Docker
-
-```bash
+# On VPS
+unzip etds.zip && cd etds
 docker-compose up -d --build
 
-# Verify it's running
-docker ps
-curl http://localhost:3000
-```
-
-### 5. Configure Nginx
-
-```bash
-# Copy the nginx config
+# Nginx
 sudo cp nginx.conf /etc/nginx/sites-available/etdatasolutions.com
 sudo ln -s /etc/nginx/sites-available/etdatasolutions.com /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
 
-# Test config
-sudo nginx -t
-
-# Reload nginx
-sudo systemctl reload nginx
-```
-
-### 6. SSL Certificate (Let's Encrypt — Free)
-
-```bash
+# Free SSL
 sudo certbot --nginx -d etdatasolutions.com -d www.etdatasolutions.com
 ```
 
-Certbot will automatically update your nginx config with SSL.  
-Certificates auto-renew every 90 days via cron.
+### IONOS DNS for VPS
+
+| Type  | Host | Value        |
+|-------|------|--------------|
+| A     | @    | YOUR_VPS_IP  |
+| A     | www  | YOUR_VPS_IP  |
 
 ---
 
-## IONOS DNS Configuration
+## Wiring the Contact Form
 
-Log into your IONOS account → **Domains & SSL** → **etdatasolutions.com** → **DNS**
+The form currently simulates submission. To make it send real emails, create an API route:
 
-Add/update these records:
-
-| Type  | Host | Value              | TTL  |
-|-------|------|--------------------|------|
-| A     | @    | YOUR_VPS_IP        | 3600 |
-| A     | www  | YOUR_VPS_IP        | 3600 |
-| CNAME | *    | etdatasolutions.com | 3600 |
-
-> DNS propagation can take up to 24–48 hours. Use https://dnschecker.org to verify.
-
----
-
-## Update / Redeploy
+**`src/app/api/contact/route.ts`** — add this file and install nodemailer:
 
 ```bash
-cd /home/user/etdatasolutions
-
-# Pull latest code (if using Git)
-git pull
-
-# Rebuild and restart
-docker-compose down
-docker-compose up -d --build
+npm install nodemailer @types/nodemailer
 ```
 
----
+Then in your contact `page.tsx`, change the `handleSubmit` fetch to:
 
-## Environment Variables
-
-Create a `.env.local` file for any future secrets:
-
-```env
-# Example — add as needed
-CONTACT_EMAIL=bobby@etdatasolutions.com
+```typescript
+const res = await fetch('/api/contact', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(form),
+})
 ```
-
----
-
-## Adding / Editing Services
-
-All service content lives in **`src/lib/services.ts`**.  
-Edit the `services` array to update titles, descriptions, items, and tags.  
-Changes automatically reflect on the Services page and the Home page grid.
 
 ---
 
 ## Customising the Theme
 
-All design tokens (colors, fonts, spacing) are in **`src/app/globals.css`** under `:root` (light) and `[data-theme="dark"]`.
+All design tokens live in **`src/app/globals.css`** under `:root` (light) and `[data-theme="dark"]`.
 
 Key variables:
-- `--accent` — primary blue
-- `--electric` — cyan highlight
+- `--accent` — primary orange-red (`#e8440a`)
 - `--text`, `--text2`, `--text3` — text hierarchy
 - `--surface`, `--surface2` — card backgrounds
+- `--bg`, `--bg2`, `--bg3` — page backgrounds
 
 ---
 
-## Contact Form
+## Contact
 
-The contact form in `src/app/contact/page.tsx` currently simulates submission.  
-To wire it to a real backend:
-
-1. **Option A — Email via API route:**  
-   Create `src/app/api/contact/route.ts` and use `nodemailer` to send to `bobby@etdatasolutions.com`.
-
-2. **Option B — Third-party service:**  
-   Use [Formspree](https://formspree.io), [EmailJS](https://emailjs.com), or [Resend](https://resend.com).
-
----
-
-## Support
-
-Contact: bobby@etdatasolutions.com  
-Phone: +1-215-554-3713
+bobby@etdatasolutions.com · +1-215-554-3713 · etdatasolutions.com

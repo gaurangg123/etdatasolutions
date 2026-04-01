@@ -1,5 +1,5 @@
 .pageHeader {
-  padding: 100px 0 70px;
+  padding: 90px 0 70px;
   position: relative;
   overflow: hidden;
 }
@@ -8,29 +8,28 @@
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 52px 52px;
-  opacity: 0.4;
+  background-size: 48px 48px;
+  opacity: 0.5;
   pointer-events: none;
 }
 .headerH1 {
-  font-size: clamp(2rem, 4.5vw, 4rem);
-  font-weight: 900;
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 1.25rem;
-  line-height: 1.06;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
   position: relative;
 }
-.hlBlue { color: var(--accent); }
+.hlAccent { color: var(--accent); }
 .headerSub {
   font-size: 1.05rem;
   color: var(--text2);
   max-width: 560px;
-  line-height: 1.85;
-  font-weight: 300;
+  line-height: 1.8;
   position: relative;
 }
 
-/* Story */
 .storyGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -45,13 +44,8 @@
   gap: 1rem;
   margin: 1.25rem 0 2rem;
 }
-.storyText p {
-  font-size: 0.92rem;
-  color: var(--text2);
-  line-height: 1.85;
-  font-weight: 300;
-}
-.storyActions { display: flex; flex-wrap: wrap; gap: 12px; }
+.storyText p { font-size: 0.925rem; color: var(--text2); line-height: 1.85; }
+.storyActions { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* Stats card */
 .statsCard {
@@ -59,21 +53,22 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 .statsCardHead {
   background: var(--bg3);
   border-bottom: 1px solid var(--border);
-  padding: 12px 16px;
+  padding: 11px 16px;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: background 0.3s, border-color 0.3s;
+  transition: background 0.3s;
 }
 .scDot { width: 10px; height: 10px; border-radius: 50%; }
 .scHeadText {
-  font-family: 'Orbitron', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   color: var(--text3);
   margin-left: 6px;
   text-transform: uppercase;
@@ -90,25 +85,24 @@
   padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   transition: background 0.3s;
 }
 .statN {
-  font-family: 'Orbitron', monospace;
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--accent);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 .statL {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.63rem;
-  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text3);
 }
-.statsRows { padding: 1rem 0; }
+.statsRows { padding: 0.5rem 0; }
 .statsRow {
   display: flex;
   justify-content: space-between;
@@ -120,68 +114,64 @@
 .statsRow:last-child { border-bottom: none; }
 .statsRow:hover { background: var(--surface2); }
 .statsRowKey {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text3);
-  letter-spacing: 0.06em;
+  font-weight: 400;
 }
 .statsRowVal {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--text);
   font-weight: 500;
 }
 
 /* Values */
 .valuesSection { background: var(--bg2); transition: background 0.3s; }
-.valuesGrid { margin-top: 3rem !important; }
+.valuesGrid { margin-top: 2.5rem !important; }
 .valueCard {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 1.75rem;
+  padding: 1.5rem;
   transition: border-color 0.2s, background 0.3s, transform 0.2s;
 }
-.valueCard:hover { border-color: var(--accent); transform: translateY(-3px); }
+.valueCard:hover { border-color: var(--accent); transform: translateY(-2px); }
 .valueNum {
-  font-family: 'Orbitron', monospace;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--accent);
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.875rem;
 }
 .valueTitle {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 0.6rem;
-  letter-spacing: 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
 }
 .valueDesc {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   color: var(--text2);
   line-height: 1.7;
-  font-weight: 300;
 }
 
-/* Services chips */
+/* Service chips */
 .servicesList {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
   margin-top: 2rem;
 }
 .serviceChip {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 500;
   color: var(--text2);
   background: var(--surface);
   border: 1px solid var(--border);
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
+  padding: 7px 14px;
+  border-radius: 100px;
   transition: border-color 0.18s, color 0.18s, background 0.18s;
   cursor: default;
 }

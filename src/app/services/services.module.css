@@ -1,5 +1,5 @@
 .pageHeader {
-  padding: 100px 0 70px;
+  padding: 90px 0 70px;
   position: relative;
   overflow: hidden;
 }
@@ -8,29 +8,28 @@
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 52px 52px;
-  opacity: 0.4;
+  background-size: 48px 48px;
+  opacity: 0.5;
   pointer-events: none;
 }
 .headerH1 {
-  font-size: clamp(2rem, 4.5vw, 4rem);
-  font-weight: 900;
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 1.25rem;
-  line-height: 1.06;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
   position: relative;
 }
-.hlBlue { color: var(--accent); }
+.hlAccent { color: var(--accent); }
 .headerSub {
   font-size: 1.05rem;
   color: var(--text2);
   max-width: 560px;
-  line-height: 1.85;
-  font-weight: 300;
+  line-height: 1.8;
   position: relative;
 }
 
-/* Alt background for alternating sections */
 .altBg {
   background: var(--bg2);
   transition: background 0.3s;
@@ -41,7 +40,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
-  align-items: center;
+  align-items: start;
 }
 .svcLayoutReverse { direction: rtl; }
 .svcLayoutReverse > * { direction: ltr; }
@@ -50,30 +49,52 @@
   .svcLayout, .svcLayoutReverse { grid-template-columns: 1fr; direction: ltr; gap: 3rem; }
 }
 
-.svcNumChip {
-  font-family: 'Orbitron', monospace;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+.svcNumBadge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--text4);
   background: var(--bg3);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 4px 10px;
-  display: inline-block;
-  margin-bottom: 1rem;
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  margin-bottom: 0.875rem;
 }
+
+/* QA highlight box */
+.highlightBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-mid);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-top: 1.25rem;
+  color: var(--accent2);
+}
+.highlightBox svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+.highlightBox p {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent2);
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+[data-theme="dark"] .highlightBox p { color: var(--accent); }
 
 .svcTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 7px;
   margin-top: 1.5rem;
 }
+.svcCta { margin-top: 1.75rem; }
 
-.svcCta { margin-top: 2rem; }
-
-/* Service card */
+/* Card */
 .svcCard {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -84,7 +105,7 @@
 }
 
 .svcCardHead {
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -94,11 +115,11 @@
 }
 
 .svcCardIcon {
-  width: 54px;
-  height: 54px;
+  width: 50px;
+  height: 50px;
   border-radius: var(--radius-md);
   background: var(--accent-dim);
-  border: 1px solid var(--border2);
+  border: 1px solid var(--accent-mid);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,68 +128,62 @@
 }
 
 .svcCardTitle {
-  font-family: 'Orbitron', monospace;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--text);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+  letter-spacing: -0.02em;
 }
 
 .svcCardSub {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--text3);
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: var(--text3);
 }
 
-.svcCardDivider { height: 1px; background: var(--border); }
-
 .svcItems {
-  padding: 1.25rem 1.5rem;
+  padding: 0.5rem 0;
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
 }
 
 .svcItem {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 0;
-  font-size: 0.88rem;
+  padding: 10px 1.5rem;
+  font-size: 0.875rem;
   color: var(--text2);
-  font-weight: 300;
   border-bottom: 1px solid var(--border);
-  transition: color 0.18s, padding-left 0.18s;
+  transition: color 0.18s, background 0.18s, padding-left 0.18s;
 }
 .svcItem:last-child { border-bottom: none; }
-.svcItem:hover { color: var(--text); padding-left: 4px; }
+.svcItem:hover { color: var(--text); background: var(--surface2); padding-left: calc(1.5rem + 4px); }
 
 .svcItemDot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 /* Bottom CTA */
 .bottomCta {
-  background: var(--accent2);
+  background: var(--accent);
   border-radius: var(--radius-xl);
-  padding: 70px 60px;
+  padding: 70px 64px;
   position: relative;
   overflow: hidden;
 }
 .bottomCtaBg {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
   pointer-events: none;
 }
 .bottomCtaContent { position: relative; z-index: 1; max-width: 560px; }
@@ -177,13 +192,13 @@
   font-weight: 700;
   color: #fff;
   margin-bottom: 1rem;
+  letter-spacing: -0.03em;
 }
 .bottomCtaSub {
   font-size: 1rem;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.78);
   line-height: 1.8;
   margin-bottom: 2rem;
-  font-weight: 300;
 }
 @media (max-width: 540px) {
   .bottomCta { padding: 40px 28px; }
