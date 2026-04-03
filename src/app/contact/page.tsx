@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useReveal } from '@/lib/useReveal'
 import type { ApiResponse } from '@/lib/validation'
+import PageHeader from '@/components/ui/PageHeader'
 import styles from './contact.module.css'
 
 const serviceOptions = [
@@ -79,20 +80,11 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className={styles.pageHeader}>
-        <div className={styles.headerBg} aria-hidden />
-        <div className="container">
-          <span className="eyebrow reveal">Contact Us</span>
-          <h1 className={`${styles.headerH1} reveal reveal-delay-1`}>
-            Let&apos;s build something<br />
-            <span className={styles.hlAccent}>great together</span>
-          </h1>
-          <p className={`${styles.headerSub} reveal reveal-delay-2`}>
-            Whether you have an ongoing requirement or a single assignment —
-            tell us what you need and we&apos;ll respond within 24 hours.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Contact Us"
+        title={<>Let&apos;s build something<br /><span className="accent">great together</span></>}
+        subtitle="Whether you have an ongoing requirement or a single assignment — tell us what you need and we'll respond within 24 hours."
+      />
 
       <div className="divider" />
 

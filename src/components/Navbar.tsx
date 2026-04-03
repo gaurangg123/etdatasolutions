@@ -24,10 +24,10 @@ export default function Navbar() {
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
           <Image
-            src={theme === 'dark' ? '/logo-nav-dark.jpg' : '/logo-nav-light.jpg'}
+            src="/logo-transparent.png"
             alt="ET Data Solutions"
-            width={160}
-            height={52}
+            width={140}
+            height={44}
             className={styles.logoImg}
             priority
           />

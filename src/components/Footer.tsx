@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useTheme } from './ThemeProvider'
 import styles from './Footer.module.css'
 
 const services = [
@@ -13,7 +12,6 @@ const services = [
 ]
 
 export default function Footer() {
-  const { theme } = useTheme()
 
   return (
     <footer className={styles.footer}>
@@ -21,11 +19,11 @@ export default function Footer() {
         <div className={styles.brand}>
           <div className={styles.logoRow}>
             <Image
-              src="/logo-square.jpg"
+              src="/logo-transparent.png"
               alt="ET Data Solutions"
               width={130}
               height={43}
-              className={`${styles.logoImg} ${theme === 'dark' ? styles.logoImgDark : ''}`}
+              className={styles.logoImg}
             />
           </div>
           <p className={styles.tagline}>

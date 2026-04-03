@@ -28,14 +28,15 @@
 }
 
 .logoImg {
-  height: 42px;
+  height: 38px;
   width: auto;
-  max-width: 160px;
+  max-width: 150px;
   object-fit: contain;
   object-position: left center;
   transition: opacity 0.2s;
+  display: block;
 }
-.logo:hover .logoImg { opacity: 0.8; }
+.logo:hover .logoImg { opacity: 0.75; }
 
 .links {
   display: flex;

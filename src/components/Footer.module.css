@@ -19,16 +19,12 @@
 
 .logoImg {
   height: 36px;
-  width: 120px;
+  width: auto;
+  max-width: 130px;
   object-fit: contain;
   object-position: left center;
-  opacity: 0.85;
-  transition: filter 0.3s;
-}
-
-.logoImgDark {
-  filter: brightness(0) invert(1);
-  opacity: 0.75;
+  opacity: 0.9;
+  display: block;
 }
 
 .tagline {
