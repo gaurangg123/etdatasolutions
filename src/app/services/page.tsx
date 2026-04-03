@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useReveal } from '@/lib/useReveal'
 import { services } from '@/lib/services'
+import PageHeader from '@/components/ui/PageHeader'
 import styles from './services.module.css'
 
 const icons: Record<string, React.ReactNode> = {
@@ -38,21 +39,11 @@ export default function ServicesPage() {
 
   return (
     <>
-      {/* ─── PAGE HEADER ───────────────────────── */}
-      <section className={styles.pageHeader}>
-        <div className={styles.headerBg} aria-hidden />
-        <div className="container">
-          <span className="eyebrow reveal">Services</span>
-          <h1 className={`${styles.headerH1} reveal reveal-delay-1`}>
-            Four verticals.<br />
-            <span className={styles.hlAccent}>One partner.</span>
-          </h1>
-          <p className={`${styles.headerSub} reveal reveal-delay-2`}>
-            From talent acquisition to data lakehouses, from manual user testing
-            to Excel automation — everything your operations need, delivered with precision.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Services"
+        title={<>Four verticals.<br /><span className="accent">One partner.</span></>}
+        subtitle="From talent acquisition to data lakehouses, from manual user testing to Excel automation — everything your operations need, delivered with precision."
+      />
 
       <div className="divider" />
 

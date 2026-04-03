@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useReveal } from '@/lib/useReveal'
+import PageHeader from '@/components/ui/PageHeader'
 import styles from './about.module.css'
 
 export default function AboutPage() {
@@ -16,21 +17,11 @@ export default function AboutPage() {
 
   return (
     <>
-      {/* ─── PAGE HEADER ──────────────────────────── */}
-      <section className={styles.pageHeader}>
-        <div className={styles.headerBg} aria-hidden />
-        <div className="container">
-          <span className="eyebrow reveal">About Us</span>
-          <h1 className={`${styles.headerH1} reveal reveal-delay-1`}>
-            Built on accuracy.<br />
-            <span className={styles.hlAccent}>Driven by results.</span>
-          </h1>
-          <p className={`${styles.headerSub} reveal reveal-delay-2`}>
-            ET Data Solutions is a professional administrative back-office data processing
-            services provider based in India, serving clients globally since 2014.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="About Us"
+        title={<>Built on accuracy.<br /><span className="accent">Driven by results.</span></>}
+        subtitle="ET Data Solutions is a professional administrative back-office data processing services provider based in India, serving clients globally since 2014."
+      />
 
       <div className="divider" />
 
@@ -159,3 +150,4 @@ export default function AboutPage() {
     </>
   )
 }
+// metadata exported separately for Next.js to pick up in server context

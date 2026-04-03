@@ -1,0 +1,32 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Build output
+.next
+out
+build
+
+# Environment files — NEVER include in image
+.env
+.env.local
+.env.*.local
+
+# Development
+*.md
+.git
+.gitignore
+.eslintrc*
+.vscode
+*.test.*
+__tests__
+coverage
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db

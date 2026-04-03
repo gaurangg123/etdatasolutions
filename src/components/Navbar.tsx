@@ -23,17 +23,12 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
-          {/*
-            logo-square.jpg has no white rectangle border — looks clean in both modes.
-            Light mode: shown as-is (white bg blends with light nav).
-            Dark mode:  invert so white bg becomes dark, logo colours remain readable.
-          */}
           <Image
-            src="/logo-square.jpg"
+            src={theme === 'dark' ? '/logo-nav-dark.jpg' : '/logo-nav-light.jpg'}
             alt="ET Data Solutions"
-            width={140}
-            height={46}
-            className={`${styles.logoImg} ${theme === 'dark' ? styles.logoImgDark : ''}`}
+            width={160}
+            height={52}
+            className={styles.logoImg}
             priority
           />
         </Link>

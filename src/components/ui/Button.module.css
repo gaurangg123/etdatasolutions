@@ -1,0 +1,76 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s var(--ease-out),
+    transform  0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out),
+    opacity    0.2s;
+  will-change: transform;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(0) !important; transition-duration: 0.08s; }
+
+/* Sizes */
+.sm  { font-size: 0.8rem;   padding: 8px 16px;  }
+.md  { font-size: 0.875rem; padding: 12px 24px; }
+.lg  { font-size: 1rem;     padding: 14px 30px; }
+
+/* Variants */
+.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.primary:hover:not(.disabled):not(.loading) {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,68,10,0.3);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+.secondary:hover:not(.disabled):not(.loading) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+  transform: translateY(-1px);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--accent);
+  padding-left: 0;
+  padding-right: 0;
+}
+.ghost:hover:not(.disabled):not(.loading) { opacity: 0.75; }
+
+/* States */
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.loading { opacity: 0.8; cursor: wait; }
+
+/* Spinner */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}

@@ -1,114 +1,126 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { ContactSchema, type ApiResponse } from '@/lib/validation'
+import { sendContactEmail } from '@/lib/email'
+import { checkRateLimit, CONTACT_RATE_LIMIT } from '@/lib/rateLimit'
 
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json()
-    const { name, email, company, phone, service, message } = body
+/**
+ * FIX: Previous version checked honeypot AFTER the Zod fields loop,
+ * inside the !parsed.success branch. This is incorrect — a valid
+ * submission with _hp filled would pass Zod (max(0) fails) and land
+ * in the fields loop, then get caught. But a bot sending only _hp
+ * with no other fields would return a real validation error exposing
+ * field names. Honeypot is now checked first, before any other logic.
+ *
+ * FIX: Added Origin/Host check to block cross-origin API abuse.
+ * Without this, any site can POST to /api/contact and piggyback
+ * on our SMTP quota.
+ */
 
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Name, email and message are required.' }, { status: 400 })
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
-    }
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
+    req.headers.get('x-real-ip') ??
+    'unknown'
+  )
+}
 
-    // ── IONOS SMTP ──────────────────────────────────────────────────────────
-    // Requires: npm install nodemailer @types/nodemailer
-    // Add to .env.local:
-    //   SMTP_USER=bobby@etdatasolutions.com
-    //   SMTP_PASS=your_ionos_webmail_password
-    //
-    // IONOS SMTP settings (standard for all IONOS email accounts):
-    //   Host: smtp.ionos.com
-    //   Port: 587  (STARTTLS)
-    //   Security: STARTTLS
-    // ────────────────────────────────────────────────────────────────────────
+/** Silently accept bots — don't leak that we detected them */
+function silentAccept(): NextResponse<ApiResponse> {
+  return NextResponse.json(
+    { success: true, message: 'Message received. We will reply within 24 hours.' },
+    { status: 200 },
+  )
+}
 
-    const smtpUser = process.env.SMTP_USER
-    const smtpPass = process.env.SMTP_PASS
+export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>> {
 
-    if (smtpUser && smtpPass) {
-      const nodemailer = (await import('nodemailer')).default
+  // ── 1. Origin check — block cross-origin abuse ────────────────────────────
+  const origin = req.headers.get('origin') ?? ''
+  const host   = req.headers.get('host')   ?? ''
+  const allowedOrigins = [
+    'https://etdatasolutions.com',
+    'https://www.etdatasolutions.com',
+    'https://etdatasolutions.vercel.app',
+  ]
+  const isDev = process.env.NODE_ENV === 'development'
+  const isLocalhost = origin.startsWith('http://localhost') || host.startsWith('localhost')
 
-      const transporter = nodemailer.createTransport({
-        host:   'smtp.ionos.com',
-        port:   587,
-        secure: false, // STARTTLS
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-        tls: {
-          ciphers: 'SSLv3',
-          rejectUnauthorized: false,
-        },
-      })
+  if (!isDev && !isLocalhost && !allowedOrigins.some(o => origin.startsWith(o))) {
+    // Silently reject — don't reveal why
+    return silentAccept()
+  }
 
-      await transporter.sendMail({
-        from:    `"ET Data Solutions" <${smtpUser}>`,
-        to:      smtpUser, // sends to yourself
-        replyTo: email,
-        subject: `New enquiry${service ? ` — ${service}` : ''} from ${name}`,
-        html:    buildEmailHtml({ name, email, company, phone, service, message }),
-      })
-    } else {
-      // No SMTP configured — log to console (remove in production)
-      console.log('📬 Contact form submission (SMTP not configured):', {
-        name, email, company, phone, service, message,
-      })
-      console.log('👉 Add SMTP_USER and SMTP_PASS to .env.local to enable email sending.')
-    }
+  // ── 2. Rate limiting ──────────────────────────────────────────────────────
+  const ip = getClientIp(req)
+  const rl = checkRateLimit(`contact:${ip}`, CONTACT_RATE_LIMIT)
 
-    return NextResponse.json({ success: true })
-  } catch (err) {
-    console.error('Contact form error:', err)
+  if (!rl.allowed) {
+    const retryAfterSec = Math.ceil((rl.resetAt - Date.now()) / 1000)
     return NextResponse.json(
-      { error: 'Failed to send message. Please email us directly at bobby@etdatasolutions.com' },
-      { status: 500 }
+      {
+        success: false,
+        error: `Too many requests. Please wait ${Math.ceil(retryAfterSec / 60)} minute(s) before trying again.`,
+      },
+      {
+        status: 429,
+        headers: {
+          'Retry-After':          String(retryAfterSec),
+          'X-RateLimit-Limit':    String(CONTACT_RATE_LIMIT.limit),
+          'X-RateLimit-Remaining': String(rl.remaining),
+        },
+      },
     )
   }
+
+  // ── 3. Parse JSON ─────────────────────────────────────────────────────────
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json(
+      { success: false, error: 'Invalid request body.' },
+      { status: 400 },
+    )
+  }
+
+  // ── 4. Honeypot check — before Zod, before any processing ─────────────────
+  // Check the raw body directly so bots can't probe our validation logic
+  if (
+    body !== null &&
+    typeof body === 'object' &&
+    '_hp' in body &&
+    typeof (body as Record<string, unknown>)['_hp'] === 'string' &&
+    ((body as Record<string, unknown>)['_hp'] as string).length > 0
+  ) {
+    console.info('[contact] Honeypot triggered from IP:', ip)
+    return silentAccept()
+  }
+
+  // ── 5. Validate with Zod ──────────────────────────────────────────────────
+  const parsed = ContactSchema.safeParse(body)
+  if (!parsed.success) {
+    const fields: Record<string, string[]> = {}
+    for (const issue of parsed.error.issues) {
+      const key = issue.path[0]?.toString() ?? 'unknown'
+      // Never expose internal fields to client
+      if (key === '_hp') return silentAccept()
+      fields[key] = [...(fields[key] ?? []), issue.message]
+    }
+    return NextResponse.json(
+      { success: false, error: 'Validation failed.', fields },
+      { status: 422 },
+    )
+  }
+
+  // ── 6. Send email ─────────────────────────────────────────────────────────
+  await sendContactEmail(parsed.data)
+
+  return NextResponse.json(
+    { success: true, message: 'Message received. We will reply within 24 hours.' },
+    { status: 200 },
+  )
 }
 
-function buildEmailHtml(data: {
-  name: string; email: string; company: string
-  phone: string; service: string; message: string
-}) {
-  const { name, email, company, phone, service, message } = data
-  const row = (label: string, value: string, link?: string) =>
-    value ? `
-      <tr>
-        <td style="padding:10px 0;color:#8c897f;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;width:110px;vertical-align:top">${label}</td>
-        <td style="padding:10px 0;color:#111110;font-size:14px">${link ? `<a href="${link}" style="color:#e8440a;text-decoration:none">${esc(value)}</a>` : esc(value)}</td>
-      </tr>` : ''
-
-  return `<!DOCTYPE html>
-<html><head><meta charset="utf-8"/></head>
-<body style="margin:0;padding:32px 16px;background:#f5f3f0;font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif">
-  <div style="max-width:580px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e8e4de">
-    <div style="background:#e8440a;padding:28px 32px">
-      <h1 style="margin:0;color:#fff;font-size:20px;font-weight:600;letter-spacing:-0.02em">New Enquiry — ET Data Solutions</h1>
-      <p style="margin:6px 0 0;color:rgba(255,255,255,0.8);font-size:13px">Submitted via etdatasolutions.com</p>
-    </div>
-    <div style="padding:28px 32px">
-      <table style="width:100%;border-collapse:collapse">
-        ${row('Name',    name,    '')}
-        ${row('Email',   email,   `mailto:${email}`)}
-        ${row('Company', company, '')}
-        ${row('Phone',   phone,   `tel:${phone.replace(/\s/g,'')}`)}
-        ${row('Service', service, '')}
-      </table>
-      <div style="margin-top:16px">
-        <p style="color:#8c897f;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px">Message</p>
-        <div style="background:#fafaf9;border:1px solid #e8e4de;border-radius:8px;padding:16px;font-size:14px;color:#111110;line-height:1.7;white-space:pre-wrap">${esc(message)}</div>
-      </div>
-    </div>
-    <div style="border-top:1px solid #e8e4de;padding:14px 32px;background:#f5f3f0;text-align:center;font-size:12px;color:#8c897f">
-      ET Data Solutions · etdatasolutions.com · bobby@etdatasolutions.com
-    </div>
-  </div>
-</body></html>`
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+export async function GET(): Promise<NextResponse> {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 })
 }

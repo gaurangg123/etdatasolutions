@@ -7,9 +7,13 @@ import '@fontsource/inter/700.css'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import ThemeProvider from '@/components/ThemeProvider'
+import ThemeProvider, { ThemeScript } from '@/components/ThemeProvider'
+
+const BASE_URL = 'https://etdatasolutions.com'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+
   title: {
     default: 'ET Data Solutions — Staffing, Data, QA & Data Engineering',
     template: '%s | ET Data Solutions',
@@ -22,12 +26,14 @@ export const metadata: Metadata = {
     'data visualization', 'Snowflake', 'Databricks', 'Microsoft Fabric', 'Power BI',
     'Tableau', 'outsourcing', 'India', 'ET Data Solutions',
   ],
-  metadataBase: new URL('https://etdatasolutions.com'),
+  alternates: {
+    canonical: BASE_URL,
+  },
   openGraph: {
     title: 'ET Data Solutions — Staffing, Data, QA & Data Engineering',
     description:
       'India-based outsourcing for staffing, data processing, QA testing, and data engineering. Globally delivered.',
-    url: 'https://etdatasolutions.com',
+    url: BASE_URL,
     siteName: 'ET Data Solutions',
     locale: 'en_US',
     type: 'website',
@@ -42,7 +48,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon.png',    type: 'image/png', sizes: '32x32' },
     ],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
@@ -56,10 +62,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Injected before first paint to prevent FOUC on theme toggle */}
+        <ThemeScript />
+      </head>
       <body>
+        {/* Skip-to-content for keyboard / screen reader users */}
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <ThemeProvider>
           <Navbar />
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
