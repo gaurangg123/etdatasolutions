@@ -1,46 +1,61 @@
-/* Shared page header — used by About, Services, Contact pages */
+/* Shared page header — About, Services, Contact */
 .header {
-  padding: 90px 0 70px;
+  padding: 88px 0 72px;
   position: relative;
   overflow: hidden;
+  background: var(--bg);
 }
 
+/* Fine grid bg */
 .bg {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: 0.5;
+  background-size: 52px 52px;
+  opacity: 0.45;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 100%);
+}
+
+/* Ambient accent glow top-right */
+.bg::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -5%;
+  width: 55%;
+  height: 140%;
+  background: radial-gradient(ellipse at center, rgba(232,68,10,0.055) 0%, transparent 65%);
   pointer-events: none;
 }
 
-.eyebrow {
-  position: relative;
-}
+.eyebrow { position: relative; }
 
 .h1 {
-  font-size: clamp(2rem, 4.5vw, 3.75rem);
-  font-weight: 700;
+  font-size: clamp(2.1rem, 4.5vw, 3.75rem);
+  font-weight: 800;
   color: var(--text);
   margin-bottom: 1.25rem;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
   position: relative;
 }
 
-/* Accent colour on highlighted words — apply via <span className="accent"> */
+/* Accent colour via <span className="accent"> */
 .h1 :global(.accent) { color: var(--accent); }
 
 .sub {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text2);
-  max-width: 560px;
-  line-height: 1.8;
+  max-width: 540px;
+  line-height: 1.82;
   position: relative;
+  font-weight: 400;
 }
 
 @media (max-width: 640px) {
-  .header { padding: 70px 0 50px; }
+  .header { padding: 64px 0 52px; }
 }

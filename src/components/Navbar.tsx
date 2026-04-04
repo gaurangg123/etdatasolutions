@@ -20,26 +20,32 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} role="navigation" aria-label="Main navigation">
       <div className={styles.inner}>
-        <Link href="/" className={styles.logo} onClick={() => setOpen(false)}>
+
+        {/* Logo */}
+        <Link href="/" className={styles.logo} onClick={() => setOpen(false)} aria-label="ET Data Solutions — Home">
           <Image
             src="/logo-transparent.png"
             alt="ET Data Solutions"
-            width={140}
-            height={44}
+            width={160}
+            height={52}
             className={styles.logoImg}
             priority
+            quality={100}
           />
         </Link>
 
-        <div className={`${styles.links} ${open ? styles.linksOpen : ''}`}>
+        {/* Nav links */}
+        <div className={`${styles.links} ${open ? styles.linksOpen : ''}`} role="menubar">
           {links.map(l => (
             <Link
               key={l.href}
               href={l.href}
+              role="menuitem"
               className={`${styles.link} ${pathname === l.href ? styles.active : ''}`}
               onClick={() => setOpen(false)}
+              aria-current={pathname === l.href ? 'page' : undefined}
             >
               {l.label}
             </Link>
@@ -49,10 +55,16 @@ export default function Navbar() {
           </Link>
         </div>
 
+        {/* Right controls */}
         <div className={styles.right}>
-          <button className={styles.themeBtn} onClick={toggle} aria-label="Toggle theme">
+          <button
+            className={styles.themeBtn}
+            onClick={toggle}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          >
             {theme === 'dark' ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
                 <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
@@ -60,12 +72,19 @@ export default function Navbar() {
                 <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
               </svg>
             ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
             )}
           </button>
-          <button className={styles.burger} onClick={() => setOpen(o => !o)} aria-label="Toggle menu">
+
+          <button
+            className={styles.burger}
+            onClick={() => setOpen(o => !o)}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
             <span className={`${styles.burgerLine} ${open ? styles.bl1Open : ''}`} />
             <span className={`${styles.burgerLine} ${open ? styles.bl2Open : ''}`} />
             <span className={`${styles.burgerLine} ${open ? styles.bl3Open : ''}`} />
