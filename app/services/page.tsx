@@ -47,7 +47,8 @@ export default function ServicesPage() {
                   </AnimateIn>
                   <AnimateIn delay={0.05}><span className="text-[0.67rem] font-[700] tracking-[0.12em] uppercase text-brand-500 mb-3 block">{svc.subtitle}</span></AnimateIn>
                   <AnimateIn delay={0.1}><h2 className="text-3xl md:text-4xl font-[800] tracking-[-0.04em] text-neutral-900 dark:text-neutral-50 leading-[1.1] mb-5">{svc.title}</h2></AnimateIn>
-                  <AnimateIn delay={0.15}><p className="text-[0.95rem] text-neutral-500 dark:text-neutral-400 leading-relaxed mb-5 max-w-[440px]">{svc.description}</p></AnimateIn>
+                  <AnimateIn delay={0.15}><p className="text-base font-[600] text-brand-500 mb-3">{svc.benefitHeadline}</p></AnimateIn>
+                  <AnimateIn delay={0.18}><p className="text-[0.95rem] text-neutral-500 dark:text-neutral-400 leading-relaxed mb-5 max-w-[440px]">{svc.description}</p></AnimateIn>
 
                   {svc.highlight && (
                     <AnimateIn delay={0.18}>

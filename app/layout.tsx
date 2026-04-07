@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     default: 'ET Data Solutions — Staffing, Data Processing, QA & Data Engineering',
     template: '%s | ET Data Solutions',
   },
-  description: 'ET Data Solutions provides expert staffing & VA services, data processing & Excel automation, manual QA testing, and data engineering with Snowflake, Databricks & Microsoft Fabric. India-based, globally delivered since 2014. 99% accuracy guaranteed.',
-  keywords: ['data entry outsourcing','excel automation','staffing agency India','virtual assistant','RPO','manual QA testing','data engineering','Snowflake','Databricks','Microsoft Fabric','Power BI','Tableau','outsourcing India','ET Data Solutions'],
+  description: 'ET Data Solutions helps businesses eliminate operational bottlenecks by handling staffing, data entry, QA testing, and data engineering. India-based, globally delivered. 99% accuracy. Starting from $499/month. Free consultation available.',
+  keywords: ['outsourcing company India','data entry services','excel automation outsourcing','virtual assistant placement','RPO recruitment','manual QA testing services','data engineering Snowflake','Power BI dashboard development','Tableau consultant','offshore team India','business process outsourcing','ET Data Solutions'],
   alternates: { canonical: BASE_URL },
   openGraph: {
     title: 'ET Data Solutions — Staffing, Data, QA & Data Engineering',
