@@ -3,14 +3,22 @@
 @tailwind utilities;
 
 @layer base {
-  :root { --nav-h: 68px; }
+  :root {
+    --nav-h: 72px;
+    font-size: 17px;
+  }
 
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    font-size: 1rem;
+    line-height: 1.7;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,4 +36,5 @@
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
   }
+  .text-balance { text-wrap: balance; }
 }

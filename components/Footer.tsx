@@ -32,7 +32,7 @@ export default function Footer() {
                   className="object-contain opacity-90"
                 />
               </div>
-              <span className="text-sm font-[700] tracking-[-0.02em] text-neutral-700 dark:text-neutral-300">ET Data Solutions</span>
+              <span className="text-base font-[700] tracking-[-0.02em] text-neutral-700 dark:text-neutral-300">ET Data Solutions</span>
             </div>
             <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-[280px] mb-6">
               Intelligent data, staffing &amp; QA solutions. India-based. Globally delivered since 2014.

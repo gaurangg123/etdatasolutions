@@ -9,7 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      },
+      fontSize: {
+        // Scaled up ~25% from default Tailwind
+        'xs':   ['0.8rem',  { lineHeight: '1.5' }],
+        'sm':   ['0.925rem',{ lineHeight: '1.6' }],
+        'base': ['1rem',    { lineHeight: '1.75' }],
+        'lg':   ['1.15rem', { lineHeight: '1.7'  }],
+        'xl':   ['1.3rem',  { lineHeight: '1.6'  }],
+        '2xl':  ['1.6rem',  { lineHeight: '1.4'  }],
+        '3xl':  ['2rem',    { lineHeight: '1.2'  }],
+        '4xl':  ['2.5rem',  { lineHeight: '1.15' }],
+        '5xl':  ['3.2rem',  { lineHeight: '1.08' }],
+        '6xl':  ['4rem',    { lineHeight: '1.05' }],
+        '7xl':  ['5rem',    { lineHeight: '1.02' }],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '26': '6.5rem',
+        '30': '7.5rem',
       },
       colors: {
         brand: {
@@ -25,10 +45,14 @@ const config: Config = {
           900: '#561802',
         },
       },
+      maxWidth: {
+        'container': '1260px',
+      },
       animation: {
-        'pulse-dot': 'pulse-dot 2.2s ease-in-out infinite',
-        'fade-up':   'fade-up 0.6s ease forwards',
-        'spin-slow': 'spin 3s linear infinite',
+        'pulse-dot':  'pulse-dot 2.2s ease-in-out infinite',
+        'fade-up':    'fade-up 0.6s ease forwards',
+        'marquee':    'marquee 28s linear infinite',
+        'marquee2':   'marquee2 28s linear infinite',
       },
       keyframes: {
         'pulse-dot': {
@@ -39,10 +63,8 @@ const config: Config = {
           from: { opacity: '0', transform: 'translateY(20px)' },
           to:   { opacity: '1', transform: 'translateY(0)' },
         },
-      },
-      backgroundImage: {
-        'grid-light': "linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
-        'grid-dark':  "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+        'marquee':  { '0%': { transform: 'translateX(0)' },   '100%': { transform: 'translateX(-50%)' } },
+        'marquee2': { '0%': { transform: 'translateX(-50%)' },'100%': { transform: 'translateX(0)' } },
       },
     },
   },
