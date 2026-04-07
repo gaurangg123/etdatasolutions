@@ -40,15 +40,19 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 group">
-            <Image
-              src="/logo-transparent.png"
-              alt="ET Data Solutions"
-              width={130}
-              height={40}
-              priority
-              className="h-[34px] w-auto object-contain object-left transition-opacity duration-200 group-hover:opacity-70"
-              style={{ imageRendering: 'crisp-edges' }}
-            />
+            <div className="relative h-[44px] w-[44px]">
+              <Image
+                src="/logo-transparent.png"
+                alt="ET Data Solutions"
+                fill
+                priority
+                className="object-contain transition-opacity duration-200 group-hover:opacity-70"
+                style={{ imageRendering: '-webkit-optimize-contrast' }}
+              />
+            </div>
+            <span className="ml-2.5 text-[0.95rem] font-[700] tracking-[-0.02em] text-neutral-900 dark:text-neutral-100 group-hover:text-brand-500 transition-colors duration-200 hidden sm:block">
+              ET Data Solutions
+            </span>
           </Link>
 
           {/* Desktop links */}

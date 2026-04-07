@@ -3,6 +3,10 @@ import './fonts.css'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import PageTransition from '@/components/PageTransition'
+import MobileStickyCTA from '@/components/MobileStickyCTA'
+import FloatingContact from '@/components/FloatingContact'
+import ScrollProgress from '@/components/ScrollProgress'
 import { ThemeProvider, ThemeScript } from '@/components/ThemeProvider'
 
 const BASE_URL = 'https://etdatasolutions.com'
@@ -35,7 +39,10 @@ export const metadata: Metadata = {
     icon: [{ url: '/favicon.ico', sizes: 'any' }, { url: '/icon.png', type: 'image/png', sizes: '32x32' }],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  robots: {
+    index: true, follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -49,9 +56,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
         <ThemeProvider>
+          <ScrollProgress />
           <Navbar />
-          <main id="main-content">{children}</main>
+          <main id="main-content">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
           <Footer />
+          <MobileStickyCTA />
+          <FloatingContact />
         </ThemeProvider>
       </body>
     </html>

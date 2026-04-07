@@ -1,9 +1,18 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Users, Database, CheckSquare, BarChart2 } from 'lucide-react'
 import PageHeader from '@/components/ui/PageHeader'
 import AnimateIn from '@/components/ui/AnimateIn'
 import { services } from '@/lib/services'
+
+
+const svcImages: Record<string, string> = {
+  staffing: '/staffing.jpg',
+  data:     '/data-analytics.jpg',
+  qa:       '/qa-testing.jpg',
+  dataeng:  '/data-engineering.jpg',
+}
 
 const icons: Record<string, React.ReactNode> = {
   staffing: <Users size={24} />,

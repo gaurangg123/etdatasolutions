@@ -23,13 +23,17 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <Image
-              src="/logo-transparent.png"
-              alt="ET Data Solutions"
-              width={120}
-              height={38}
-              className="h-8 w-auto object-contain object-left mb-4 opacity-90"
-            />
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="relative h-[40px] w-[40px] flex-shrink-0">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="ET Data Solutions"
+                  fill
+                  className="object-contain opacity-90"
+                />
+              </div>
+              <span className="text-sm font-[700] tracking-[-0.02em] text-neutral-700 dark:text-neutral-300">ET Data Solutions</span>
+            </div>
             <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-[280px] mb-6">
               Intelligent data, staffing &amp; QA solutions. India-based. Globally delivered since 2014.
             </p>
