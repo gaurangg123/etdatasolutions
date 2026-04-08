@@ -30,7 +30,7 @@ export default function FloatingContact() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-6 right-5 z-40 hidden md:block"
+          className="fixed bottom-6 right-5 z-[150] hidden md:block"
         >
           {/* Expanded panel */}
           <AnimatePresence>
