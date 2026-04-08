@@ -198,7 +198,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_35%_at_5%_85%,rgba(232,68,10,0.04),transparent_65%)] pointer-events-none" />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }}
-          className="relative z-10 w-full max-w-container mx-auto px-6 py-20 md:py-28 text-center">
+          className="relative z-10 w-full max-w-container mx-auto px-5 sm:px-6 py-14 sm:py-20 md:py-28 text-center">
 
           {/* Trust badge */}
           <motion.div {...fade(0)} className="inline-flex items-center gap-2.5 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/25 rounded-full px-4 py-2 mb-8">
@@ -223,7 +223,7 @@ export default function HomePage() {
           </motion.p>
 
           {/* CTAs */}
-          <motion.div {...fade(0.26)} className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-16">
+          <motion.div {...fade(0.26)} className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12 md:mb-16">
             <Link href="/contact#form"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-base font-[700] text-white bg-brand-500 hover:bg-brand-600 px-9 py-4 rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(232,68,10,0.4)]">
               Book a Free Consultation <ArrowRight size={17} />
@@ -255,17 +255,17 @@ export default function HomePage() {
       ══════════════════════════════════════════════════════════ */}
       <div className="border-y border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#0a0908] py-5 overflow-hidden">
         <p className="text-center text-xs font-[600] tracking-[0.1em] uppercase text-neutral-400 dark:text-neutral-600 mb-4">Technologies & platforms we work with</p>
-        <div className="relative flex h-7 items-center">
-          <div className="flex gap-10 animate-marquee whitespace-nowrap absolute">
-            {[...techLogos, ...techLogos].map((logo, i) => (
-              <span key={i} className="inline-flex items-center gap-2 text-sm font-[700] text-neutral-400 dark:text-neutral-500 px-2 cursor-default flex-shrink-0">
+        <div className="relative overflow-hidden">
+          <div className="flex w-max animate-marquee">
+            {[...techLogos, ...techLogos, ...techLogos].map((logo, i) => (
+              <span key={i} className="inline-flex items-center gap-2 text-sm font-[700] text-neutral-400 dark:text-neutral-500 px-6 cursor-default flex-shrink-0">
                 <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: logo.color }} />
                 {logo.name}
               </span>
             ))}
           </div>
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-neutral-50 dark:from-[#0a0908] to-transparent pointer-events-none z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-neutral-50 dark:from-[#0a0908] to-transparent pointer-events-none z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-neutral-50 dark:from-[#0a0908] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-neutral-50 dark:from-[#0a0908] to-transparent z-10" />
         </div>
       </div>
 
@@ -632,7 +632,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           9. FINAL CTA
       ══════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-white dark:bg-[#0e0c0b]">
+      <section className="py-16 bg-white dark:bg-[#0e0c0b]">
         <div className="max-w-container mx-auto px-6">
           <AnimateIn>
             <div className="relative rounded-3xl bg-brand-500 overflow-hidden px-10 py-24 md:px-24 text-center">

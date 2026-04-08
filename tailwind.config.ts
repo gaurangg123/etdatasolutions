@@ -51,8 +51,7 @@ const config: Config = {
       animation: {
         'pulse-dot':  'pulse-dot 2.2s ease-in-out infinite',
         'fade-up':    'fade-up 0.6s ease forwards',
-        'marquee':    'marquee 28s linear infinite',
-        'marquee2':   'marquee2 28s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
       },
       keyframes: {
         'pulse-dot': {
@@ -63,8 +62,7 @@ const config: Config = {
           from: { opacity: '0', transform: 'translateY(20px)' },
           to:   { opacity: '1', transform: 'translateY(0)' },
         },
-        'marquee':  { '0%': { transform: 'translateX(0)' },   '100%': { transform: 'translateX(-50%)' } },
-        'marquee2': { '0%': { transform: 'translateX(-50%)' },'100%': { transform: 'translateX(0)' } },
+        'marquee':  { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-33.333%)' } },
       },
     },
   },

@@ -162,7 +162,7 @@ export default function ContactPage() {
 
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[0.68rem] font-[700] tracking-[0.07em] uppercase text-neutral-400 dark:text-neutral-500" htmlFor="service">Service of Interest</label>
-                      <select id="service" name="service" value={form.service} onChange={handleChange} className={cn(inputClass('service'), 'cursor-pointer')}>
+                      <select id="service" name="service" value={form.service} onChange={handleChange} className={cn(inputClass('service'), 'cursor-pointer dark:bg-neutral-900')}>
                         <option value="">Select a service…</option>
                         {serviceOptions.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>

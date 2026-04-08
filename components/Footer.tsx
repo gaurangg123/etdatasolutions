@@ -7,6 +7,7 @@ const serviceLinks = [
   { label: 'Data & Excel',          href: '/services#data'     },
   { label: 'QA Testing',            href: '/services#qa'       },
   { label: 'Data Engineering',      href: '/services#dataeng'  },
+  { label: 'View Pricing',          href: '/#pricing'          },
 ]
 const companyLinks = [
   { label: 'About Us',   href: '/about'        },
