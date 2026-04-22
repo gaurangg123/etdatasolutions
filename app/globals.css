@@ -107,3 +107,13 @@
     background: linear-gradient(90deg, transparent, rgba(232,68,10,0.15) 30%, rgba(232,68,10,0.15) 70%, transparent);
   }
 }
+
+  /* Loading bar animation for PageLoader */
+  @keyframes loading-bar {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .animate-loading-bar {
+    width: 60%;
+    animation: loading-bar 1.4s ease-in-out infinite;
+  }

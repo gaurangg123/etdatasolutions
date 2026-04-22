@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import {
   Hero, TrustBar, Services, CaseStudies,
@@ -12,9 +13,9 @@ import Button from '@/components/ui/Button'
 import CountUp from '@/components/ui/CountUp'
 import { cn } from '@/lib/utils'
 import {
-  Target, Handshake, Lock, Zap,
+  Target, Handshake, ShieldCheck, Zap,
   Mail, Phone, Globe, MapPin, Clock,
-  CheckCircle2, AlertTriangle, Loader2,
+  CheckCircle2, CheckCircle, AlertTriangle, Loader2,
   MessageSquare, ChevronDown, ArrowRight,
 } from 'lucide-react'
 
@@ -30,7 +31,7 @@ const Divider = () => (
 const values = [
   { num:'01', title:'Accuracy First',   icon: Target,    iconBg:'bg-brand-50 dark:bg-brand-500/10',     iconText:'text-brand-500',                        iconBorder:'border-brand-100 dark:border-brand-500/20',     desc:'Multi-level QC on every project. We never ship without hitting our 99% accuracy benchmark.' },
   { num:'02', title:'Client-Centric',   icon: Handshake, iconBg:'bg-violet-50 dark:bg-violet-500/10',   iconText:'text-violet-600 dark:text-violet-400',   iconBorder:'border-violet-100 dark:border-violet-500/20',   desc:'We plan solutions around your goals, timeline, and budget — not generic service packages.' },
-  { num:'03', title:'Secure & Trusted', icon: Lock,      iconBg:'bg-sky-50 dark:bg-sky-500/10',         iconText:'text-sky-600 dark:text-sky-400',         iconBorder:'border-sky-100 dark:border-sky-500/20',         desc:'All data handled with the highest integrity. NDAs and confidentiality on every engagement.' },
+  { num:'03', title:'Secure & Trusted', icon: ShieldCheck,      iconBg:'bg-sky-50 dark:bg-sky-500/10',         iconText:'text-sky-600 dark:text-sky-400',         iconBorder:'border-sky-100 dark:border-sky-500/20',         desc:'All data handled with the highest integrity. NDAs and confidentiality on every engagement.' },
   { num:'04', title:'Always Available', icon: Zap,       iconBg:'bg-emerald-50 dark:bg-emerald-500/10', iconText:'text-emerald-600 dark:text-emerald-400', iconBorder:'border-emerald-100 dark:border-emerald-500/20', desc:'24/7 operations mean your work progresses even while your team is offline.' },
 ]
 const companyInfo = [
@@ -107,23 +108,37 @@ function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl p-10 flex flex-col items-start gap-5 shadow-card">
-        <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/25 flex items-center justify-center text-emerald-500">
-          <CheckCircle2 size={28} strokeWidth={1.5} />
-        </div>
-        <div>
-          <h3 className="text-2xl font-[800] tracking-[-0.03em] text-ink-900 dark:text-ink-50 mb-2">Message sent!</h3>
-          <p className="text-sm text-ink-500 dark:text-ink-400 leading-relaxed max-w-[400px]">
-            Thanks for reaching out. We&apos;ll get back to you within 24 hours at{' '}
-            <strong className="text-ink-800 dark:text-ink-200">{form.email}</strong>.
-          </p>
-        </div>
-        <button
-          onClick={() => { setStatus('idle'); setForm(EMPTY) }}
-          className="text-sm font-[500] text-ink-600 dark:text-ink-400 border border-ink-200 dark:border-ink-700 hover:border-brand-400 hover:text-brand-500 px-5 py-2.5 rounded-xl transition-all"
+      <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl shadow-card overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col items-center justify-center gap-5 py-20 text-center px-8"
         >
-          Send another message
-        </button>
+          {/* Success icon */}
+          <div className="w-16 h-16 rounded-full bg-emerald-500/10 dark:bg-emerald-500/10 flex items-center justify-center border-2 border-emerald-400/40">
+            <CheckCircle className="w-8 h-8 text-emerald-500" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-[750] text-ink-900 dark:text-ink-100 mb-2">
+              Message sent!
+            </h3>
+            <p className="text-ink-500 dark:text-ink-400 max-w-sm leading-relaxed">
+              We&apos;ll reply within 24 hours with a scoped proposal and clear pricing.
+            </p>
+          </div>
+          {/* Response time pill */}
+          <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-[500] bg-emerald-50 dark:bg-emerald-500/10 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-500/20">
+            <Clock className="w-4 h-4" />
+            Average response time: under 3 hours
+          </div>
+          <button
+            onClick={() => { setStatus('idle'); setForm(EMPTY) }}
+            className="text-sm font-[500] text-ink-500 dark:text-ink-400 underline underline-offset-2 hover:text-brand-500 transition-colors mt-1"
+          >
+            Send another message
+          </button>
+        </motion.div>
       </div>
     )
   }
@@ -203,12 +218,19 @@ function ContactForm() {
           </div>
         )}
         <button type="submit" disabled={status === 'sending'}
-          className="group w-full inline-flex items-center justify-center gap-2 text-sm font-[700] text-white bg-brand-500 hover:bg-brand-600 disabled:opacity-60 px-6 rounded-xl transition-all duration-200 hover:shadow-brand hover:-translate-y-px active:scale-[0.97] shine h-12"
+          className={`group w-full inline-flex items-center justify-center gap-2 text-sm font-[700] text-white bg-brand-500 hover:bg-brand-600 px-6 rounded-xl transition-all duration-200 hover:shadow-brand hover:-translate-y-px active:scale-[0.97] shine h-12 ${status === 'sending' ? 'opacity-80 cursor-not-allowed' : ''}`}
         >
-          {status === 'sending'
-            ? <><Loader2 size={14} className="animate-spin" />Sending…</>
-            : <><span>Send Message</span><ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" /></>
-          }
+          {status === 'sending' ? (
+            <>
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Sending…
+            </>
+          ) : (
+            <><span>Send Message</span><ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" /></>
+          )}
         </button>
       </form>
     </div>
@@ -342,8 +364,8 @@ function AboutSection() {
             {values.map((v, i) => (
               <AnimateIn key={v.num} delay={i * 0.08}>
                 <div className="group bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl p-6 hover:border-brand-300 dark:hover:border-brand-500/40 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-250">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 border ${v.iconBg} ${v.iconText} ${v.iconBorder}`}>
-                    <v.icon size={18} />
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 border ${v.iconBg} ${v.iconText} ${v.iconBorder}`}>
+                    <v.icon className="w-5 h-5" />
                   </div>
                   <span className="text-[0.68rem] font-[750] tracking-[0.12em] uppercase text-brand-500 block mb-2">{v.num}</span>
                   <h4 className="text-sm font-[750] text-ink-900 dark:text-ink-100 mb-2">{v.title}</h4>

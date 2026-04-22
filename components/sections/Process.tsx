@@ -7,36 +7,11 @@ import Button from '@/components/ui/Button'
 import AnimateIn from '@/components/ui/AnimateIn'
 
 const steps = [
-  {
-    n:'01', icon:Phone,
-    title:'30-min discovery call',
-    desc:'We ask the right questions about your volume, timeline, and success criteria. You get a real conversation, not a contact form.',
-    time:'Same day',
-  },
-  {
-    n:'02', icon:FileCheck,
-    title:'Scoped proposal in 24h',
-    desc:'Team size, deliverables, quality benchmarks, timeline, and pricing — all spelled out. Zero ambiguity, no hidden costs.',
-    time:'24 hours',
-  },
-  {
-    n:'03', icon:Users,
-    title:'Team live in 72h',
-    desc:'Dedicated team assigned, NDA signed, communication channels open, and your first delivery scheduled within the week.',
-    time:'72 hours',
-  },
-  {
-    n:'04', icon:Zap,
-    title:'Delivery with QC reports',
-    desc:'Regular output with quality scorecards. Direct access to your project lead — no account managers in between.',
-    time:'Ongoing',
-  },
-  {
-    n:'05', icon:Target,
-    title:'Monthly review & scale',
-    desc:'We review against benchmarks and adjust. Scale up or down on 30 days notice. No lock-in, no penalty.',
-    time:'Monthly',
-  },
+  { n:'01', icon:Phone,     title:'30-min discovery call',  desc:'We ask the right questions about your volume, timeline, and success criteria. You get a real conversation, not a contact form.', time:'Same day' },
+  { n:'02', icon:FileCheck, title:'Scoped proposal in 24h', desc:'Team size, deliverables, quality benchmarks, timeline, and pricing — all spelled out. Zero ambiguity, no hidden costs.', time:'24 hours' },
+  { n:'03', icon:Users,     title:'Team live in 72h',       desc:'Dedicated team assigned, NDA signed, communication channels open, and your first delivery scheduled within the week.', time:'72 hours' },
+  { n:'04', icon:Zap,       title:'Delivery with QC reports',desc:'Regular output with quality scorecards. Direct access to your project lead — no account managers in between.', time:'Ongoing' },
+  { n:'05', icon:Target,    title:'Monthly review & scale', desc:'We review against benchmarks and adjust. Scale up or down on 30 days notice. No lock-in, no penalty.', time:'Monthly' },
 ]
 
 export default function Process() {
@@ -55,31 +30,17 @@ export default function Process() {
           </AnimateIn>
         </div>
 
-        {/* Item 13: steps with connecting timeline line */}
-        <div className="relative">
-
-          {/* ── Desktop horizontal connecting line ── */}
-          <div aria-hidden className="hidden lg:block absolute top-[28px] left-[calc(10%+20px)] right-[calc(10%+20px)] h-px z-0">
-            <div className="h-full bg-gradient-to-r from-ink-200 via-brand-500/40 to-ink-200 dark:from-ink-800 dark:via-brand-500/25 dark:to-ink-800" />
-          </div>
-
-          {/* ── Mobile vertical connecting line ── */}
-          <div aria-hidden className="lg:hidden absolute left-[28px] top-[44px] bottom-[44px] w-px z-0">
-            <div className="w-full h-full bg-gradient-to-b from-ink-200 via-brand-500/30 to-ink-200 dark:from-ink-800 dark:via-brand-500/20 dark:to-ink-800" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative z-10">
-            {steps.map((s, i) => (
-              // Item 13: staggered fade-in animation as user scrolls
-              <AnimateIn key={s.n} delay={i * 0.1}>
+        {/* Steps grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
+          {steps.map((s, i) => (
+            <div key={s.n} className="relative flex flex-col items-stretch">
+              <AnimateIn delay={i * 0.1}>
                 <div className="group relative flex flex-col bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl p-5 h-full hover:border-brand-300 dark:hover:border-brand-500/50 hover:-translate-y-1.5 hover:shadow-card-hover transition-all duration-300">
 
                   {/* Step icon + number */}
                   <div className="flex items-center gap-3 mb-4 relative z-10">
                     <div className="relative w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-500/10 border border-brand-100 dark:border-brand-500/20 flex items-center justify-center text-brand-500 flex-shrink-0 group-hover:bg-brand-500 group-hover:text-white group-hover:border-brand-500 transition-all duration-250">
                       <s.icon size={15} />
-                      {/* Pulse ring on hover */}
-                      <span className="absolute -inset-1 rounded-xl border border-brand-500/0 group-hover:border-brand-500/20 transition-all duration-300 scale-90 group-hover:scale-110" />
                     </div>
                     <div>
                       <span className="text-[0.65rem] font-[700] tracking-[0.1em] uppercase text-ink-400 block">{s.n}</span>
@@ -96,8 +57,24 @@ export default function Process() {
                   </span>
                 </div>
               </AnimateIn>
-            ))}
-          </div>
+
+              {/* Connector — desktop horizontal dashed line between steps */}
+              {i < steps.length - 1 && (
+                <>
+                  <div
+                    aria-hidden
+                    className="hidden lg:block absolute top-[22px] h-px border-t-2 border-dashed border-ink-200 dark:border-ink-700 z-20"
+                    style={{ left: 'calc(50% + 28px)', right: 'calc(-50% + 28px)' }}
+                  />
+                  {/* Mobile vertical connector */}
+                  <div
+                    aria-hidden
+                    className="lg:hidden w-px h-4 bg-gradient-to-b from-brand-300 to-ink-200 dark:from-brand-500/30 dark:to-ink-800 mx-auto mt-1"
+                  />
+                </>
+              )}
+            </div>
+          ))}
         </div>
 
         <AnimateIn delay={0.35} className="mt-10 text-center">

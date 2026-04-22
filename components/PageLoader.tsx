@@ -3,30 +3,32 @@ import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 
-// Fix 1: module-level flag — never re-shows on client-side navigation
-let shown = false
+let hasShown = false
+
+const Dot = ({ delay }: { delay: number }) => (
+  <motion.span
+    animate={{ opacity: [0.2, 1, 0.2] }}
+    transition={{ duration: 1.2, delay, repeat: Infinity, ease: 'easeInOut' }}
+    className="inline-block"
+  >
+    .
+  </motion.span>
+)
 
 export default function PageLoader() {
-  const [visible, setVisible] = useState(!shown)
+  const [visible, setVisible] = useState(!hasShown)
 
   useEffect(() => {
-    // Already shown once — don't show again on navigation
-    if (shown) {
-      setVisible(false)
-      return
-    }
+    if (hasShown) { setVisible(false); return }
 
     const dismiss = () => {
-      shown = true
-      // Small extra delay so the spinner is visible for at least a beat
+      hasShown = true
       setTimeout(() => setVisible(false), 400)
     }
 
     if (document.readyState === 'complete') {
-      // Page already fully loaded (e.g. fast cache hit)
       setTimeout(dismiss, 400)
     } else {
-      // Wait for full load, max out at 600ms regardless
       const handler = () => {
         if (document.readyState === 'complete') {
           document.removeEventListener('readystatechange', handler)
@@ -34,13 +36,10 @@ export default function PageLoader() {
         }
       }
       document.addEventListener('readystatechange', handler)
-
-      // Safety timeout: dismiss at 2s even if readyState never fires
       const safety = setTimeout(() => {
         document.removeEventListener('readystatechange', handler)
         dismiss()
-      }, 2000)
-
+      }, 2500)
       return () => {
         document.removeEventListener('readystatechange', handler)
         clearTimeout(safety)
@@ -54,36 +53,76 @@ export default function PageLoader() {
         <motion.div
           key="page-loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, pointerEvents: 'none' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[9999] bg-white dark:bg-ink-950 flex flex-col items-center justify-center gap-5"
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-6"
+          style={{
+            background: 'linear-gradient(135deg, #0a0908 0%, #13110e 45%, #0d1118 100%)',
+          }}
           aria-hidden="true"
         >
-          {/* Logo */}
-          <Image
-            src="/logo-transparent.png"
-            alt="ET Data Solutions"
-            width={56}
-            height={56}
-            className="object-contain"
-            priority
-          />
-
-          {/* Brand-color spinner ring */}
-          <div className="relative w-10 h-10">
-            {/* Track ring */}
-            <div className="absolute inset-0 rounded-full border-[3px] border-ink-100 dark:border-ink-800" />
-            {/* Spinning ring — brand color #e8440a */}
-            <div
-              className="absolute inset-0 rounded-full border-[3px] border-t-transparent animate-spin"
-              style={{ borderColor: 'transparent', borderTopColor: 'transparent', borderRightColor: '#e8440a', borderBottomColor: '#e8440a', borderLeftColor: '#e8440a' }}
-            />
+          {/* Top loading bar */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-transparent via-brand-500 to-transparent animate-loading-bar" />
           </div>
 
-          {/* Label */}
-          <p className="text-sm font-[500] text-ink-400 dark:text-ink-500 tracking-wide">
-            Loading…
-          </p>
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Image
+              src="/logo-transparent.png"
+              alt="ET Data Solutions"
+              width={64}
+              height={64}
+              className="object-contain"
+              priority
+            />
+          </motion.div>
+
+          {/* Multi-ring orbital spinner */}
+          <div className="relative w-16 h-16">
+            {/* Outer ring — slow clockwise */}
+            <svg
+              className="absolute inset-0 animate-spin"
+              style={{ animationDuration: '3s' }}
+              viewBox="0 0 64 64"
+            >
+              <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(232,68,10,0.15)" strokeWidth="2" />
+              <circle cx="32" cy="32" r="28" fill="none" stroke="#e8440a" strokeWidth="2.5"
+                strokeLinecap="round" strokeDasharray="44 132" strokeDashoffset="0" />
+            </svg>
+            {/* Middle ring — counter-clockwise */}
+            <svg
+              className="absolute inset-2 animate-spin"
+              style={{ animationDuration: '2s', animationDirection: 'reverse' }}
+              viewBox="0 0 48 48"
+            >
+              <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(232,68,10,0.08)" strokeWidth="1.5" />
+              <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(232,68,10,0.5)" strokeWidth="2"
+                strokeLinecap="round" strokeDasharray="22 106" strokeDashoffset="0" />
+            </svg>
+            {/* Inner pulsing dot */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-60" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-500" />
+              </div>
+            </div>
+          </div>
+
+          {/* Brand name */}
+          <div className="flex flex-col items-center gap-1.5">
+            <span className="text-sm font-[600] tracking-[0.08em] text-white/70">
+              ET Data Solutions
+            </span>
+            {/* Animated dots text */}
+            <span className="text-xs text-white/35 tracking-wide">
+              Preparing your experience<Dot delay={0} /><Dot delay={0.2} /><Dot delay={0.4} />
+            </span>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

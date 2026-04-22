@@ -60,7 +60,7 @@ export default function Services() {
             return (
               <AnimateIn key={svc.id} delay={i * 0.08}>
                 {/* Item 11: colored left border accent + hover lift */}
-                <div className={`group relative grid grid-cols-1 lg:grid-cols-[1fr_240px] border border-ink-200 dark:border-ink-800 border-l-4 ${a.leftBorder} rounded-3xl overflow-hidden bg-white dark:bg-ink-900 hover:border-ink-300 dark:hover:border-ink-700 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1`}>
+                <div className={`group relative grid grid-cols-1 lg:grid-cols-[1fr_240px] border border-ink-200 dark:border-ink-800 border-l-4 ${a.leftBorder} rounded-3xl overflow-hidden bg-white dark:bg-ink-900 hover:border-ink-300 dark:hover:border-ink-700 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1.5`}>
 
                   {/* Top accent bar on hover */}
                   <div className="absolute top-0 left-0 right-0 h-[2px] transition-all duration-500 scale-x-0 group-hover:scale-x-100 origin-left"
@@ -137,7 +137,7 @@ export default function Services() {
                         src={images[svc.id]}
                         alt={svc.title}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                         sizes="(max-width: 1024px) 100vw, 240px"
                         loading={i === 0 ? 'eager' : 'lazy'}
                       />

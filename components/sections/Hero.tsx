@@ -76,17 +76,15 @@ export default function Hero() {
 
             {/* ── LEFT copy ── */}
             <div>
-              {/* Live badge */}
+              {/* Live badge — Fix 5: green pulsing dot */}
               <motion.div {...f(0)} className="inline-flex items-center gap-2 mb-5">
-                <div className="flex items-center gap-2 bg-brand-50 dark:bg-brand-500/12 border border-brand-200 dark:border-brand-500/25 rounded-full pl-2.5 pr-4 py-1.5">
-                  <span className="relative flex h-2 w-2 flex-shrink-0">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-70 animate-ping" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500" />
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-[600] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                   </span>
-                  <span className="text-[0.68rem] font-[750] tracking-[0.1em] uppercase text-brand-600 dark:text-brand-400">
-                    Now accepting new clients
-                  </span>
-                </div>
+                  Now accepting new clients
+                </span>
               </motion.div>
 
               {/* H1 — sized so it fits at 100% zoom without overflow */}
