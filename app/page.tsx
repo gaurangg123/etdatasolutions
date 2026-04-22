@@ -1,533 +1,226 @@
-'use client'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import {
-  Hero, TrustBar, Services, CaseStudies,
-  Process, Testimonials, LeadCapture, FinalCTA,
-} from '@/components/sections'
+import { Metadata } from 'next'
+import Link from 'next/link'
+import { Users, Database, CheckSquare, BarChart2, ArrowRight, Shield, Clock, Star } from 'lucide-react'
+import Hero from '@/components/sections/Hero'
+import TrustBar from '@/components/sections/TrustBar'
 import Container from '@/components/ui/Container'
-import SectionHeader from '@/components/ui/SectionHeader'
 import AnimateIn from '@/components/ui/AnimateIn'
-import Button from '@/components/ui/Button'
-import CountUp from '@/components/ui/CountUp'
-import { cn } from '@/lib/utils'
-import {
-  Target, Handshake, ShieldCheck, Zap,
-  Mail, Phone, Globe, MapPin, Clock,
-  CheckCircle2, CheckCircle, AlertTriangle, Loader2,
-  MessageSquare, ChevronDown, ArrowRight,
-} from 'lucide-react'
 
-// ─── Section divider ─────────────────────────────────────────────────────────
-const Divider = () => (
-  <div aria-hidden style={{
-    height: '1px',
-    background: 'linear-gradient(90deg,transparent,rgba(232,68,10,0.13) 25%,rgba(232,68,10,0.18) 50%,rgba(232,68,10,0.13) 75%,transparent)',
-  }} />
-)
-
-// ─── ABOUT section data ───────────────────────────────────────────────────────
-const values = [
-  { num:'01', title:'Accuracy First',   icon: Target,    iconBg:'bg-brand-50 dark:bg-brand-500/10',     iconText:'text-brand-500',                        iconBorder:'border-brand-100 dark:border-brand-500/20',     desc:'Multi-level QC on every project. We never ship without hitting our 99% accuracy benchmark.' },
-  { num:'02', title:'Client-Centric',   icon: Handshake, iconBg:'bg-violet-50 dark:bg-violet-500/10',   iconText:'text-violet-600 dark:text-violet-400',   iconBorder:'border-violet-100 dark:border-violet-500/20',   desc:'We plan solutions around your goals, timeline, and budget — not generic service packages.' },
-  { num:'03', title:'Secure & Trusted', icon: ShieldCheck,      iconBg:'bg-sky-50 dark:bg-sky-500/10',         iconText:'text-sky-600 dark:text-sky-400',         iconBorder:'border-sky-100 dark:border-sky-500/20',         desc:'All data handled with the highest integrity. NDAs and confidentiality on every engagement.' },
-  { num:'04', title:'Always Available', icon: Zap,       iconBg:'bg-emerald-50 dark:bg-emerald-500/10', iconText:'text-emerald-600 dark:text-emerald-400', iconBorder:'border-emerald-100 dark:border-emerald-500/20', desc:'24/7 operations mean your work progresses even while your team is offline.' },
-]
-const companyInfo = [
-  { k:'Headquarters', v:'India'                     },
-  { k:'Founded',      v:'2014'                      },
-  { k:'Email',        v:'bobby@etdatasolutions.com', href:'mailto:bobby@etdatasolutions.com' },
-  { k:'Phone (US)',   v:'+1-302-357-9776',           href:'tel:+13023579776' },
-  { k:'Domain',       v:'etdatasolutions.com',       href:'https://etdatasolutions.com' },
-]
-const chipGroups = [
-  { color:'bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-200 dark:border-violet-500/20', chips:['RPO & Recruitment','Virtual Assistant','HR Outsourcing','Talent Sourcing'] },
-  { color:'bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-500/20',                   chips:['Data Entry','Excel Automation','OCR / ICR','Document Processing'] },
-  { color:'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20', chips:['Manual QA','Web & App Testing','Accessibility Testing','Regression Testing'] },
-  { color:'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/20',       chips:['Snowflake','Databricks','Microsoft Fabric','Power BI','Tableau','ETL Pipelines'] },
-]
-
-// ─── CONTACT section data ─────────────────────────────────────────────────────
-const serviceOptions = [
-  'Staffing, VA & Recruitment',
-  'Data & Excel Automation',
-  'QA Testing — App & Web',
-  'Data Engineering & Visualizations',
-  'Multiple Services',
-  'Not sure yet',
-]
-type FormState = { name:string; email:string; company:string; phone:string; service:string; message:string; _hp:string }
-const EMPTY: FormState = { name:'', email:'', company:'', phone:'', service:'', message:'', _hp:'' }
-
-const inputBase = [
-  'w-full bg-[#fafaf9] dark:bg-ink-800',
-  'border rounded-lg px-4 text-sm text-ink-900 dark:text-ink-100',
-  'placeholder:text-ink-400 dark:placeholder:text-ink-600',
-  'outline-none transition-all duration-200 h-12',
-].join(' ')
-const inputOk  = 'border-ink-200 dark:border-ink-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:bg-white dark:focus:bg-ink-900'
-const inputErr = 'border-red-400 dark:border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/15'
-
-const contactDetails = [
-  { icon:Mail,   label:'Email',        val:'bobby@etdatasolutions.com', href:'mailto:bobby@etdatasolutions.com', iconBg:'bg-brand-50 dark:bg-brand-500/10',   iconText:'text-brand-500', iconBorder:'border-brand-100 dark:border-brand-500/20' },
-  { icon:Phone,  label:'Phone (US)',   val:'+1-302-357-9776',           href:'tel:+13023579776',                iconBg:'bg-sky-50 dark:bg-sky-500/10',       iconText:'text-sky-500',   iconBorder:'border-sky-100 dark:border-sky-500/20' },
-  { icon:Phone,  label:'Phone (IN)',   val:'+91 62653 48189',           href:'tel:+916265348189',               iconBg:'bg-sky-50 dark:bg-sky-500/10',       iconText:'text-sky-500',   iconBorder:'border-sky-100 dark:border-sky-500/20' },
-  { icon:Globe,  label:'Website',      val:'etdatasolutions.com',       href:'https://etdatasolutions.com',     iconBg:'bg-violet-50 dark:bg-violet-500/10', iconText:'text-violet-500',iconBorder:'border-violet-100 dark:border-violet-500/20' },
-  { icon:MapPin, label:'Based in',     val:'India — Serving Globally',  href:null,                             iconBg:'bg-emerald-50 dark:bg-emerald-500/10',iconText:'text-emerald-500',iconBorder:'border-emerald-100 dark:border-emerald-500/20' },
-  { icon:Clock,  label:'Availability', val:'24/7 — Any timezone',       href:null,                             iconBg:'bg-amber-50 dark:bg-amber-500/10',   iconText:'text-amber-500', iconBorder:'border-amber-100 dark:border-amber-500/20' },
-]
-
-// ─── Contact form component ───────────────────────────────────────────────────
-function ContactForm() {
-  const [form, setForm]       = useState<FormState>(EMPTY)
-  const [status, setStatus]   = useState<'idle'|'sending'|'sent'|'error'>('idle')
-  const [fieldErrors, setFE]  = useState<Record<string, string[]>>({})
-  const [serverError, setSE]  = useState('')
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>) => {
-    setForm(p => ({ ...p, [e.target.name]: e.target.value }))
-    if (fieldErrors[e.target.name]) setFE(p => { const n = {...p}; delete n[e.target.name]; return n })
-  }
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus('sending'); setFE({}); setSE('')
-    try {
-      const res  = await fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(form) })
-      const data = await res.json()
-      if (data.success) { setStatus('sent'); return }
-      if (res.status === 422 && data.fields) { setFE(data.fields); setStatus('idle'); return }
-      throw new Error(data.error ?? 'Unexpected error')
-    } catch (err) {
-      setSE(err instanceof Error ? err.message : 'Something went wrong.')
-      setStatus('error')
-    }
-  }
-  const fe  = (n: string) => fieldErrors[n]?.[0]
-  const cls = (n: string) => cn(inputBase, fe(n) ? inputErr : inputOk)
-
-  if (status === 'sent') {
-    return (
-      <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl shadow-card overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-center justify-center gap-5 py-20 text-center px-8"
-        >
-          {/* Success icon */}
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 dark:bg-emerald-500/10 flex items-center justify-center border-2 border-emerald-400/40">
-            <CheckCircle className="w-8 h-8 text-emerald-500" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-[750] text-ink-900 dark:text-ink-100 mb-2">
-              Message sent!
-            </h3>
-            <p className="text-ink-500 dark:text-ink-400 max-w-sm leading-relaxed">
-              We&apos;ll reply within 24 hours with a scoped proposal and clear pricing.
-            </p>
-          </div>
-          {/* Response time pill */}
-          <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-[500] bg-emerald-50 dark:bg-emerald-500/10 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-500/20">
-            <Clock className="w-4 h-4" />
-            Average response time: under 3 hours
-          </div>
-          <button
-            onClick={() => { setStatus('idle'); setForm(EMPTY) }}
-            className="text-sm font-[500] text-ink-500 dark:text-ink-400 underline underline-offset-2 hover:text-brand-500 transition-colors mt-1"
-          >
-            Send another message
-          </button>
-        </motion.div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl overflow-hidden shadow-card">
-      <div className="px-7 py-5 border-b border-ink-100 dark:border-ink-800 bg-ink-50/60 dark:bg-ink-800/30">
-        <h3 className="text-base font-[750] text-ink-900 dark:text-ink-100">Send us a message</h3>
-        <p className="text-sm text-ink-400 dark:text-ink-500 mt-0.5">We respond to all enquiries within 24 hours.</p>
-      </div>
-      <form onSubmit={handleSubmit} noValidate className="px-7 py-6 flex flex-col gap-5">
-        <div style={{ display:'none' }} aria-hidden>
-          <input name="_hp" type="text" tabIndex={-1} autoComplete="off" value={form._hp} onChange={handleChange} />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            { id:'name',  label:'Full Name',    type:'text',  ph:'Your full name',   ac:'name',  required:true },
-            { id:'email', label:'Email Address', type:'email', ph:'you@company.com', ac:'email', required:true },
-          ].map(f => (
-            <div key={f.id}>
-              <label htmlFor={f.id} className="block text-[0.72rem] font-[700] tracking-[0.07em] uppercase text-ink-500 dark:text-ink-400 mb-1.5">
-                {f.label} {f.required && <span className="text-brand-500">*</span>}
-              </label>
-              <input id={f.id} name={f.id} type={f.type} required={f.required} placeholder={f.ph} autoComplete={f.ac}
-                value={(form as Record<string,string>)[f.id]} onChange={handleChange} className={cls(f.id)} />
-              {fe(f.id) && <p className="mt-1 text-xs text-red-500 font-[500]">{fe(f.id)}</p>}
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            { id:'company', label:'Company', type:'text', ph:'Your company name', ac:'organization', required:false },
-            { id:'phone',   label:'Phone',   type:'tel',  ph:'+1 000 000 0000',  ac:'tel',          required:false },
-          ].map(f => (
-            <div key={f.id}>
-              <label htmlFor={f.id} className="block text-[0.72rem] font-[700] tracking-[0.07em] uppercase text-ink-500 dark:text-ink-400 mb-1.5">{f.label}</label>
-              <input id={f.id} name={f.id} type={f.type} placeholder={f.ph} autoComplete={f.ac}
-                value={(form as Record<string,string>)[f.id]} onChange={handleChange} className={cls(f.id)} />
-            </div>
-          ))}
-        </div>
-        <div>
-          <label htmlFor="service" className="block text-[0.72rem] font-[700] tracking-[0.07em] uppercase text-ink-500 dark:text-ink-400 mb-1.5">Service of Interest</label>
-          <div className="relative">
-            <select id="service" name="service" value={form.service} onChange={handleChange}
-              className={cn(cls('service'), 'cursor-pointer appearance-none pr-10 dark:bg-ink-800')}>
-              <option value="">Select a service…</option>
-              {serviceOptions.map(s => <option key={s} value={s}>{s}</option>)}
-            </select>
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink-400">
-              <ChevronDown size={16} />
-            </div>
-          </div>
-        </div>
-        <div>
-          <label htmlFor="message" className="block text-[0.72rem] font-[700] tracking-[0.07em] uppercase text-ink-500 dark:text-ink-400 mb-1.5">
-            Message <span className="text-brand-500">*</span>
-          </label>
-          <textarea id="message" name="message" required rows={5}
-            placeholder="Describe your project, volume, timeline, or any questions…"
-            value={form.message} onChange={handleChange}
-            className={cn(
-              'w-full bg-[#fafaf9] dark:bg-ink-800 border rounded-lg px-4 py-3 text-sm text-ink-900 dark:text-ink-100',
-              'placeholder:text-ink-400 dark:placeholder:text-ink-600 outline-none transition-all duration-200',
-              'resize-y min-h-[120px] leading-relaxed',
-              fe('message') ? inputErr : 'border-ink-200 dark:border-ink-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:bg-white dark:focus:bg-ink-900'
-            )}
-          />
-          {fe('message') && <p className="mt-1 text-xs text-red-500 font-[500]">{fe('message')}</p>}
-        </div>
-        {status === 'error' && (
-          <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
-            <AlertTriangle size={15} className="text-red-500 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-red-700 dark:text-red-400">
-              {serverError || 'Something went wrong. Please email us at bobby@etdatasolutions.com'}
-            </p>
-          </div>
-        )}
-        <button type="submit" disabled={status === 'sending'}
-          className={`group w-full inline-flex items-center justify-center gap-2 text-sm font-[700] text-white bg-brand-500 hover:bg-brand-600 px-6 rounded-xl transition-all duration-200 hover:shadow-brand hover:-translate-y-px active:scale-[0.97] shine h-12 ${status === 'sending' ? 'opacity-80 cursor-not-allowed' : ''}`}
-        >
-          {status === 'sending' ? (
-            <>
-              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Sending…
-            </>
-          ) : (
-            <><span>Send Message</span><ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" /></>
-          )}
-        </button>
-      </form>
-    </div>
-  )
+export const metadata: Metadata = {
+  title: 'ET Data Solutions — Staffing, Data, QA & Data Engineering',
+  description: 'India-based outsourcing for staffing, data entry, QA testing, and data engineering. 99% accuracy. Starting $499/mo.',
 }
 
-// ─── ABOUT section ────────────────────────────────────────────────────────────
-function AboutSection() {
+const Divider = () => (
+  <div aria-hidden style={{ height: '1px', background: 'linear-gradient(90deg,transparent,rgba(232,68,10,0.13) 25%,rgba(232,68,10,0.18) 50%,rgba(232,68,10,0.13) 75%,transparent)' }} />
+)
+
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
+}
+
+const serviceCards = [
+  { id: 'staffing',        anchor: 'staffing',         icon: Users,        name: 'Staffing & VA Recruitment',          desc: 'Pre-screened candidates and VAs placed in under 7 days.' },
+  { id: 'data-entry',      anchor: 'data-entry',        icon: Database,     name: 'Data Entry & Excel Automation',      desc: '99%+ accuracy on high-volume data processing and automation.' },
+  { id: 'qa-testing',      anchor: 'qa-testing',        icon: CheckSquare,  name: 'Manual QA Testing',                  desc: 'Human testers finding bugs across every browser and device.' },
+  { id: 'data-engineering',anchor: 'data-engineering',  icon: BarChart2,    name: 'Data Engineering & BI',              desc: 'Modern data lakehouses and live dashboards on Snowflake & Power BI.' },
+]
+
+const results = [
+  { metric: '$40K saved',   label: 'Annual savings for US logistics company',    story: '/about#results' },
+  { metric: 'Zero P1 bugs', label: 'QA for UK SaaS on v2.0 launch day',          story: '/about#results' },
+  { metric: '$2.3M found',  label: 'Unbilled services uncovered for healthcare',  story: '/about#results' },
+]
+
+const testimonialPeek = [
+  { initial: 'M', name: 'Michael Reeves', badge: 'Error rate: 4% → 0.4%',   bg: 'from-brand-400 to-brand-600' },
+  { initial: 'L', name: 'Lena Fischer',   badge: 'Zero P1 bugs on launch',  bg: 'from-sky-400 to-sky-600'     },
+  { initial: 'J', name: 'James Okafor',   badge: '4 VAs placed in 5 days',  bg: 'from-violet-400 to-violet-600' },
+  { initial: 'P', name: 'Priya Nair',     badge: 'Reporting: 18 hrs → 25 mins', bg: 'from-emerald-400 to-emerald-600' },
+]
+
+const processSteps = [
+  { n: '01', title: '30-min discovery call' },
+  { n: '02', title: 'Scoped proposal in 24h' },
+  { n: '03', title: 'Team live in 72h' },
+  { n: '04', title: 'Delivery with QC reports' },
+  { n: '05', title: 'Monthly review & scale' },
+]
+
+const guarantees = [
+  { icon: Shield, text: '30-day guarantee' },
+  { icon: Clock,  text: 'Reply in 24h' },
+  { icon: Star,   text: 'No lock-in' },
+]
+
+export default function HomePage() {
   return (
-    <section id="about" className="bg-ink-50 dark:bg-[#0a0908]">
-      {/* Page-header strip */}
-      <div className="relative overflow-hidden py-14 md:py-20 bg-white dark:bg-ink-950">
-        <div aria-hidden className="absolute inset-0 opacity-[0.3] dark:opacity-[0.1]"
-          style={{ backgroundImage:'radial-gradient(circle,rgba(0,0,0,0.08) 1px,transparent 1px)', backgroundSize:'28px 28px', maskImage:'linear-gradient(to bottom,transparent,black 20%,black 80%,transparent)' }} />
-        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(232,68,10,0.05),transparent_70%)]" />
-        <Container className="relative">
-          <AnimateIn>
-            <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">About Us</span>
-          </AnimateIn>
-          <AnimateIn delay={0.07}>
-            <h2 className="text-[2.6rem] md:text-[3.4rem] lg:text-[3.8rem] font-[850] tracking-[-0.045em] leading-[1.05] text-ink-900 dark:text-ink-50 mb-5 max-w-[640px] text-balance">
-              Built on accuracy.<br />
-              <span className="text-gradient">Driven by results.</span>
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={0.14}>
-            <p className="text-lg text-ink-500 dark:text-ink-400 leading-relaxed max-w-[480px]">
-              ET Data Solutions is a professional back-office services provider based in India, serving clients globally since 2014.
-            </p>
-          </AnimateIn>
-        </Container>
-      </div>
+    <>
+      <Hero />
+      <TrustBar />
 
+      {/* SERVICES OVERVIEW */}
       <Divider />
-
-      {/* Story + Stats card */}
-      <div className="py-14 md:py-20 bg-white dark:bg-ink-950">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <AnimateIn>
-                <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Our Story</span>
-              </AnimateIn>
-              <AnimateIn delay={0.07}>
-                <h3 className="text-3xl md:text-[2.2rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50 leading-[1.08] mb-6">Who we are</h3>
-              </AnimateIn>
-              <AnimateIn delay={0.14}>
-                <div className="space-y-4 text-[0.925rem] text-ink-500 dark:text-ink-400 leading-relaxed mb-8">
-                  <p>ET Data Solutions is the most cost-effective outsourcing alternative for any business needing help managing their operational workflow. We handle any type or size of project — short or long term.</p>
-                  <p>Leveraging our India base, we provide world-class technical and business skills, global coverage, and affordable solutions. Our service bureau for time-critical work alleviates the need for onsite personnel, software, and hardware.</p>
-                  <p>Clients reduce costs, eliminate backlogs, and significantly improve output quality — freeing themselves to focus on core business growth.</p>
-                </div>
-              </AnimateIn>
-              <AnimateIn delay={0.2} className="flex flex-wrap gap-3">
-                <Button href="#contact" variant="primary" size="md" arrow className="shine">Work with us</Button>
-                <Button href="#services" variant="secondary" size="md">View services</Button>
-              </AnimateIn>
-            </div>
-
-            {/* Company Overview card */}
-            <AnimateIn delay={0.12}>
-              <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl overflow-hidden shadow-card-hover">
-                <div className="flex items-center gap-2 px-5 py-3.5 bg-ink-50 dark:bg-ink-800/80 border-b border-ink-200 dark:border-ink-700">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                    <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                    <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-                  </div>
-                  <span className="ml-2 text-xs font-[650] text-ink-400 dark:text-ink-500">Company Overview</span>
-                </div>
-                <div className="grid grid-cols-2 gap-px bg-ink-200 dark:bg-ink-800 border-b border-ink-200 dark:border-ink-800">
-                  {[{n:'10+',l:'Years active'},{n:'99%',l:'Accuracy rate'},{n:'4',l:'Service verticals'},{n:'24/7',l:'Availability'}].map(s => (
-                    <div key={s.l} className="bg-white dark:bg-ink-900 px-5 py-4 hover:bg-ink-50 dark:hover:bg-ink-800/80 transition-colors">
-                      <div className="text-2xl font-[800] tracking-[-0.05em] text-brand-500 leading-none mb-1">
-                        <CountUp value={s.n} />
-                      </div>
-                      <div className="text-[0.68rem] font-[700] tracking-[0.07em] uppercase text-ink-400 dark:text-ink-500">{s.l}</div>
-                    </div>
-                  ))}
-                </div>
-                {companyInfo.map((row, i) => (
-                  <div key={row.k} className={`flex justify-between items-center px-5 py-3.5 hover:bg-ink-50 dark:hover:bg-ink-800/40 transition-colors ${i < companyInfo.length-1 ? 'border-b border-ink-100 dark:border-ink-800' : ''}`}>
-                    <span className="text-[0.65rem] font-[700] tracking-[0.1em] uppercase text-ink-400 dark:text-ink-500">{row.k}</span>
-                    {'href' in row && row.href
-                      ? <a href={row.href} className="text-xs font-[650] text-brand-500 hover:text-brand-600 transition-colors">{row.v}</a>
-                      : <span className="text-xs font-[650] text-ink-800 dark:text-ink-200">{row.v}</span>
-                    }
-                  </div>
-                ))}
-              </div>
-            </AnimateIn>
-          </div>
-        </Container>
-      </div>
-
-      <Divider />
-
-      {/* Office image */}
-      <div className="py-16 md:py-20 bg-ink-50 dark:bg-[#0a0908]">
+      <section className="py-16 md:py-20 bg-white dark:bg-ink-950">
         <Container>
           <AnimateIn>
-            <div className="relative rounded-3xl overflow-hidden h-[260px] md:h-[360px] shadow-card-hover">
-              <Image src="/office.jpg" alt="ET Data Solutions office" fill className="object-cover" sizes="(max-width:1200px) 100vw,1200px" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
-              <div className="absolute inset-0 flex flex-col justify-center px-10 md:px-16 max-w-[440px]">
-                <h3 className="text-2xl md:text-3xl font-[800] tracking-[-0.04em] text-white leading-[1.1] mb-3">
-                  India-based.<br />Globally trusted.
-                </h3>
-                <p className="text-white/60 text-sm leading-relaxed">
-                  Delivering precision outcomes for clients across the US, UK, Canada, Europe, and beyond since 2014.
-                </p>
-              </div>
-              <div className="absolute bottom-5 left-5 md:bottom-6 md:left-10">
-                <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/25 rounded-full px-4 py-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
-                  <span className="text-xs font-[700] text-white tracking-[0.06em]">Est. 2014 · India-based</span>
-                </div>
-              </div>
+            <div className="text-center mb-12">
+              <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Our services</span>
+              <h2 className="text-[1.8rem] md:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50 leading-[1.08] text-balance">
+                Four services. One reliable partner.
+              </h2>
             </div>
           </AnimateIn>
-        </Container>
-      </div>
-
-      <Divider />
-
-      {/* Values */}
-      <div className="py-14 md:py-20 bg-white dark:bg-ink-950">
-        <Container>
-          <SectionHeader eyebrow="Our Values" title="How we work" className="mb-12" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map((v, i) => (
-              <AnimateIn key={v.num} delay={i * 0.08}>
-                <div className="group bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl p-6 hover:border-brand-300 dark:hover:border-brand-500/40 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-250">
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 border ${v.iconBg} ${v.iconText} ${v.iconBorder}`}>
-                    <v.icon className="w-5 h-5" />
+            {serviceCards.map((svc, i) => (
+              <AnimateIn key={svc.id} delay={i * 0.08}>
+                <div className="group bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl p-6 hover:border-brand-300 dark:hover:border-brand-500/40 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-250 flex flex-col h-full">
+                  <div className="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-500/10 border border-brand-100 dark:border-brand-500/20 flex items-center justify-center text-brand-500 mb-4">
+                    <svc.icon size={18} />
                   </div>
-                  <span className="text-[0.68rem] font-[750] tracking-[0.12em] uppercase text-brand-500 block mb-2">{v.num}</span>
-                  <h4 className="text-sm font-[750] text-ink-900 dark:text-ink-100 mb-2">{v.title}</h4>
-                  <p className="text-sm text-ink-500 dark:text-ink-400 leading-relaxed">{v.desc}</p>
+                  <h3 className="text-sm font-[750] text-ink-900 dark:text-ink-100 mb-2">{svc.name}</h3>
+                  <p className="text-xs text-ink-500 dark:text-ink-400 leading-relaxed flex-1 mb-4">{svc.desc}</p>
+                  <Link href={`/services#${svc.anchor}`}
+                    className="inline-flex items-center gap-1 text-xs font-[650] text-brand-500 hover:text-brand-600 transition-colors group-hover:gap-2">
+                    Learn more <ArrowRight size={11} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </Link>
                 </div>
               </AnimateIn>
             ))}
           </div>
         </Container>
-      </div>
+      </section>
 
+      {/* RESULTS SNAPSHOT */}
       <Divider />
-
-      {/* Capability chips */}
-      <div className="py-14 md:py-20 bg-ink-50 dark:bg-[#0a0908]">
+      <section className="py-16 md:py-20 bg-ink-50 dark:bg-[#0a0908]">
         <Container>
-          <SectionHeader eyebrow="Capabilities" title="Everything we handle" className="mb-10" />
-          <AnimateIn delay={0.1}>
-            <div className="flex flex-col gap-3">
-              {chipGroups.map((group, gi) => (
-                <div key={gi} className="flex flex-wrap gap-2">
-                  {group.chips.map(c => (
-                    <span key={c} className={`text-sm font-[550] border px-4 py-2 rounded-full transition-all duration-150 cursor-default hover:-translate-y-0.5 hover:shadow-sm ${group.color}`}>
-                      {c}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </AnimateIn>
-        </Container>
-      </div>
-    </section>
-  )
-}
-
-// ─── CONTACT section ──────────────────────────────────────────────────────────
-function ContactSection() {
-  return (
-    <section id="contact" className="bg-ink-50 dark:bg-[#0a0908]">
-      {/* Header strip */}
-      <div className="relative overflow-hidden py-14 md:py-20 bg-white dark:bg-ink-950">
-        <div aria-hidden className="absolute inset-0 opacity-[0.3] dark:opacity-[0.1]"
-          style={{ backgroundImage:'radial-gradient(circle,rgba(0,0,0,0.08) 1px,transparent 1px)', backgroundSize:'28px 28px', maskImage:'linear-gradient(to bottom,transparent,black 20%,black 80%,transparent)' }} />
-        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(232,68,10,0.05),transparent_70%)]" />
-        <Container className="relative">
           <AnimateIn>
-            <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Contact Us</span>
-          </AnimateIn>
-          <AnimateIn delay={0.07}>
-            <h2 className="text-[2.6rem] md:text-[3.4rem] lg:text-[3.8rem] font-[850] tracking-[-0.045em] leading-[1.05] text-ink-900 dark:text-ink-50 mb-5 max-w-[600px] text-balance">
-              Let&apos;s build something<br />
-              <span className="text-gradient">great together.</span>
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={0.14}>
-            <p className="text-lg text-ink-500 dark:text-ink-400 leading-relaxed max-w-[460px]">
-              Tell us your requirement — we&apos;ll respond within 24 hours with a scoped proposal and clear pricing.
-            </p>
-          </AnimateIn>
-        </Container>
-      </div>
-
-      <Divider />
-
-      <div id="form" className="py-14 md:py-20 bg-white dark:bg-ink-950">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10">
-
-            {/* Left — contact details */}
-            <div className="flex flex-col gap-4">
-              <AnimateIn>
-                <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl overflow-hidden shadow-card">
-                  <div className="flex items-center gap-2 px-4 py-3.5 bg-ink-50 dark:bg-ink-800/80 border-b border-ink-200 dark:border-ink-700">
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                    </div>
-                    <span className="ml-2 text-xs font-[650] text-ink-400 dark:text-ink-500">Contact Details</span>
-                  </div>
-                  <div className="divide-y divide-ink-100 dark:divide-ink-800">
-                    {contactDetails.map(item => (
-                      <div key={item.label} className="flex items-center gap-3 px-4 py-3.5 hover:bg-ink-50 dark:hover:bg-ink-800/40 transition-colors">
-                        <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 border ${item.iconBg} ${item.iconText} ${item.iconBorder}`}>
-                          <item.icon size={14} />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-[0.62rem] font-[700] tracking-[0.1em] uppercase text-ink-400 dark:text-ink-500 mb-0.5">{item.label}</p>
-                          {item.href
-                            ? <a href={item.href} className="text-sm font-[500] text-ink-700 dark:text-ink-300 hover:text-brand-500 transition-colors truncate block underline-offset-2 hover:underline">{item.val}</a>
-                            : <span className="text-sm font-[500] text-ink-700 dark:text-ink-300 truncate block">{item.val}</span>
-                          }
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </AnimateIn>
-              <AnimateIn delay={0.1}>
-                <div className="flex items-start gap-3 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 rounded-2xl p-4">
-                  <MessageSquare size={16} className="text-brand-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-[700] text-ink-900 dark:text-ink-100 mb-0.5">We respond in 24 hours</p>
-                    <p className="text-xs text-ink-500 dark:text-ink-400">All enquiries receive a personalized response — no automated replies.</p>
-                  </div>
-                </div>
-              </AnimateIn>
+            <div className="text-center mb-10">
+              <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Proof</span>
+              <h2 className="text-[1.8rem] md:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50 leading-[1.08]">
+                Real clients. Numbers that don&apos;t lie.
+              </h2>
             </div>
-
-            {/* Right — form */}
-            <AnimateIn delay={0.12}>
-              <ContactForm />
-            </AnimateIn>
+          </AnimateIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {results.map((r, i) => (
+              <AnimateIn key={r.metric} delay={i * 0.1}>
+                <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl p-7 text-center hover:shadow-card-hover hover:-translate-y-1 transition-all duration-250">
+                  <div className="text-[2.4rem] font-[850] tracking-[-0.05em] text-brand-500 leading-none mb-2">{r.metric}</div>
+                  <p className="text-sm text-ink-500 dark:text-ink-400 leading-snug mb-4">{r.label}</p>
+                  <Link href={r.story} className="inline-flex items-center gap-1 text-xs font-[650] text-brand-500 hover:text-brand-600 transition-colors">
+                    See full story <ArrowRight size={11} />
+                  </Link>
+                </div>
+              </AnimateIn>
+            ))}
           </div>
         </Container>
-      </div>
-    </section>
-  )
-}
+      </section>
 
-// ─── MAIN PAGE ────────────────────────────────────────────────────────────────
-export default function HomePage() {
-  return (
-    <>
-      {/* HERO */}
-      <Hero />
-
-      {/* TECH MARQUEE */}
-      <TrustBar />
-
-      {/* SERVICES — section id set inside Services component */}
+      {/* SOCIAL PROOF STRIP */}
       <Divider />
-      <Services />
+      <section className="py-14 md:py-18 bg-white dark:bg-ink-950">
+        <Container>
+          <AnimateIn>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+              <div>
+                <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-2">Testimonials</span>
+                <h2 className="text-[1.5rem] md:text-[1.8rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50">What clients say</h2>
+              </div>
+              <Link href="/testimonials" className="text-sm font-[650] text-brand-500 hover:text-brand-600 transition-colors flex items-center gap-1 whitespace-nowrap">
+                Read all testimonials <ArrowRight size={13} />
+              </Link>
+            </div>
+          </AnimateIn>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 overflow-x-auto">
+            {testimonialPeek.map((t, i) => (
+              <AnimateIn key={t.name} delay={i * 0.08}>
+                <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl p-5 flex flex-col items-center text-center gap-3 hover:shadow-card hover:-translate-y-0.5 transition-all duration-250">
+                  <div className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-[700] ring-2 ring-offset-2 ring-brand-200 dark:ring-brand-500/30 dark:ring-offset-ink-900 bg-gradient-to-br ${t.bg} text-white flex-shrink-0`}>
+                    {t.initial}
+                  </div>
+                  <p className="text-sm font-[700] text-ink-900 dark:text-ink-100">{t.name}</p>
+                  <span className="text-[0.7rem] font-[600] text-brand-500 bg-brand-50 dark:bg-brand-500/10 border border-brand-100 dark:border-brand-500/20 px-2.5 py-1 rounded-full leading-tight">
+                    {t.badge}
+                  </span>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-      {/* CASE STUDIES */}
+      {/* PROCESS SNAPSHOT */}
       <Divider />
-      <CaseStudies />
+      <section className="py-14 md:py-18 bg-ink-50 dark:bg-[#0a0908]">
+        <Container>
+          <AnimateIn>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+              <div>
+                <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-2">How we work</span>
+                <h2 className="text-[1.5rem] md:text-[1.8rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50">From call to delivery in days</h2>
+              </div>
+              <Link href="/about#process" className="text-sm font-[650] text-brand-500 hover:text-brand-600 transition-colors flex items-center gap-1 whitespace-nowrap">
+                See how it works <ArrowRight size={13} />
+              </Link>
+            </div>
+          </AnimateIn>
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {processSteps.map((step, i) => (
+              <AnimateIn key={step.n} delay={i * 0.07}>
+                <div className="flex items-center gap-3 bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-xl px-4 py-3 hover:border-brand-300 dark:hover:border-brand-500/40 transition-all">
+                  <span className="text-[0.7rem] font-[750] tracking-[0.1em] text-brand-500 flex-shrink-0">{step.n}</span>
+                  <span className="text-xs font-[650] text-ink-800 dark:text-ink-200 leading-snug">{step.title}</span>
+                </div>
+              </AnimateIn>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-      {/* PROCESS */}
+      {/* CTA BANNER */}
       <Divider />
-      <Process />
-
-      {/* TESTIMONIALS */}
-      <Divider />
-      <Testimonials />
-
-      {/* ABOUT — inline, full section with id="about" */}
-      <Divider />
-      <AboutSection />
-
-      {/* LEAD CAPTURE */}
-      <Divider />
-      <LeadCapture />
-
-      {/* CONTACT — inline, full section with id="contact" */}
-      <Divider />
-      <ContactSection />
-
-      {/* FINAL CTA */}
-      <Divider />
-      <FinalCTA />
+      <section className="py-16 md:py-20 bg-white dark:bg-ink-950">
+        <Container>
+          <AnimateIn>
+            <div className="relative rounded-[28px] overflow-hidden">
+              <div className="absolute inset-0 bg-ink-900 dark:bg-ink-950" />
+              <div aria-hidden className="absolute -top-40 -right-20 w-[500px] h-[500px] rounded-full bg-brand-500/20 blur-[80px]" />
+              <div aria-hidden className="absolute -bottom-40 -left-20 w-[400px] h-[400px] rounded-full bg-brand-500/15 blur-[80px]" />
+              <div aria-hidden className="absolute inset-0 opacity-[0.04]"
+                style={{ backgroundImage:'linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)', backgroundSize:'44px 44px' }} />
+              <div className="relative z-10 px-8 py-20 md:px-20 text-center">
+                <h2 className="text-[2rem] sm:text-[2.6rem] font-[850] tracking-[-0.04em] text-white leading-[1.08] mb-5 text-balance max-w-[560px] mx-auto">
+                  Ready to remove your biggest operational bottleneck?
+                </h2>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                  <Link href="/contact"
+                    className="group inline-flex items-center justify-center gap-2 text-base font-[700] text-brand-600 bg-white hover:bg-ink-50 px-8 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_30px_rgba(255,255,255,0.2)] shine">
+                    Book a Free Consultation <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </Link>
+                  <a href="tel:+13023579776"
+                    className="inline-flex items-center justify-center gap-2 text-base font-[500] text-white/80 border border-white/20 hover:border-white/40 px-8 py-3.5 rounded-xl transition-all duration-200">
+                    Call us now
+                  </a>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-5">
+                  {guarantees.map(g => (
+                    <div key={g.text} className="inline-flex items-center gap-2 text-xs font-[550] text-white/50">
+                      <g.icon size={13} className="text-brand-400 flex-shrink-0" />
+                      {g.text}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </AnimateIn>
+        </Container>
+      </section>
     </>
   )
 }

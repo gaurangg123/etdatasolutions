@@ -1,12 +1,6 @@
-'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Mail, Phone, Globe, MapPin, Clock } from 'lucide-react'
-
-function scrollTo(id: string) {
-  const el = document.getElementById(id)
-  if (!el) return
-  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' })
-}
 
 const contacts = [
   { icon:Mail,   label:'bobby@etdatasolutions.com', href:'mailto:bobby@etdatasolutions.com' },
@@ -18,16 +12,18 @@ const contacts = [
 ]
 
 const serviceLinks = [
-  { label:'Staffing & VA Recruitment', id:'services' },
-  { label:'Data Entry & Excel',        id:'services' },
-  { label:'Manual QA Testing',         id:'services' },
-  { label:'Data Engineering & BI',     id:'services' },
+  { label:'Staffing & VA',         href:'/services#staffing'          },
+  { label:'Data Entry & Excel',    href:'/services#data-entry'        },
+  { label:'Manual QA Testing',     href:'/services#qa-testing'        },
+  { label:'Data Engineering',      href:'/services#data-engineering'  },
 ]
+
 const companyLinks = [
-  { label:'About Us',   id:'about'   },
-  { label:'Services',   id:'services'},
-  { label:'Contact',    id:'contact' },
-  { label:'Free Audit', id:'audit'   },
+  { label:'About Us',    href:'/about'          },
+  { label:'Services',    href:'/services'       },
+  { label:'Testimonials',href:'/testimonials'   },
+  { label:'Contact',     href:'/contact'        },
+  { label:'Free Audit',  href:'/contact#audit'  },
 ]
 
 export default function Footer() {
@@ -41,12 +37,10 @@ export default function Footer() {
             <p className="text-sm font-[700] text-ink-900 dark:text-ink-100">Ready to remove your biggest operational bottleneck?</p>
             <p className="text-xs text-ink-400 dark:text-ink-500 mt-0.5">Free consultation · No contract required · 30-day guarantee</p>
           </div>
-          <button
-            onClick={() => scrollTo('contact')}
-            className="group flex-shrink-0 inline-flex items-center gap-2 text-sm font-[700] text-white bg-brand-500 hover:bg-brand-600 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-px hover:shadow-brand"
-          >
+          <Link href="/contact"
+            className="group flex-shrink-0 inline-flex items-center gap-2 text-sm font-[700] text-white bg-brand-500 hover:bg-brand-600 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-px hover:shadow-brand">
             Book a free call
-          </button>
+          </Link>
         </div>
 
         {/* Main grid */}
@@ -54,7 +48,7 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <button onClick={() => scrollTo('hero')} className="flex items-center gap-2.5 mb-4 group">
+            <Link href="/" className="flex items-center gap-2.5 mb-4 group">
               <div className="relative h-9 w-9 flex-shrink-0">
                 <Image src="/logo-transparent.png" alt="ET Data Solutions" fill className="object-contain opacity-90" />
               </div>
@@ -62,7 +56,7 @@ export default function Footer() {
                 <span className="block text-[1rem] font-[750] tracking-[-0.02em] text-ink-900 dark:text-ink-200 group-hover:text-brand-500 transition-colors">ET Data Solutions</span>
                 <span className="block text-[0.65rem] text-ink-400 dark:text-ink-500 font-[500]">Outsourcing · Est. 2014</span>
               </div>
-            </button>
+            </Link>
             <p className="text-sm text-ink-500 dark:text-ink-400 leading-relaxed max-w-[260px] mb-2">
               India-based outsourcing for staffing, data processing, QA testing, and data engineering. Globally delivered since 2014.
             </p>
@@ -85,10 +79,10 @@ export default function Footer() {
             <p className="text-[0.7rem] font-[750] tracking-[0.12em] uppercase text-ink-400 dark:text-ink-600 mb-4">Services</p>
             <div className="flex flex-col gap-2.5">
               {serviceLinks.map(l => (
-                <button key={l.label} onClick={() => scrollTo(l.id)}
-                  className="footer-link text-left text-sm text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors">
+                <Link key={l.label} href={l.href}
+                  className="footer-link text-sm text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors">
                   {l.label}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -98,10 +92,10 @@ export default function Footer() {
             <p className="text-[0.7rem] font-[750] tracking-[0.12em] uppercase text-ink-400 dark:text-ink-600 mb-4">Company</p>
             <div className="flex flex-col gap-2.5">
               {companyLinks.map(l => (
-                <button key={l.label} onClick={() => scrollTo(l.id)}
-                  className="footer-link text-left text-sm text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors">
+                <Link key={l.label} href={l.href}
+                  className="footer-link text-sm text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors">
                   {l.label}
-                </button>
+                </Link>
               ))}
             </div>
           </div>

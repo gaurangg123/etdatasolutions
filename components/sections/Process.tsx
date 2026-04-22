@@ -78,7 +78,7 @@ export default function Process() {
         </div>
 
         <AnimateIn delay={0.35} className="mt-10 text-center">
-          <Button href="#contact" variant="primary" size="lg" arrow className="shine">
+          <Button href="/contact" variant="primary" size="lg" arrow className="shine">
             Start your project today
           </Button>
           <p className="text-xs text-ink-400 mt-3">No commitment. We'll send a scoped proposal within 24 hours.</p>

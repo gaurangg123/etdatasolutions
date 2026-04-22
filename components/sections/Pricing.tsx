@@ -129,7 +129,7 @@ export default function Pricing() {
 
                   {/* Item 3: primary only for the popular plan */}
                   <Button
-                    href="#contact"
+                    href="/contact"
                     variant={p.ctaVariant}
                     size="md"
                     arrow

@@ -1,6 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { ArrowRight, Loader2 } from 'lucide-react'
+import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 interface ButtonProps {
@@ -63,11 +64,6 @@ const sizes = {
   xl: 'text-base px-8  py-3.5 h-12',
 }
 
-function smoothScrollTo(id: string) {
-  const el = document.getElementById(id)
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' })
-}
-
 export default function Button({
   variant='primary', size='md', href, arrow, loading, children, className, onClick, type='button', disabled, external,
 }: ButtonProps) {
@@ -81,34 +77,17 @@ export default function Button({
     </>
   )
 
-  // Handle single-page anchor links (e.g. #contact, /contact#form, /#audit)
   if (href) {
-    const anchorMatch = href.match(/#(.+)/)
-    if (anchorMatch) {
-      const id = anchorMatch[1]
-      return (
-        <button
-          type="button"
-          onClick={() => smoothScrollTo(id)}
-          className={cn(cls, 'group')}
-          disabled={disabled || loading}
-        >
-          {inner}
-        </button>
-      )
-    }
     // External link
     if (external || href.startsWith('http')) {
-      return (
-        <a href={href} className={cn(cls, 'group')} target="_blank" rel="noopener noreferrer">
-          {inner}
-        </a>
-      )
+      return <a href={href} className={cn(cls, 'group')} target="_blank" rel="noopener noreferrer">{inner}</a>
     }
     // Tel / mailto
     if (href.startsWith('tel:') || href.startsWith('mailto:')) {
       return <a href={href} className={cn(cls, 'group')}>{inner}</a>
     }
+    // Internal Next.js link (includes hash links like /contact#audit)
+    return <Link href={href} className={cn(cls, 'group')}>{inner}</Link>
   }
 
   return (

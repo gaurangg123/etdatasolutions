@@ -6,7 +6,7 @@ import Container from '@/components/ui/Container'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimateIn from '@/components/ui/AnimateIn'
 
-function scrollToContact() {
+function () => window.location.href='/contact'() {
   const el = document.getElementById('contact')
   if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' })
 }
@@ -73,7 +73,7 @@ export default function LeadCapture() {
                     </p>
                   </div>
                   <button
-                    onClick={scrollToContact}
+                    onClick={() => window.location.href='/contact'}
                     className="text-sm font-[650] text-brand-500 hover:text-brand-600 inline-flex items-center gap-1.5 transition-colors"
                   >
                     Send a detailed message instead <ChevronRight size={13} />

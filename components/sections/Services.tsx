@@ -124,7 +124,7 @@ export default function Services() {
                     </div>
 
                     {/* Item 3: secondary button here, not primary */}
-                    <Button href={`#services`} variant="secondary" size="md" arrow>
+                    <Button href="/services" variant="secondary" size="md" arrow>
                       See full details
                     </Button>
                   </div>
@@ -162,7 +162,7 @@ export default function Services() {
             <p className="text-sm text-ink-500 dark:text-ink-400">Tell us your bottleneck. We'll map it to the right solution, free.</p>
           </div>
           {/* Item 3: single primary CTA here */}
-          <Button href="#contact" variant="primary" size="md" arrow className="flex-shrink-0 shine">
+          <Button href="/contact" variant="primary" size="md" arrow className="flex-shrink-0 shine">
             Talk to us
           </Button>
         </AnimateIn>

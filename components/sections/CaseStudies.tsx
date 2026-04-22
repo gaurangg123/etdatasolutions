@@ -126,7 +126,7 @@ export default function CaseStudies() {
 
                   {/* Link */}
                   <div className="mt-4 pt-4 border-t border-ink-100 dark:border-ink-800">
-                    <Button href="#contact" variant="ghost" size="sm" arrow className="px-0 text-brand-500">
+                    <Button href="/contact" variant="ghost" size="sm" arrow className="px-0 text-brand-500">
                       Get similar results
                     </Button>
                   </div>
