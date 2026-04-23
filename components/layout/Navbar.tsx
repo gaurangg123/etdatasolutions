@@ -1,41 +1,39 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { useTheme } from '@/components/ThemeProvider'
 import { cn } from '@/lib/utils'
 import { Sun, Moon, Menu, X, Phone } from 'lucide-react'
 
 const links = [
-  { href: '/',             label: 'Home'         },
-  { href: '/about',        label: 'About'        },
-  { href: '/services',     label: 'Services'     },
-  { href: '/testimonials', label: 'Testimonials' },
-  { href: '/contact',      label: 'Contact'      },
+  { href: '/',               label: 'Home'         },
+  { href: '/about',          label: 'About'        },
+  { href: '/services',       label: 'Services'     },
+  { href: '/testimonials',   label: 'Testimonials' },
+  { href: '/contact',        label: 'Contact'      },
 ]
 
 export default function Navbar() {
-  const { theme, toggle } = useTheme()
-  const [open, setOpen]         = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const { theme, toggle } = useTheme()
+  const [open, setOpen]       = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const h = () => setScrolled(window.scrollY > 12)
+    window.addEventListener('scroll', h, { passive: true })
+    return () => window.removeEventListener('scroll', h)
   }, [])
 
+  useEffect(() => { setOpen(false) }, [pathname])
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  useEffect(() => { setOpen(false) }, [pathname])
-
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
     <>
@@ -50,10 +48,10 @@ export default function Navbar() {
       >
         <div className="max-w-container mx-auto px-4 sm:px-6 h-full flex items-center justify-between gap-4">
 
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group min-w-0">
             <div className="relative w-[36px] h-[36px] flex-shrink-0">
-              <Image src="/logo-transparent.png" alt="ET Data Solutions" fill priority
-                className="object-contain transition-opacity duration-200 group-hover:opacity-70" />
+              <Image src="/logo-transparent.png" alt="ET Data Solutions" fill priority className="object-contain transition-opacity duration-200 group-hover:opacity-70" />
             </div>
             <div className="hidden sm:flex items-center gap-3 min-w-0">
               <div className="min-w-0">
@@ -64,6 +62,7 @@ export default function Navbar() {
             </div>
           </Link>
 
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-0.5 ml-2 mr-3">
             {links.map(l => {
               const active = isActive(l.href)
@@ -74,7 +73,8 @@ export default function Navbar() {
                     active
                       ? 'text-brand-500 font-[650]'
                       : 'text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-ink-100 hover:bg-ink-100/60 dark:hover:bg-ink-800/50'
-                  )}>
+                  )}
+                >
                   {l.label}
                   {active && <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2px] rounded-full bg-brand-500" />}
                 </Link>
@@ -82,9 +82,9 @@ export default function Navbar() {
             })}
           </div>
 
+          {/* Right */}
           <div className="flex items-center gap-2">
-            <a href="tel:+13023579776"
-              className="hidden lg:flex items-center gap-1.5 text-xs font-[600] text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors mr-1">
+            <a href="tel:+13023579776" className="hidden lg:flex items-center gap-1.5 text-xs font-[600] text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors mr-1">
               <Phone size={13} /> +1-302-357-9776
             </a>
             <button onClick={toggle} aria-label="Toggle theme"
@@ -97,8 +97,7 @@ export default function Navbar() {
             </Link>
             <button onClick={() => setOpen(o => !o)} aria-label={open ? 'Close menu' : 'Open menu'}
               className={cn('md:hidden w-9 h-9 flex items-center justify-center rounded-xl border transition-all',
-                open ? 'border-brand-400 bg-brand-50 dark:bg-brand-500/10 text-brand-500'
-                     : 'border-ink-200 dark:border-ink-700 text-ink-400 dark:text-ink-500')}>
+                open ? 'border-brand-400 bg-brand-50 dark:bg-brand-500/10 text-brand-500' : 'border-ink-200 dark:border-ink-700 text-ink-400 dark:text-ink-500')}>
               {open ? <X size={17} /> : <Menu size={17} />}
             </button>
           </div>
@@ -112,15 +111,17 @@ export default function Navbar() {
         <div className="bg-white/96 dark:bg-ink-950/96 nav-glass border-b border-ink-200 dark:border-ink-800 shadow-card-hover px-4 py-3 flex flex-col gap-1">
           {links.map(l => (
             <Link key={l.href} href={l.href}
-              className={cn('text-left text-[0.975rem] font-[500] px-4 py-3.5 rounded-xl transition-all',
-                isActive(l.href) ? 'text-brand-500 font-[700] bg-brand-50 dark:bg-brand-500/10'
-                                 : 'text-ink-700 dark:text-ink-300 hover:bg-ink-100/60 dark:hover:bg-ink-800/50')}>
+              className={cn('text-[0.975rem] font-[500] px-4 py-3.5 rounded-xl transition-all',
+                isActive(l.href)
+                  ? 'text-brand-500 font-[700] bg-brand-50 dark:bg-brand-500/10'
+                  : 'text-ink-700 dark:text-ink-300 hover:bg-ink-100/60 dark:hover:bg-ink-800/50')}>
               {l.label}
             </Link>
           ))}
           <div className="mt-2 mb-1 flex flex-col gap-2">
-            <Link href="/contact" className="w-full flex items-center justify-center gap-2 text-[0.9375rem] font-[700] text-white bg-brand-500 hover:bg-brand-600 px-6 py-3 rounded-xl transition-all shine">
-              Book a Free Consultation
+            <Link href="/contact"
+              className="flex items-center justify-center gap-2 text-[0.9375rem] font-[700] text-white bg-brand-500 hover:bg-brand-600 px-6 py-3 rounded-xl transition-all shine">
+              Free Consultation
             </Link>
             <a href="tel:+13023579776" className="flex items-center justify-center gap-2 text-sm font-[500] text-ink-500 dark:text-ink-400 py-2.5">
               <Phone size={14} /> +1-302-357-9776

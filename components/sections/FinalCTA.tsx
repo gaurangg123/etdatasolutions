@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { Phone, ArrowRight, Shield, Clock, Star } from 'lucide-react'
 import Section from '@/components/ui/Section'
@@ -30,7 +31,9 @@ export default function FinalCTA() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-400" />
                 </span>
-                <span className="text-[0.7rem] font-[700] tracking-[0.1em] uppercase text-white/60">Accepting new clients now</span>
+                <span className="text-[0.7rem] font-[700] tracking-[0.1em] uppercase text-white/60">
+                  Accepting new clients now
+                </span>
               </div>
               <h2 className="text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] font-[850] tracking-[-0.04em] text-white leading-[1.08] mb-5 text-balance max-w-[580px] mx-auto">
                 Your team has better things to do than data entry.
@@ -39,13 +42,16 @@ export default function FinalCTA() {
                 Join 100+ businesses that outsourced the right work — and got their team&apos;s focus back.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-                <Link href="/contact"
-                  className="group inline-flex items-center justify-center gap-2 text-base font-[700] text-brand-600 bg-white hover:bg-ink-50 px-8 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_30px_rgba(255,255,255,0.2)] active:scale-[0.97] shine">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center justify-center gap-2 text-base font-[700] text-brand-600 bg-white hover:bg-ink-50 px-8 py-3.5 rounded-xl transition-all duration-200 hover:-translate-y-px hover:shadow-[0_8px_30px_rgba(255,255,255,0.2)] active:scale-[0.97] shine"
+                >
                   Book a Free Consultation
                   <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
                 </Link>
                 <a href="tel:+13023579776"
-                  className="inline-flex items-center justify-center gap-2 text-base font-[500] text-white/80 border border-white/20 hover:border-white/40 hover:bg-white/8 px-8 py-3.5 rounded-xl transition-all duration-200 active:scale-[0.97]">
+                  className="inline-flex items-center justify-center gap-2 text-base font-[500] text-white/80 border border-white/20 hover:border-white/40 hover:bg-white/8 px-8 py-3.5 rounded-xl transition-all duration-200 active:scale-[0.97]"
+                >
                   <Phone size={15} /> Call us now
                 </a>
               </div>

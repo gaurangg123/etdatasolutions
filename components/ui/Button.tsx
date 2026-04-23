@@ -1,7 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { ArrowRight, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 interface ButtonProps {
@@ -29,31 +29,11 @@ const base = [
 ].join(' ')
 
 const variants = {
-  primary: [
-    'bg-brand-500 text-white',
-    'hover:bg-brand-600 hover:-translate-y-px hover:shadow-brand',
-  ].join(' '),
-  secondary: [
-    'bg-white dark:bg-ink-800 text-ink-800 dark:text-ink-100',
-    'border border-ink-200 dark:border-ink-700',
-    'hover:border-brand-400 dark:hover:border-brand-500',
-    'hover:bg-ink-50 dark:hover:bg-ink-700',
-    'hover:-translate-y-px',
-  ].join(' '),
-  ghost: [
-    'text-brand-500 dark:text-brand-400',
-    'hover:bg-brand-50 dark:hover:bg-brand-500/10',
-  ].join(' '),
-  white: [
-    'bg-white text-brand-600 font-[700]',
-    'hover:bg-ink-50 hover:-translate-y-px hover:shadow-lg',
-  ].join(' '),
-  outline: [
-    'bg-transparent text-ink-700 dark:text-ink-300',
-    'border border-ink-300 dark:border-ink-600',
-    'hover:border-brand-500 hover:text-brand-500',
-    'hover:-translate-y-px',
-  ].join(' '),
+  primary:   'bg-brand-500 text-white hover:bg-brand-600 hover:-translate-y-px hover:shadow-brand',
+  secondary: 'bg-white dark:bg-ink-800 text-ink-800 dark:text-ink-100 border border-ink-200 dark:border-ink-700 hover:border-brand-400 hover:bg-ink-50 dark:hover:bg-ink-700 hover:-translate-y-px',
+  ghost:     'text-brand-500 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-500/10',
+  white:     'bg-white text-brand-600 font-[700] hover:bg-ink-50 hover:-translate-y-px hover:shadow-lg',
+  outline:   'bg-transparent text-ink-700 dark:text-ink-300 border border-ink-300 dark:border-ink-600 hover:border-brand-500 hover:text-brand-500 hover:-translate-y-px',
 }
 
 const sizes = {
@@ -64,11 +44,15 @@ const sizes = {
   xl: 'text-base px-8  py-3.5 h-12',
 }
 
+function smoothScroll(id: string) {
+  const el = document.getElementById(id)
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' })
+}
+
 export default function Button({
-  variant='primary', size='md', href, arrow, loading, children, className, onClick, type='button', disabled, external,
+  variant = 'primary', size = 'md', href, arrow, loading, children, className, onClick, type = 'button', disabled, external,
 }: ButtonProps) {
   const cls = cn(base, variants[variant], sizes[size], className)
-
   const inner = (
     <>
       {loading && <Loader2 size={14} className="animate-spin flex-shrink-0" />}
@@ -78,15 +62,21 @@ export default function Button({
   )
 
   if (href) {
-    // External link
-    if (external || href.startsWith('http')) {
-      return <a href={href} className={cn(cls, 'group')} target="_blank" rel="noopener noreferrer">{inner}</a>
+    // Smooth-scroll anchor (e.g. #contact, /services#staffing)
+    const hashMatch = href.match(/#(.+)/)
+    if (hashMatch && !href.startsWith('http')) {
+      const id = hashMatch[1]
+      return (
+        <button type="button" onClick={() => smoothScroll(id)} className={cn(cls, 'group')} disabled={disabled || loading}>
+          {inner}
+        </button>
+      )
     }
-    // Tel / mailto
-    if (href.startsWith('tel:') || href.startsWith('mailto:')) {
-      return <a href={href} className={cn(cls, 'group')}>{inner}</a>
+    // External / tel / mailto
+    if (external || href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:')) {
+      return <a href={href} className={cn(cls, 'group')} target={external || href.startsWith('http') ? '_blank' : undefined} rel={external || href.startsWith('http') ? 'noopener noreferrer' : undefined}>{inner}</a>
     }
-    // Internal Next.js link (includes hash links like /contact#audit)
+    // Internal page route — Next.js Link
     return <Link href={href} className={cn(cls, 'group')}>{inner}</Link>
   }
 

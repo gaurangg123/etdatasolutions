@@ -1,15 +1,11 @@
 'use client'
+import Link from 'next/link'
 import { useState } from 'react'
 import { Check, ArrowRight, ChevronRight, Timer, BadgeCheck, TrendingUp } from 'lucide-react'
 import Section from '@/components/ui/Section'
 import Container from '@/components/ui/Container'
 import SectionHeader from '@/components/ui/SectionHeader'
 import AnimateIn from '@/components/ui/AnimateIn'
-
-function () => window.location.href='/contact'() {
-  const el = document.getElementById('contact')
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' })
-}
 
 const benefits = [
   { icon: Timer,      text: 'Free 30-min operations audit' },
@@ -73,7 +69,7 @@ export default function LeadCapture() {
                     </p>
                   </div>
                   <button
-                    onClick={() => window.location.href='/contact'}
+                    href="/contact"
                     className="text-sm font-[650] text-brand-500 hover:text-brand-600 inline-flex items-center gap-1.5 transition-colors"
                   >
                     Send a detailed message instead <ChevronRight size={13} />

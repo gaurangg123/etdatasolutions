@@ -124,7 +124,7 @@ export default function Services() {
                     </div>
 
                     {/* Item 3: secondary button here, not primary */}
-                    <Button href="/services" variant="secondary" size="md" arrow>
+                    <Button href={`#services`} variant="secondary" size="md" arrow>
                       See full details
                     </Button>
                   </div>
