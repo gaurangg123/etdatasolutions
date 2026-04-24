@@ -68,12 +68,12 @@ export default function LeadCapture() {
                       We&apos;ll reach out to <strong className="text-ink-800 dark:text-ink-200">{vals.email}</strong> within 24 hours to confirm your audit slot.
                     </p>
                   </div>
-                  <button
+                  <Link
                     href="/contact"
                     className="text-sm font-[650] text-brand-500 hover:text-brand-600 inline-flex items-center gap-1.5 transition-colors"
                   >
                     Send a detailed message instead <ChevronRight size={13} />
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <>

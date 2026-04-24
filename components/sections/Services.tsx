@@ -48,7 +48,7 @@ export default function Services() {
           />
           <AnimateIn delay={0.1}>
             <p className="text-[0.925rem] text-ink-500 dark:text-ink-400 max-w-[340px] leading-relaxed">
-              Every service is scoped, staffed with specialists, and measured against clear quality benchmarks — not vague "activity reports."
+              Every service is scoped, staffed with specialists, and measured against clear quality benchmarks — not vague &ldquo;activity reports.&rdquo;
             </p>
           </AnimateIn>
         </div>
@@ -159,7 +159,7 @@ export default function Services() {
         <AnimateIn delay={0.3} className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 bg-ink-50 dark:bg-ink-900/60 border border-ink-200 dark:border-ink-800 rounded-2xl">
           <div>
             <p className="text-sm font-[700] text-ink-900 dark:text-ink-100 mb-0.5">Not sure which service fits your situation?</p>
-            <p className="text-sm text-ink-500 dark:text-ink-400">Tell us your bottleneck. We'll map it to the right solution, free.</p>
+            <p className="text-sm text-ink-500 dark:text-ink-400">Tell us your bottleneck. We&apos;ll map it to the right solution, free.</p>
           </div>
           {/* Item 3: single primary CTA here */}
           <Button href="/contact" variant="primary" size="md" arrow className="flex-shrink-0 shine">

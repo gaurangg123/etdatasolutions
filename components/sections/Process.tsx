@@ -81,7 +81,7 @@ export default function Process() {
           <Button href="/contact" variant="primary" size="lg" arrow className="shine">
             Start your project today
           </Button>
-          <p className="text-xs text-ink-400 mt-3">No commitment. We'll send a scoped proposal within 24 hours.</p>
+          <p className="text-xs text-ink-400 mt-3">No commitment. We&apos;ll send a scoped proposal within 24 hours.</p>
         </AnimateIn>
       </Container>
     </Section>

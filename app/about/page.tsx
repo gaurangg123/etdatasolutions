@@ -7,7 +7,6 @@ import Container from '@/components/ui/Container'
 import AnimateIn from '@/components/ui/AnimateIn'
 import CountUp from '@/components/ui/CountUp'
 import { Target, Handshake, ShieldCheck, Zap, TrendingUp, FileCheck, BarChart, Check, Phone, FileText, Users, Search, Repeat } from 'lucide-react'
-import { services } from '@/lib/services'
 
 
 const values = [

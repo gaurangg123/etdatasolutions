@@ -5,7 +5,7 @@
  */
 
 // requireEnv reserved for future required vars
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars
 function requireEnv(key: string): string {
   const value = process.env[key]
   if (!value) {

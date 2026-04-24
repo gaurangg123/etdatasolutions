@@ -3,11 +3,6 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Home } from 'lucide-react'
 import Link from 'next/link'
 
-function scrollToContact() {
-  // On 404, navigate home first then scroll
-  window.location.href = '/#contact'
-}
-
 export default function NotFound() {
   return (
     <div className="min-h-[calc(100vh-68px)] flex items-center justify-center bg-white dark:bg-ink-950 relative overflow-hidden px-5">
@@ -32,8 +27,7 @@ export default function NotFound() {
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <Link href="/"
-            className="inline-flex items-center gap-2 text-sm font-[650] text-white bg-brand-500 hover:bg-brand-600 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-px hover:shadow-brand"
-          >
+            className="inline-flex items-center gap-2 text-sm font-[650] text-white bg-brand-500 hover:bg-brand-600 px-5 py-2.5 rounded-xl transition-all hover:-translate-y-px hover:shadow-brand">
             <Home size={14} /> Go home
           </Link>
           <button
@@ -42,12 +36,10 @@ export default function NotFound() {
           >
             <ArrowLeft size={14} /> Go back
           </button>
-          <button
-            onClick={scrollToContact}
-            className="inline-flex items-center gap-2 text-sm font-[500] text-ink-600 dark:text-ink-400 border border-ink-200 dark:border-ink-700 hover:border-brand-400 hover:text-brand-500 px-5 py-2.5 rounded-xl transition-all"
-          >
+          <Link href="/contact"
+            className="inline-flex items-center gap-2 text-sm font-[500] text-ink-600 dark:text-ink-400 border border-ink-200 dark:border-ink-700 hover:border-brand-400 hover:text-brand-500 px-5 py-2.5 rounded-xl transition-all">
             Contact us
-          </button>
+          </Link>
         </div>
       </motion.div>
     </div>
