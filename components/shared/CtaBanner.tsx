@@ -20,7 +20,7 @@ const guarantees = [
 
 export default function CtaBanner({ headline, subtext, primaryBtn, secondaryBtn, showGuarantees = true }: CtaBannerProps) {
   return (
-    <section className="py-16 md:py-20 bg-white dark:bg-ink-950">
+    <section className="py-10 md:py-14 bg-white dark:bg-ink-950">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -37,7 +37,7 @@ export default function CtaBanner({ headline, subtext, primaryBtn, secondaryBtn,
             <div aria-hidden className="absolute top-0 left-0 right-0 h-px overflow-hidden">
               <div className="h-px w-1/3 mx-auto bg-gradient-to-r from-transparent via-brand-500/80 to-transparent" />
             </div>
-            <div className="relative z-10 px-8 py-20 md:px-20 text-center">
+            <div className="relative z-10 px-6 py-12 md:px-16 text-center">
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-7">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75 animate-ping" />

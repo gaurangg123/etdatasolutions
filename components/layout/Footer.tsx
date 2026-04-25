@@ -7,7 +7,7 @@ const contacts = [
   { icon:Phone,  label:'+1-302-357-9776 (US)',      href:'tel:+13023579776'                },
   { icon:Phone,  label:'+91 62653 48189 (IN)',      href:'tel:+916265348189'               },
   { icon:Globe,  label:'etdatasolutions.com',       href:'https://etdatasolutions.com'     },
-  { icon:MapPin, label:'India — Serving Globally',  href:null                              },
+  { icon:MapPin, label:'Indore, India — Serving Globally',  href:null                              },
   { icon:Clock,  label:'24/7 — Any timezone',       href:null                              },
 ]
 const serviceLinks = [
@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer className="bg-ink-50 dark:bg-ink-950 border-t border-ink-200 dark:border-ink-900">
       <div className="max-w-container mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-5 border-b border-ink-200 dark:border-ink-800">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 border-b border-ink-200 dark:border-ink-800">
           <div>
             <p className="text-sm font-[700] text-ink-900 dark:text-ink-100">Ready to remove your biggest operational bottleneck?</p>
             <p className="text-xs text-ink-400 dark:text-ink-500 mt-0.5">Free consultation · No contract required · 30-day guarantee</p>
@@ -39,7 +39,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 md:gap-14 py-12 border-b border-ink-200 dark:border-ink-800">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6 md:gap-10 py-8 border-b border-ink-200 dark:border-ink-800">
           <div>
             <Link href="/" className="flex items-center gap-2.5 mb-4 group">
               <div className="relative h-9 w-9 flex-shrink-0">

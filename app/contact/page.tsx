@@ -22,7 +22,7 @@ const contactDetails = [
   { icon:Phone,  label:'Phone (US)',   val:'+1-302-357-9776',           href:'tel:+13023579776',                iconBg:'bg-sky-50 dark:bg-sky-500/10',       iconText:'text-sky-500',   iconBorder:'border-sky-100 dark:border-sky-500/20' },
   { icon:Phone,  label:'Phone (IN)',   val:'+91 62653 48189',           href:'tel:+916265348189',               iconBg:'bg-sky-50 dark:bg-sky-500/10',       iconText:'text-sky-500',   iconBorder:'border-sky-100 dark:border-sky-500/20' },
   { icon:Globe,  label:'Website',      val:'etdatasolutions.com',       href:'https://etdatasolutions.com',     iconBg:'bg-violet-50 dark:bg-violet-500/10', iconText:'text-violet-500',iconBorder:'border-violet-100 dark:border-violet-500/20' },
-  { icon:MapPin, label:'Based in',     val:'India — Serving Globally',  href:null,                             iconBg:'bg-emerald-50 dark:bg-emerald-500/10',iconText:'text-emerald-500',iconBorder:'border-emerald-100 dark:border-emerald-500/20' },
+  { icon:MapPin, label:'Based in',     val:'Indore, India — Serving Globally',  href:null,                             iconBg:'bg-emerald-50 dark:bg-emerald-500/10',iconText:'text-emerald-500',iconBorder:'border-emerald-100 dark:border-emerald-500/20' },
   { icon:Clock,  label:'Availability', val:'24/7 — Any timezone',       href:null,                             iconBg:'bg-amber-50 dark:bg-amber-500/10',   iconText:'text-amber-500', iconBorder:'border-amber-100 dark:border-amber-500/20' },
 ]
 
@@ -52,7 +52,7 @@ function ContactForm() {
   if (status === 'sent') return (
     <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl shadow-card overflow-hidden">
       <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.5,ease:[0.22,1,0.36,1]}}
-        className="flex flex-col items-center justify-center gap-5 py-20 text-center px-8">
+        className="flex flex-col items-center justify-center gap-4 py-12 text-center px-6">
         <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center border-2 border-emerald-400/40">
           <CheckCircle className="w-8 h-8 text-emerald-500" />
         </div>
@@ -67,11 +67,11 @@ function ContactForm() {
 
   return (
     <div className="bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-3xl overflow-hidden shadow-card">
-      <div className="px-7 py-5 border-b border-ink-100 dark:border-ink-800 bg-ink-50/60 dark:bg-ink-800/30">
+      <div className="px-5 py-4 border-b border-ink-100 dark:border-ink-800 bg-ink-50/60 dark:bg-ink-800/30">
         <h3 className="text-base font-[750] text-ink-900 dark:text-ink-100">Send us a message</h3>
         <p className="text-sm text-ink-400 dark:text-ink-500 mt-0.5">We respond to all enquiries within 24 hours.</p>
       </div>
-      <form onSubmit={handleSubmit} noValidate className="px-7 py-6 flex flex-col gap-5">
+      <form onSubmit={handleSubmit} noValidate className="px-5 py-4 flex flex-col gap-4">
         <div style={{display:'none'}} aria-hidden><input name="_hp" type="text" tabIndex={-1} autoComplete="off" value={form._hp} onChange={handleChange} /></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[{id:'name',label:'Full Name',type:'text',ph:'Your full name',ac:'name',required:true},{id:'email',label:'Email Address',type:'email',ph:'you@company.com',ac:'email',required:true}].map(f=>(
@@ -126,6 +126,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        heroPadding="py-10 md:py-14"
         breadcrumb={[{label:'Home',href:'/'},{label:'Contact'}]}
         title={<>Let&apos;s build something<br /><span className="text-gradient">great together.</span></>}
         subtitle="Tell us your requirement — we'll respond within 24 hours with a scoped proposal and clear pricing."
@@ -133,7 +134,7 @@ export default function ContactPage() {
 
       <Divider />
 
-      <section id="form" className="py-16 md:py-22 bg-white dark:bg-ink-950">
+      <section id="form" className="py-10 md:py-12 bg-white dark:bg-ink-950">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10">
 
@@ -177,7 +178,7 @@ export default function ContactPage() {
       <Divider />
 
       {/* Free audit CTA card */}
-      <section id="audit" className="py-14 md:py-18 bg-ink-50 dark:bg-[#0a0908]">
+      <section id="audit" className="py-10 bg-ink-50 dark:bg-[#0a0908]">
         <Container>
           <AnimateIn>
             <div className="max-w-2xl mx-auto bg-white dark:bg-ink-900 border border-brand-200 dark:border-brand-500/25 rounded-3xl p-8 md:p-10 text-center shadow-card">

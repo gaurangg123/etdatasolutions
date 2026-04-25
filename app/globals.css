@@ -117,3 +117,35 @@
     width: 60%;
     animation: loading-bar 1.4s ease-in-out infinite;
   }
+
+/* ── F3: Tighter global section padding ── */
+.section-lg  { @apply py-12 md:py-16; }
+.section-md  { @apply py-10 md:py-12; }
+.section-sm  { @apply py-8 md:py-10; }
+
+/* ── F2: Responsive typography ── */
+.h1-clamp { font-size: clamp(1.7rem, 5vw, 3.6rem); }
+
+/* ── Beam animation (used in Hero) ── */
+@keyframes beam {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+.animate-beam { animation: beam 3s linear infinite; }
+
+/* ── Float animation (dashboard card) ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+/* ── Marquee animation ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+/* ── F4 NOT implemented as scroll-snap (breaks UX for tall content) ──
+   Instead: smooth scroll + scroll progress indicator already in place ── */

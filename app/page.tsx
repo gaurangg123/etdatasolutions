@@ -51,13 +51,13 @@ export default function HomePage() {
 
       {/* ── Services Overview ── */}
       <Divider />
-      <section className="py-16 md:py-20 bg-white dark:bg-ink-950">
+      <section className="py-10 md:py-14 bg-white dark:bg-ink-950">
         <Container>
-          <AnimateIn className="text-center mb-10">
+          <AnimateIn className="text-center mb-6">
             <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">What we handle</span>
             <h2 className="text-[1.9rem] sm:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50 leading-tight">Four services. One reliable partner.</h2>
           </AnimateIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {serviceCards.map((s, i) => (
               <AnimateIn key={s.label} delay={i * 0.08}>
                 <Link href={s.href} className="group flex flex-col gap-4 p-6 bg-white dark:bg-ink-900 border border-ink-200 dark:border-ink-800 rounded-2xl hover:border-brand-300 dark:hover:border-brand-500/40 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
@@ -75,9 +75,9 @@ export default function HomePage() {
               </AnimateIn>
             ))}
           </div>
-          <AnimateIn delay={0.3} className="mt-6 text-center">
+          <AnimateIn delay={0.3} className="mt-4 text-center">
             <Link href="/services" className="inline-flex items-center gap-2 text-sm font-[600] text-ink-500 dark:text-ink-400 hover:text-brand-500 transition-colors">
-              View all services & pricing <ArrowRight size={14} />
+              View all services <ArrowRight size={14} />
             </Link>
           </AnimateIn>
         </Container>
@@ -85,9 +85,9 @@ export default function HomePage() {
 
       {/* ── Results Snapshot ── */}
       <Divider />
-      <section className="py-16 md:py-20 bg-ink-50 dark:bg-[#0a0908]">
+      <section className="py-10 md:py-14 bg-ink-50 dark:bg-[#0a0908]">
         <Container>
-          <AnimateIn className="text-center mb-10">
+          <AnimateIn className="text-center mb-6">
             <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Proof, not promises</span>
             <h2 className="text-[1.9rem] sm:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50 leading-tight">Real clients. Numbers that don&apos;t lie.</h2>
           </AnimateIn>
@@ -113,7 +113,7 @@ export default function HomePage() {
 
       {/* ── Social Proof Strip ── */}
       <Divider />
-      <section className="py-14 md:py-18 bg-white dark:bg-ink-950">
+      <section className="py-9 md:py-12 bg-white dark:bg-ink-950">
         <Container>
           <AnimateIn className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
@@ -149,7 +149,7 @@ export default function HomePage() {
 
       {/* ── Process Snapshot ── */}
       <Divider />
-      <section className="py-14 md:py-18 bg-ink-50 dark:bg-[#0a0908]">
+      <section className="py-9 md:py-12 bg-ink-50 dark:bg-[#0a0908]">
         <Container>
           <AnimateIn className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>

@@ -8,31 +8,31 @@ interface BreadcrumbItem { label: string; href?: string }
 interface CtaButton { label: string; href: string; variant?: 'primary' | 'secondary' }
 
 interface PageHeroProps {
-  breadcrumb: BreadcrumbItem[]
-  title: React.ReactNode
-  subtitle?: string
+  breadcrumb:  BreadcrumbItem[]
+  title:       React.ReactNode
+  subtitle?:   string
   ctaButtons?: CtaButton[]
-  eyebrow?: string
+  eyebrow?:    string
+  heroPadding?: string   // override default padding
 }
 
 const f = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+  initial:    { opacity: 0, y: 20 },
+  animate:    { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
 })
 
-export default function PageHero({ breadcrumb, title, subtitle, ctaButtons, eyebrow }: PageHeroProps) {
+export default function PageHero({ breadcrumb, title, subtitle, ctaButtons, eyebrow, heroPadding }: PageHeroProps) {
+  const padding = heroPadding ?? 'py-12 md:py-18'
   return (
-    <section className="relative overflow-hidden bg-white dark:bg-ink-950 py-16 md:py-24">
-      {/* Dot grid */}
+    <section className={`relative overflow-hidden bg-white dark:bg-ink-950 ${padding}`}>
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.3] dark:opacity-[0.08]"
-        style={{ backgroundImage:'radial-gradient(circle,rgba(0,0,0,0.08) 1px,transparent 1px)', backgroundSize:'28px 28px', maskImage:'linear-gradient(to bottom,transparent,black 20%,black 80%,transparent)' }} />
-      {/* Brand radial */}
+        style={{ backgroundImage: 'radial-gradient(circle,rgba(0,0,0,0.08) 1px,transparent 1px)', backgroundSize: '28px 28px', maskImage: 'linear-gradient(to bottom,transparent,black 20%,black 80%,transparent)' }} />
       <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_55%_45%_at_50%_0%,rgba(232,68,10,0.05),transparent_70%)]" />
 
       <Container className="relative">
         {/* Breadcrumb */}
-        <motion.nav {...f(0)} aria-label="Breadcrumb" className="flex items-center gap-1.5 mb-6 text-xs text-ink-400 dark:text-ink-500">
+        <motion.nav {...f(0)} aria-label="Breadcrumb" className="flex items-center gap-1.5 mb-4 text-xs text-ink-400 dark:text-ink-500">
           {breadcrumb.map((item, i) => (
             <span key={item.label} className="flex items-center gap-1.5">
               {i > 0 && <ChevronRight size={12} className="flex-shrink-0" />}
@@ -45,19 +45,19 @@ export default function PageHero({ breadcrumb, title, subtitle, ctaButtons, eyeb
         </motion.nav>
 
         {eyebrow && (
-          <motion.span {...f(0.04)} className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">
+          <motion.span {...f(0.04)} className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-2">
             {eyebrow}
           </motion.span>
         )}
 
         <motion.h1 {...f(0.08)}
-          className="text-[2.4rem] sm:text-[3rem] md:text-[3.5rem] lg:text-[3.8rem] font-[850] tracking-[-0.045em] leading-[1.05] text-ink-900 dark:text-ink-50 mb-5 max-w-[680px] text-balance"
+          className="text-[2.2rem] sm:text-[2.8rem] md:text-[3.3rem] lg:text-[3.6rem] font-[850] tracking-[-0.045em] leading-[1.05] text-ink-900 dark:text-ink-50 mb-4 max-w-[680px] text-balance"
         >
           {title}
         </motion.h1>
 
         {subtitle && (
-          <motion.p {...f(0.14)} className="text-lg text-ink-500 dark:text-ink-400 leading-relaxed max-w-[500px] mb-8">
+          <motion.p {...f(0.14)} className="text-lg text-ink-500 dark:text-ink-400 leading-relaxed max-w-[500px] mb-6">
             {subtitle}
           </motion.p>
         )}

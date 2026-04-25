@@ -17,7 +17,7 @@ const values = [
 ]
 
 const companyInfo = [
-  { k:'Headquarters', v:'India' },
+  { k:'Headquarters', v:'Indore, India' },
   { k:'Founded',      v:'2014' },
   { k:'Email',        v:'bobby@etdatasolutions.com', href:'mailto:bobby@etdatasolutions.com' },
   { k:'Phone (US)',   v:'+1-302-357-9776', href:'tel:+13023579776' },
@@ -70,9 +70,9 @@ export default function AboutPage() {
       <Divider />
 
       {/* ── Who We Are ── */}
-      <section className="py-16 md:py-22 bg-white dark:bg-ink-950">
+      <section className="py-10 md:py-14 bg-white dark:bg-ink-950">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <AnimateIn>
               <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Our Story</span>
               <h2 className="text-3xl md:text-[2.2rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50 leading-[1.08] mb-6">Who we are</h2>
@@ -120,7 +120,7 @@ export default function AboutPage() {
       <Divider />
 
       {/* ── Stats Row ── */}
-      <section className="py-12 bg-ink-900 dark:bg-ink-950">
+      <section className="py-10 bg-ink-900 dark:bg-ink-950">
         <Container>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
             {statsRow.map((s, i) => (
@@ -139,9 +139,9 @@ export default function AboutPage() {
       <Divider />
 
       {/* ── Our Values ── */}
-      <section className="py-16 md:py-22 bg-white dark:bg-ink-950">
+      <section className="py-10 md:py-14 bg-white dark:bg-ink-950">
         <Container>
-          <AnimateIn className="mb-12">
+          <AnimateIn className="mb-8">
             <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Our Values</span>
             <h2 className="text-[1.9rem] sm:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50">How we work</h2>
           </AnimateIn>
@@ -163,9 +163,9 @@ export default function AboutPage() {
       <Divider />
 
       {/* ── Results / Case Studies ── */}
-      <section id="results" className="py-16 md:py-22 bg-ink-50 dark:bg-[#0a0908]">
+      <section id="results" className="py-10 md:py-14 bg-ink-50 dark:bg-[#0a0908]">
         <Container>
-          <AnimateIn className="mb-12">
+          <AnimateIn className="mb-8">
             <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Proof, not promises</span>
             <h2 className="text-[1.9rem] sm:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50">Real clients. Numbers that don&apos;t lie.</h2>
             <p className="text-sm text-ink-400 dark:text-ink-500 mt-2">Every result below is from a real engagement. No rounding, no estimates.</p>
@@ -212,9 +212,9 @@ export default function AboutPage() {
       <Divider />
 
       {/* ── How We Work / Process ── */}
-      <section id="process" className="py-16 md:py-22 bg-white dark:bg-ink-950">
+      <section id="process" className="py-10 md:py-14 bg-white dark:bg-ink-950">
         <Container>
-          <AnimateIn className="mb-12">
+          <AnimateIn className="mb-8">
             <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">How we work</span>
             <h2 className="text-[1.9rem] sm:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50">First call to first delivery<br />in under a week.</h2>
             <p className="text-sm text-ink-500 dark:text-ink-400 mt-2 max-w-[380px]">No bloated onboarding. No 8-week discovery. We move fast and stay in your loop at every step.</p>
@@ -256,9 +256,9 @@ export default function AboutPage() {
       <Divider />
 
       {/* ── Capabilities ── */}
-      <section className="py-14 md:py-20 bg-ink-50 dark:bg-[#0a0908]">
+      <section className="py-9 md:py-12 bg-ink-50 dark:bg-[#0a0908]">
         <Container>
-          <AnimateIn className="mb-10">
+          <AnimateIn className="mb-6">
             <span className="inline-block text-[0.7rem] font-[750] tracking-[0.14em] uppercase text-brand-500 mb-3">Capabilities</span>
             <h2 className="text-[1.9rem] sm:text-[2.4rem] font-[800] tracking-[-0.04em] text-ink-900 dark:text-ink-50">Everything we handle</h2>
           </AnimateIn>
