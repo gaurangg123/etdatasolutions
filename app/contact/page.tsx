@@ -6,7 +6,7 @@ import Link from 'next/link'
 import PageHero from '@/components/shared/PageHero'
 import Container from '@/components/ui/Container'
 import AnimateIn from '@/components/ui/AnimateIn'
-import { Mail, Phone, Globe, MapPin, Clock, CheckCircle, AlertTriangle, MessageSquare, ChevronDown, ArrowRight, Timer } from 'lucide-react'
+import { Mail, Phone, Globe, MapPin, Clock, CheckCircle, AlertTriangle, MessageSquare, ChevronDown, ArrowRight, Timer, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const serviceOptions = ['Staffing, VA & Recruitment','Data & Excel Automation','QA Testing — App & Web','Data Engineering & Visualizations','Multiple Services','Not sure yet']
@@ -56,7 +56,7 @@ function ContactForm() {
         <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center border-2 border-emerald-400/40">
           <CheckCircle className="w-8 h-8 text-emerald-500" />
         </div>
-        <div><h3 className="text-2xl font-[750] text-ink-900 dark:text-ink-100 mb-2">Message sent!</h3><p className="text-ink-500 dark:text-ink-400 max-w-sm leading-relaxed">We&apos;ll reply within 24 hours with a scoped proposal and clear pricing.</p></div>
+        <div><h3 className="text-2xl font-[750] text-ink-900 dark:text-ink-100 mb-2">Message sent!</h3><p className="text-ink-500 dark:text-ink-400 max-w-sm leading-relaxed">We&apos;ll reply within 24 hours with a scoped proposal and a clear timeline.</p></div>
         <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-[500] bg-emerald-50 dark:bg-emerald-500/10 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-500/20">
           <Clock className="w-4 h-4" /> Average response time: under 3 hours
         </div>
@@ -129,12 +129,12 @@ export default function ContactPage() {
         heroPadding="py-10 md:py-14"
         breadcrumb={[{label:'Home',href:'/'},{label:'Contact'}]}
         title={<>Let&apos;s build something<br /><span className="text-gradient">great together.</span></>}
-        subtitle="Tell us your requirement — we'll respond within 24 hours with a scoped proposal and clear pricing."
+        subtitle="Tell us your requirement — we'll respond within 24 hours with a scoped proposal and a clear timeline."
       />
 
       <Divider />
 
-      <section id="form" className="py-10 md:py-12 bg-white dark:bg-ink-950">
+      <section id="form" className="snap-section-tall bg-white dark:bg-ink-950 py-10 md:py-12">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10">
 
@@ -178,7 +178,7 @@ export default function ContactPage() {
       <Divider />
 
       {/* Free audit CTA card */}
-      <section id="audit" className="py-10 bg-ink-50 dark:bg-[#0a0908]">
+      <section id="audit" className="snap-section bg-ink-50 dark:bg-[#0a0908] py-10">
         <Container>
           <AnimateIn>
             <div className="max-w-2xl mx-auto bg-white dark:bg-ink-900 border border-brand-200 dark:border-brand-500/25 rounded-3xl p-8 md:p-10 text-center shadow-card">
@@ -186,9 +186,17 @@ export default function ContactPage() {
                 <Timer size={22} />
               </div>
               <h3 className="text-xl font-[800] tracking-[-0.03em] text-ink-900 dark:text-ink-100 mb-3">Prefer a structured conversation first?</h3>
-              <p className="text-sm text-ink-500 dark:text-ink-400 leading-relaxed mb-6 max-w-md mx-auto">
-                Book a free 30-minute operations audit — we&apos;ll map your workflow, identify 3 bottlenecks, and give you a cost-savings estimate.
+              <p className="text-sm text-ink-500 dark:text-ink-400 leading-relaxed mb-5 max-w-md mx-auto">
+                Book a free 30-minute operations audit — we&apos;ll map your workflow, identify your 3 biggest bottlenecks, and give you a cost-savings estimate. No commitment.
               </p>
+              <div className="flex flex-col items-start gap-2 mb-6 max-w-xs mx-auto text-left">
+                {["Free 30-min operations audit","Cost-savings estimate for your volume","Actionable recommendations — no pitch","Response within 24 hours"].map(item => (
+                  <div key={item} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-brand-500 flex-shrink-0" />
+                    <span className="text-sm text-ink-600 dark:text-ink-400">{item}</span>
+                  </div>
+                ))}
+              </div>
               <a href="mailto:bobby@etdatasolutions.com?subject=Free%20Audit%20Request"
                 className="inline-flex items-center gap-2 text-sm font-[700] text-white bg-brand-500 hover:bg-brand-600 px-6 py-3 rounded-xl transition-all hover:-translate-y-px hover:shadow-brand shine">
                 Get my free audit <ArrowRight size={14} />

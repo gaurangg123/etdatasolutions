@@ -23,9 +23,9 @@ const f = (delay = 0) => ({
 })
 
 export default function PageHero({ breadcrumb, title, subtitle, ctaButtons, eyebrow, heroPadding }: PageHeroProps) {
-  const padding = heroPadding ?? 'py-12 md:py-18'
+  const padding = heroPadding ?? 'py-10 md:py-14'
   return (
-    <section className={`relative overflow-hidden bg-white dark:bg-ink-950 ${padding}`}>
+    <section className={`snap-section relative overflow-hidden bg-white dark:bg-ink-950 ${padding}`}>
       <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.3] dark:opacity-[0.08]"
         style={{ backgroundImage: 'radial-gradient(circle,rgba(0,0,0,0.08) 1px,transparent 1px)', backgroundSize: '28px 28px', maskImage: 'linear-gradient(to bottom,transparent,black 20%,black 80%,transparent)' }} />
       <div aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_55%_45%_at_50%_0%,rgba(232,68,10,0.05),transparent_70%)]" />

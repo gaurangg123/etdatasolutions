@@ -67,7 +67,7 @@ export default function ServicesPage() {
         return (
           <div key={svc.id}>
             <Divider />
-            <section id={anchors[svc.id]} className={`py-16 md:py-22 ${isReversed ? 'bg-ink-50 dark:bg-[#0a0908]' : 'bg-white dark:bg-ink-950'}`}>
+            <section id={anchors[svc.id]} className={`snap-section-tall py-10 md:py-12 ${isReversed ? 'bg-ink-50 dark:bg-[#0a0908]' : 'bg-white dark:bg-ink-950'}`}>
               <Container>
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-start ${isReversed ? 'lg:grid-flow-dense' : ''}`}>
 

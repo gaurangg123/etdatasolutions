@@ -1,6 +1,3 @@
-import type { Metadata } from 'next'
-export const metadata: Metadata = {
-  title: 'Contact — ET Data Solutions',
-  description: 'Get a scoped proposal within 24 hours. Book a free 30-minute operations audit today.',
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
 }
-export default function Layout({ children }: { children: React.ReactNode }) { return <>{children}</> }

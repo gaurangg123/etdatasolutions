@@ -4,35 +4,20 @@
 
 @layer base {
   :root {
-    --nav-h: 68px;
+    --navbar-height: 64px;
     --radius: 14px;
-    --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-  }
-
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    font-feature-settings: 'ss01','cv11';
-    /* Default: light mode white background */
     background-color: #ffffff;
     color: #1a1714;
   }
-
-  .dark body {
-    background-color: #0f0d0b;
-    color: #fafaf9;
-  }
-
+  .dark body { background-color: #0f0d0b; color: #fafaf9; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   ::selection { background: rgba(232,68,10,0.15); color: inherit; }
-
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: #d6d4d1; border-radius: 3px; }
@@ -40,112 +25,111 @@
   ::-webkit-scrollbar-thumb:hover { background: #e8440a; }
 }
 
-@layer utilities {
-  .nav-glass {
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-  }
-
-  .text-balance { text-wrap: balance; }
-
-  /* Shadows */
-  .shadow-xs        { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-  .shadow-card      { box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05); }
-  .shadow-card-hover{ box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 20px 48px rgba(0,0,0,0.09); }
-  .shadow-brand     { box-shadow: 0 6px 20px rgba(232,68,10,0.28), 0 2px 6px rgba(232,68,10,0.16); }
-  .shadow-brand-lg  { box-shadow: 0 12px 36px rgba(232,68,10,0.32), 0 4px 12px rgba(232,68,10,0.18); }
-
-  /* Gradient text */
-  .text-gradient {
-    background: linear-gradient(135deg, #e8440a 0%, #ff6b38 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Shine */
-  .shine { position: relative; overflow: hidden; }
-  .shine::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    transition: left 0.5s ease;
-    pointer-events: none;
-  }
-  .shine:hover::before { left: 140%; }
-
-  /* Nav link underline slide */
-  .nav-link-ul { position: relative; }
-  .nav-link-ul::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; left: 0;
-    width: 0; height: 2px;
-    background: #e8440a;
-    border-radius: 2px;
-    transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
-  }
-  .nav-link-ul:hover::after { width: 100%; }
-
-  /* Footer links */
-  .footer-link { position: relative; display: inline-block; }
-  .footer-link::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0;
-    width: 0; height: 1px;
-    background: #e8440a;
-    transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
-  }
-  .footer-link:hover::after { width: 100%; }
-
-  /* Section divider */
-  .section-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(232,68,10,0.15) 30%, rgba(232,68,10,0.15) 70%, transparent);
-  }
+/* ── Scroll Snap (Fix 14) ── */
+.snap-container {
+  height: calc(100vh - var(--navbar-height, 64px));
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.snap-section-tall {
+  scroll-snap-align: start;
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  overflow: visible;
+}
+@media (max-width: 1024px) {
+  .snap-container { scroll-snap-type: y proximity; }
+  .snap-section, .snap-section-tall { scroll-snap-stop: normal; }
+}
+/* Scroll progress */
+.scroll-progress {
+  position: fixed;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60vh;
+  background: rgba(0,0,0,0.08);
+  border-radius: 9999px;
+  z-index: 40;
+  overflow: hidden;
+}
+.dark .scroll-progress { background: rgba(255,255,255,0.08); }
+.scroll-progress-fill {
+  width: 100%;
+  background: #e8440a;
+  border-radius: 9999px;
+  transition: height 0.15s ease;
 }
 
-  /* Loading bar animation for PageLoader */
-  @keyframes loading-bar {
-    0%   { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-  .animate-loading-bar {
-    width: 60%;
-    animation: loading-bar 1.4s ease-in-out infinite;
-  }
-
-/* ── F3: Tighter global section padding ── */
-.section-lg  { @apply py-12 md:py-16; }
-.section-md  { @apply py-10 md:py-12; }
-.section-sm  { @apply py-8 md:py-10; }
-
-/* ── F2: Responsive typography ── */
-.h1-clamp { font-size: clamp(1.7rem, 5vw, 3.6rem); }
-
-/* ── Beam animation (used in Hero) ── */
-@keyframes beam {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(300%); }
+/* ── Utilities ── */
+.nav-glass {
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
-.animate-beam { animation: beam 3s linear infinite; }
-
-/* ── Float animation (dashboard card) ── */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
+.text-balance { text-wrap: balance; }
+.shadow-xs        { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.shadow-card      { box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05); }
+.shadow-card-hover{ box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 20px 48px rgba(0,0,0,0.09); }
+.shadow-brand     { box-shadow: 0 6px 20px rgba(232,68,10,0.28), 0 2px 6px rgba(232,68,10,0.16); }
+.text-gradient {
+  background: linear-gradient(135deg, #e8440a 0%, #ff6b38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.animate-float { animation: float 6s ease-in-out infinite; }
-
-/* ── Marquee animation ── */
-@keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-25%); }
+.shine { position: relative; overflow: hidden; }
+.shine::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
 }
+.shine:hover::before { left: 140%; }
+.footer-link { position: relative; display: inline-block; }
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 0; height: 1px;
+  background: #e8440a;
+  transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
+}
+.footer-link:hover::after { width: 100%; }
+
+/* ── Keyframes ── */
+@keyframes beam    { 0%{transform:translateX(-100%)} 100%{transform:translateX(300%)} }
+@keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-25%)} }
+@keyframes loadbar { 0%{transform:translateX(-120%)} 100%{transform:translateX(220%)} }
+@keyframes dotpulse { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+
+.animate-beam    { animation: beam 3s linear infinite; }
+.animate-float   { animation: float 6s ease-in-out infinite; }
 .animate-marquee { animation: marquee 30s linear infinite; }
 
-/* ── F4 NOT implemented as scroll-snap (breaks UX for tall content) ──
-   Instead: smooth scroll + scroll progress indicator already in place ── */
+/* Loading bar utility */
+.animate-loading-bar {
+  width: 55%;
+  height: 100%;
+  animation: loadbar 1.4s ease-in-out infinite;
+}
