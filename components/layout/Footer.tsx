@@ -3,6 +3,10 @@ import Link from 'next/link'
 export default function Footer() {
   return (
     <footer style={{ background: '#0d0d0b', color: '#888', fontFamily: 'inherit' }} className="w-full">
+      <style>{`
+        .footer-social:hover { border-color: #e8440a !important; color: #e8440a !important; }
+        .footer-link:hover   { color: #e8440a !important; }
+      `}</style>
       <div className="max-w-[1160px] mx-auto px-6 lg:px-8 pt-16 pb-8">
 
         {/* Row 1: Two-column grid */}
@@ -22,14 +26,12 @@ export default function Footer() {
             {/* Social icons */}
             <div className="flex items-center gap-3">
               {[
-                { label: 'LinkedIn', path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z' },
+                { label: 'LinkedIn',   path: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z' },
                 { label: 'X/Twitter', path: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z' },
                 { label: 'Instagram', path: 'M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01 M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z' },
               ].map(s => (
-                <button key={s.label} aria-label={s.label}
-                  style={{ width: '36px', height: '36px', borderRadius: '50%', border: '0.5px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', cursor: 'pointer', background: 'transparent', transition: 'border-color 0.2s, color 0.2s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#e8440a'; (e.currentTarget as HTMLButtonElement).style.color = '#e8440a' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#333'; (e.currentTarget as HTMLButtonElement).style.color = '#888' }}>
+                <button key={s.label} aria-label={s.label} className="footer-social"
+                  style={{ width: '36px', height: '36px', borderRadius: '50%', border: '0.5px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', cursor: 'pointer', background: 'transparent', transition: 'border-color 0.2s, color 0.2s' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d={s.path} />
                   </svg>
@@ -49,10 +51,8 @@ export default function Footer() {
                   { label: 'Manual QA',            href: '/services#qa-testing'       },
                   { label: 'Data Engineering',     href: '/services#data-engineering' },
                 ].map(l => (
-                  <Link key={l.href} href={l.href}
-                    style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.15s' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#e8440a')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#666')}>
+                  <Link key={l.href} href={l.href} className="footer-link"
+                    style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.15s' }}>
                     {l.label}
                   </Link>
                 ))}
@@ -67,10 +67,8 @@ export default function Footer() {
                   { label: 'Contact',       href: '/contact'       },
                   { label: 'Free Audit',    href: '/contact#audit' },
                 ].map(l => (
-                  <Link key={l.href} href={l.href}
-                    style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.15s' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#e8440a')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#666')}>
+                  <Link key={l.href} href={l.href} className="footer-link"
+                    style={{ fontSize: '13px', color: '#666', textDecoration: 'none', transition: 'color 0.15s' }}>
                     {l.label}
                   </Link>
                 ))}
@@ -105,9 +103,7 @@ export default function Footer() {
             ].map(c => (
               <div key={c.val}>
                 {c.href
-                  ? <a href={c.href} style={{ fontSize: '12px', color: '#666', textDecoration: 'none', transition: 'color 0.15s' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#e8440a')}
-                      onMouseLeave={e => (e.currentTarget.style.color = '#666')}>{c.val}</a>
+                  ? <a href={c.href} className="footer-link" style={{ fontSize: '12px', color: '#666', textDecoration: 'none', transition: 'color 0.15s' }}>{c.val}</a>
                   : <span style={{ fontSize: '12px', color: '#555' }}>{c.val}</span>
                 }
               </div>
