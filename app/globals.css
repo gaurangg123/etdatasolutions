@@ -5,15 +5,12 @@
 @layer base {
   :root { --navbar-height: 64px; }
 
-  /* BUG 1: Kill outer scroll — only snap-container scrolls */
+  /* Normal page flow — no fixed scroll containers */
   html, body {
-    height: 100%;
-    overflow: hidden;
     margin: 0;
     padding: 0;
     -webkit-text-size-adjust: 100%;
   }
-  #__next { height: 100%; overflow: hidden; }
 
   body {
     -webkit-font-smoothing: antialiased;
@@ -22,52 +19,33 @@
     color: #1a1714;
   }
   .dark body { background-color: #0f0d0b; color: #fafaf9; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; }
   ::selection { background: rgba(232,68,10,0.15); color: inherit; }
 }
 
-/* ── BUG 1: Single scrollbar on snap-container only ── */
+/* ── Sections render as normal block content (no scroll-snap, no clipping) ── */
 .snap-container {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(232,68,10,0.3) transparent;
+  /* Was: fixed-positioned custom scroller. Now: normal block. */
+  width: 100%;
 }
-.snap-container::-webkit-scrollbar { width: 3px; }
-.snap-container::-webkit-scrollbar-track { background: transparent; }
-.snap-container::-webkit-scrollbar-thumb { background: rgba(232,68,10,0.3); border-radius: 3px; }
 
 .snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
   position: relative;
+  width: 100%;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
+
 .snap-section-tall {
-  scroll-snap-align: start;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  position: relative;
+  width: 100%;
   padding-top: 80px;
-  padding-bottom: 60px;
-  overflow: visible;
+  padding-bottom: 80px;
 }
-@media (max-width: 1024px) {
-  .snap-container { scroll-snap-type: y proximity; }
-  .snap-section, .snap-section-tall {
-    scroll-snap-stop: normal;
-    height: auto;
-    min-height: 100vh;
-  }
+
+@media (min-width: 768px) {
+  .snap-section { padding-top: 96px; padding-bottom: 96px; }
+  .snap-section-tall { padding-top: 120px; padding-bottom: 120px; }
 }
 
 /* ── Scroll progress bar ── */

@@ -34,17 +34,15 @@ function RotatingHeadline() {
   }, [])
   return (
     <div className="mb-6">
-      <div className="relative" style={{ minHeight:'clamp(100px,18vw,180px)' }}>
-        <AnimatePresence mode="wait">
-          <motion.h1 key={idx}
-            initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-20 }}
-            transition={{ duration:0.5, ease:[0.22,1,0.36,1] }}
-            className="absolute inset-x-0 text-[clamp(1.75rem,5vw,4rem)] font-[800] tracking-tight leading-[1.1] text-ink-900 dark:text-white text-balance">
-            {HEADLINES[idx]}
-          </motion.h1>
-        </AnimatePresence>
-      </div>
-      <div className="flex items-center gap-1.5 mt-3">
+      <AnimatePresence mode="wait">
+        <motion.h1 key={idx}
+          initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-12 }}
+          transition={{ duration:0.45, ease:[0.22,1,0.36,1] }}
+          className="text-[clamp(1.75rem,5vw,4rem)] font-[800] tracking-tight leading-[1.1] text-ink-900 dark:text-white text-balance">
+          {HEADLINES[idx]}
+        </motion.h1>
+      </AnimatePresence>
+      <div className="flex items-center gap-1.5 mt-4">
         {HEADLINES.map((_,i) => (
           <button key={i} onClick={() => setIdx(i)} aria-label={`Headline ${i+1}`}
             className={`rounded-full transition-all duration-300 ${i===idx ? 'w-5 h-1.5 bg-brand-500' : 'w-1.5 h-1.5 bg-ink-300 dark:bg-ink-600 hover:bg-ink-400'}`} />

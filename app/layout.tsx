@@ -35,20 +35,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PageLoader />
           <ScrollProgress />
           <KeyboardNav />
-          {/* BUG 1: snap-container wraps everything — one scrollbar only */}
-          <div id="main-content" className="snap-container">
-            {/* BUG 1: Navbar sticky INSIDE snap-container */}
-            <div className="sticky top-0 z-[200]">
-              <Navbar />
-            </div>
-            <main>
-              {children}
-            </main>
-            {/* Footer as last snap child */}
-            <div className="snap-section">
-              <Footer />
-            </div>
-          </div>
+          {/* Sticky navbar at the top of the page */}
+          <header className="sticky top-0 z-[200]">
+            <Navbar />
+          </header>
+          <main id="main-content">
+            {children}
+          </main>
+          <Footer />
           <MobileStickyCTA />
           <FloatingContact />
         </ThemeProvider>
