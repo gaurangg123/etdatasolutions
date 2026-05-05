@@ -3,40 +3,48 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --navbar-height: 64px;
-    --radius: 14px;
+  :root { --navbar-height: 64px; }
+
+  /* BUG 1: Kill outer scroll — only snap-container scrolls */
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%;
   }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  #__next { height: 100%; overflow: hidden; }
+
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
     background-color: #ffffff;
     color: #1a1714;
   }
   .dark body { background-color: #0f0d0b; color: #fafaf9; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   ::selection { background: rgba(232,68,10,0.15); color: inherit; }
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #d6d4d1; border-radius: 3px; }
-  .dark ::-webkit-scrollbar-thumb { background: #3c3935; }
-  ::-webkit-scrollbar-thumb:hover { background: #e8440a; }
 }
 
-/* ── Scroll Snap (Fix 14) ── */
+/* ── BUG 1: Single scrollbar on snap-container only ── */
 .snap-container {
-  height: calc(100vh - var(--navbar-height, 64px));
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232,68,10,0.3) transparent;
 }
+.snap-container::-webkit-scrollbar { width: 3px; }
+.snap-container::-webkit-scrollbar-track { background: transparent; }
+.snap-container::-webkit-scrollbar-thumb { background: rgba(232,68,10,0.3); border-radius: 3px; }
+
 .snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  min-height: calc(100vh - var(--navbar-height, 64px));
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,35 +53,36 @@
 }
 .snap-section-tall {
   scroll-snap-align: start;
-  min-height: calc(100vh - var(--navbar-height, 64px));
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 80px;
+  padding-bottom: 60px;
   overflow: visible;
 }
 @media (max-width: 1024px) {
   .snap-container { scroll-snap-type: y proximity; }
-  .snap-section, .snap-section-tall { scroll-snap-stop: normal; }
+  .snap-section, .snap-section-tall {
+    scroll-snap-stop: normal;
+    height: auto;
+    min-height: 100vh;
+  }
 }
-/* Scroll progress */
+
+/* ── Scroll progress bar ── */
 .scroll-progress {
   position: fixed;
-  right: 6px;
-  top: 50%;
+  right: 8px; top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 60vh;
+  width: 3px; height: 60vh;
   background: rgba(0,0,0,0.08);
   border-radius: 9999px;
-  z-index: 40;
-  overflow: hidden;
+  z-index: 40; overflow: hidden;
 }
-.dark .scroll-progress { background: rgba(255,255,255,0.08); }
+.dark .scroll-progress { background: rgba(255,255,255,0.06); }
 .scroll-progress-fill {
-  width: 100%;
-  background: #e8440a;
+  width: 100%; background: #e8440a;
   border-radius: 9999px;
   transition: height 0.15s ease;
 }
@@ -84,10 +93,10 @@
   -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
 .text-balance { text-wrap: balance; }
-.shadow-xs        { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-.shadow-card      { box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05); }
-.shadow-card-hover{ box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 20px 48px rgba(0,0,0,0.09); }
-.shadow-brand     { box-shadow: 0 6px 20px rgba(232,68,10,0.28), 0 2px 6px rgba(232,68,10,0.16); }
+.shadow-xs         { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.shadow-card       { box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05); }
+.shadow-card-hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 20px 48px rgba(0,0,0,0.09); }
+.shadow-brand      { box-shadow: 0 6px 20px rgba(232,68,10,0.28), 0 2px 6px rgba(232,68,10,0.16); }
 .text-gradient {
   background: linear-gradient(135deg, #e8440a 0%, #ff6b38 100%);
   -webkit-background-clip: text;
@@ -96,40 +105,24 @@
 }
 .shine { position: relative; overflow: hidden; }
 .shine::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%; height: 100%;
+  content: ''; position: absolute;
+  top: 0; left: -100%; width: 60%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.5s ease;
-  pointer-events: none;
+  transition: left 0.5s ease; pointer-events: none;
 }
 .shine:hover::before { left: 140%; }
-.footer-link { position: relative; display: inline-block; }
-.footer-link::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0;
-  width: 0; height: 1px;
-  background: #e8440a;
-  transition: width 0.22s cubic-bezier(0.22,1,0.36,1);
-}
-.footer-link:hover::after { width: 100%; }
 
 /* ── Keyframes ── */
 @keyframes beam    { 0%{transform:translateX(-100%)} 100%{transform:translateX(300%)} }
 @keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-25%)} }
-@keyframes loadbar { 0%{transform:translateX(-120%)} 100%{transform:translateX(220%)} }
-@keyframes dotpulse { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+@keyframes etds-bar      { 0%{transform:translateX(-120%)} 100%{transform:translateX(280%)} }
+@keyframes etds-spin     { to{transform:rotate(360deg)} }
+@keyframes etds-spin-rev { to{transform:rotate(-360deg)} }
+@keyframes etds-pulse    { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:0.08;transform:scale(1.08)} }
+@keyframes etds-dot      { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:1} 50%{transform:translate(-50%,-50%) scale(1.6);opacity:0.4} }
+@keyframes etds-dot-fade { 0%,80%,100%{opacity:0.15} 40%{opacity:1} }
 
 .animate-beam    { animation: beam 3s linear infinite; }
 .animate-float   { animation: float 6s ease-in-out infinite; }
 .animate-marquee { animation: marquee 30s linear infinite; }
-
-/* Loading bar utility */
-.animate-loading-bar {
-  width: 55%;
-  height: 100%;
-  animation: loadbar 1.4s ease-in-out infinite;
-}
