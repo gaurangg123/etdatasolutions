@@ -87,7 +87,7 @@ const config: Config = {
           '0%,100%': { transform:'scale(1)',    boxShadow:'0 0 0 0 rgba(232,68,10,0.45)' },
           '60%':     { transform:'scale(0.88)', boxShadow:'0 0 0 6px rgba(232,68,10,0)'  },
         },
-        'marquee':  { '0%':{ transform:'translateX(0)' }, '100%':{ transform:'translateX(-33.333%)' } },
+        'marquee':  { '0%':{ transform:'translateX(0)' }, '100%':{ transform:'translateX(-50%)' } },
         'float':    { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(-8px)' } },
         'beam':     { '0%':{ transform:'translateX(-100%)' }, '100%':{ transform:'translateX(300%)' } },
         'fade-up':  { from:{ opacity:'0', transform:'translateY(16px)' }, to:{ opacity:'1', transform:'translateY(0)' } },

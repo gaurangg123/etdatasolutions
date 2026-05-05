@@ -19,7 +19,7 @@ export default function TrustBar() {
         <div className="relative overflow-hidden"
           style={{ maskImage:'linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%)', WebkitMaskImage:'linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%)' }}>
           <div className="flex w-max animate-marquee">
-            {[...logos,...logos,...logos,...logos].map((l,i) => (
+            {[...logos,...logos].map((l,i) => (
               <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-900 text-sm font-[500] text-ink-600 dark:text-ink-300 shadow-sm whitespace-nowrap select-none mx-2">
                 <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${l.dot}`} aria-hidden />
                 {l.name}
