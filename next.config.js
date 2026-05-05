@@ -1,15 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-
   // Security — never advertise the server
   poweredByHeader: false,
+
+  // Increase static page generation timeout (default is 60s, too short for Vercel cold builds)
+  staticPageGenerationTimeout: 120,
 
   // Performance
   compress: true,
   reactStrictMode: true,
   experimental: {
-    optimizePackageImports: ['nodemailer'],
+    optimizePackageImports: ['framer-motion', 'lucide-react', 'nodemailer'],
   },
 
   // Images

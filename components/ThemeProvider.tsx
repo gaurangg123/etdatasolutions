@@ -8,23 +8,35 @@ export function useTheme() { return useContext(Ctx) }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     // Only use stored preference — never auto-apply system dark mode
-    const stored = localStorage.getItem('theme') as Theme | null
-    const preferred = stored ?? 'light'
-    setTheme(preferred)
-    document.documentElement.classList.toggle('dark', preferred === 'dark')
+    try {
+      const stored = localStorage.getItem('theme') as Theme | null
+      const preferred = stored ?? 'light'
+      setTheme(preferred)
+      document.documentElement.classList.toggle('dark', preferred === 'dark')
+    } catch {
+      // localStorage unavailable (SSR/private browsing) — use default
+    }
   }, [])
 
   const toggle = () => {
     const next = theme === 'light' ? 'dark' : 'light'
     setTheme(next)
     document.documentElement.classList.toggle('dark', next === 'dark')
-    localStorage.setItem('theme', next)
+    try { localStorage.setItem('theme', next) } catch { /* ignore */ }
   }
 
-  return <Ctx.Provider value={{ theme, toggle }}>{children}</Ctx.Provider>
+  // Suppress hydration mismatch — render children immediately but theme state
+  // is only applied after mount (matches SSR default of 'light')
+  return (
+    <Ctx.Provider value={{ theme: mounted ? theme : 'light', toggle }}>
+      {children}
+    </Ctx.Provider>
+  )
 }
 
 export function ThemeScript() {
@@ -32,7 +44,7 @@ export function ThemeScript() {
     <script
       dangerouslySetInnerHTML={{
         // Only read stored pref — default to light if nothing stored
-        __html: `(function(){var t=localStorage.getItem('theme');document.documentElement.classList.toggle('dark',t==='dark')})()`,
+        __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.classList.toggle('dark',t==='dark')}catch(e){}})()`,
       }}
     />
   )

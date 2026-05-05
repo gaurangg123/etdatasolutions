@@ -6,13 +6,17 @@ import Image from 'next/image'
 let hasShown = false
 
 export function PageLoader() {
-  const [visible, setVisible] = useState(!hasShown)
-  const [dark, setDark] = useState(true)
+  const [visible, setVisible] = useState(false) // start false — set true client-side only
+  const [dark, setDark] = useState(false)
 
   useEffect(() => {
     if (hasShown) return
-    const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    setDark(mq.matches)
+    setVisible(true)
+    try {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      setDark(mq.matches)
+    } catch { /* ignore */ }
+
     const dismiss = () => setTimeout(() => { setVisible(false); hasShown = true }, 500)
     if (document.readyState === 'complete') dismiss()
     else window.addEventListener('load', dismiss, { once: true })
