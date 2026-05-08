@@ -1,0 +1,133 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  color: var(--txt3);
+  font-weight: 500;
+}
+
+.req { color: var(--or); }
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--surf);
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--txt);
+  font-family: 'Geist', sans-serif;
+  font-size: 16px; /* 16px+ prevents iOS zoom */
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--txt3);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--or);
+  background: var(--surf2);
+  box-shadow: 0 0 0 3px rgba(217,64,0,0.10);
+}
+
+.field select option {
+  background: var(--bg2);
+  color: var(--txt);
+}
+
+.field textarea { resize: vertical; }
+
+.error {
+  font-size: 12px;
+  color: #E53E3E;
+}
+
+.serverError {
+  font-size: 13px !important;
+  color: #E53E3E !important;
+}
+
+.submit {
+  width: 100%;
+  background: var(--or-grad);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(217,64,0,0.30);
+}
+.submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  padding: 48px 0;
+}
+
+.successIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(61,212,192,0.15);
+  border: 1px solid rgba(61,212,192,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--teal);
+}
+
+.success h3 {
+  font-size: 22px;
+  color: var(--txt);
+}
+
+.success p {
+  font-size: 15px;
+  color: var(--txt2);
+}
+
+@media (max-width: 500px) {
+  .row { grid-template-columns: 1fr; }
+}

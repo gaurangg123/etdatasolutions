@@ -1,0 +1,110 @@
+.wrapper {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(900px, calc(100vw - 32px));
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 10px 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-bdr);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--or-grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.logoText {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  color: var(--txt);
+  white-space: nowrap;
+}
+
+.links {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+
+.link {
+  font-size: 14px;
+  color: var(--txt2);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  transition: all 0.2s;
+  font-weight: 400;
+  position: relative;
+}
+.link:hover {
+  color: var(--txt);
+  background: var(--surf);
+}
+
+.active {
+  color: var(--txt) !important;
+}
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--or);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  background: var(--or-grad);
+  color: #fff;
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+.cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(217,64,0,0.3);
+}
+
+@media (max-width: 780px) {
+  .links { display: none; }
+}

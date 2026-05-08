@@ -1,0 +1,41 @@
+.strip {
+  border-top: 1px solid var(--bdr);
+  border-bottom: 1px solid var(--bdr);
+  padding: 28px 0;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--txt3);
+  white-space: nowrap;
+}
+
+.regions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.region {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  color: var(--txt);
+  opacity: 0.65;
+}
+
+.sep {
+  color: var(--bdr-a);
+  font-style: normal;
+  opacity: 1;
+}

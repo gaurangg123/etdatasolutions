@@ -1,52 +1,41 @@
-import type { Metadata } from 'next'
-import './fonts.css'
-import './globals.css'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
-import MobileStickyCTA from '@/components/layout/MobileStickyCTA'
-import FloatingContact from '@/components/layout/FloatingContact'
-import ScrollProgress from '@/components/layout/ScrollProgress'
-import PageLoader from '@/components/PageLoader'
-import { KeyboardNav } from '@/components/KeyboardNav'
-import { ThemeProvider, ThemeScript } from '@/components/ThemeProvider'
-
-const BASE = 'https://etdatasolutions.com'
+import type { Metadata } from 'next';
+import './globals.css';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE),
-  title: { default: 'ET Data Solutions — Staffing, Data, QA & Data Engineering', template: '%s | ET Data Solutions' },
-  description: 'ET Data Solutions eliminates operational bottlenecks — staffing, data entry, QA testing, data engineering. India-based, globally delivered. 99% accuracy.',
-  alternates: { canonical: BASE },
-  openGraph: { title: 'ET Data Solutions', description: 'India-based outsourcing. Globally delivered.', url: BASE, siteName: 'ET Data Solutions', locale: 'en_US', type: 'website', images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },
-  twitter: { card: 'summary_large_image', title: 'ET Data Solutions', images: ['/og-image.jpg'] },
-  icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
-  robots: { index: true, follow: true },
-}
+  title: {
+    template: '%s — ET Data Solutions',
+    default: 'ET Data Solutions — Staffing, Data, QA & Data Engineering',
+  },
+  description:
+    'ET Data Solutions eliminates operational bottlenecks — staffing, data entry, QA testing, data engineering. India-based, globally delivered. 99% accuracy.',
+  metadataBase: new URL('https://etdatasolutions.com'),
+  openGraph: {
+    siteName: 'ET Data Solutions',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
+  twitter: { card: 'summary_large_image' },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head><ThemeScript /></head>
+    <html lang="en">
       <body>
-        <a href="#main-content" className="fixed -top-full left-4 z-[9999] bg-brand-500 text-white px-5 py-2.5 rounded-b-xl text-sm focus:top-0 transition-all">
-          Skip to main content
-        </a>
-        <ThemeProvider>
-          <PageLoader />
-          <ScrollProgress />
-          <KeyboardNav />
-          {/* Sticky navbar at the top of the page */}
-          <header className="sticky top-0 z-[200]">
-            <Navbar />
-          </header>
-          <main id="main-content">
-            {children}
-          </main>
-          <Footer />
-          <MobileStickyCTA />
-          <FloatingContact />
-        </ThemeProvider>
+        {/* Atmosphere */}
+        <div className="atmosphere" aria-hidden>
+          <div className="atmo-blob blue" />
+          <div className="atmo-blob orange" />
+          <div className="atmo-blob teal" />
+        </div>
+        <div className="grid-overlay" aria-hidden />
+
+        <Navbar />
+        <div className="page-wrap">{children}</div>
+        <Footer />
       </body>
     </html>
-  )
+  );
 }
