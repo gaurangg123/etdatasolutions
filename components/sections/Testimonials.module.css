@@ -1,37 +1,60 @@
-.header { max-width: 640px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 16px; }
-.grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
+.header { max-width: 640px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 14px; }
+
+.layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: start; }
 .featWrap { height: 100%; }
+
 .featured {
-  padding: 40px 36px; background: var(--or-light);
-  border: 1.5px solid rgba(232,74,12,0.2); border-radius: 24px;
-  position: relative; overflow: hidden; height: 100%;
+  background: #fff; border: 1.5px solid var(--bdr); border-radius: 28px;
+  overflow: hidden; box-shadow: 0 4px 20px rgba(180,60,0,0.07);
+  display: flex; flex-direction: column; height: 100%;
+  transition: box-shadow 0.3s;
 }
-.featured::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: var(--or-grad);
+.featured:hover { box-shadow: 0 16px 48px rgba(180,60,0,0.12); }
+
+.featBg { height: 4px; background: var(--or-grad); }
+
+.stars { display: flex; gap: 3px; padding: 24px 28px 0; }
+
+.featQuote {
+  font-size: 18px; font-style: italic; color: var(--txt2);
+  line-height: 1.68; padding: 16px 28px 24px;
+  flex: 1;
 }
-.bigQuote {
-  font-size: 72px; font-weight: 800; line-height: 1;
-  position: absolute; top: 16px; right: 24px;
-  color: var(--or); opacity: 0.2; user-select: none;
+
+.featAttr { display: flex; align-items: center; gap: 14px; padding: 0 28px 24px; }
+.featPhoto {
+  width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--or-light); flex-shrink: 0;
 }
-.featQuote { font-size: 18px !important; color: var(--txt2) !important; line-height: 1.65; margin-bottom: 28px; margin-top: 20px; font-style: italic; }
-.attr { display: flex; flex-direction: column; gap: 4px; }
 .attrName { font-size: 14px; font-weight: 700; color: var(--txt); }
-.attrRole  { font-size: 13px; color: var(--txt3); }
-.miniStack { display: flex; flex-direction: column; gap: 20px; }
+.attrRole { font-size: 13px; color: var(--txt3); }
+
+.featImage {
+  margin-top: auto; height: 160px; overflow: hidden;
+  border-top: 1px solid var(--bdr);
+}
+.featImage img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+.featured:hover .featImage img { transform: scale(1.04); }
+
+/* Mini cards */
+.miniStack { display: flex; flex-direction: column; gap: 16px; }
 .mini {
-  padding: 28px 24px; background: #fff;
-  border: 1.5px solid var(--bdr); border-radius: 20px;
-  flex: 1; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 2px 8px rgba(180,60,0,0.04);
+  background: #fff; border: 1.5px solid var(--bdr); border-radius: 20px;
+  padding: 24px; box-shadow: 0 2px 8px rgba(180,60,0,0.04);
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 .mini:hover { transform: translateY(-3px); border-color: var(--or); box-shadow: 0 12px 32px rgba(180,60,0,0.10); }
-.miniQuote { font-size: 14px !important; font-style: italic; color: var(--txt2) !important; line-height: 1.65; margin-bottom: 20px; }
+
+.miniQuote {
+  font-size: 14px !important; font-style: italic;
+  color: var(--txt2) !important; line-height: 1.65; margin: 10px 0 16px;
+}
 .miniAttr { display: flex; align-items: center; gap: 10px; }
-.avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; color: #fff; }
-.avatarTeal   { background: linear-gradient(135deg, var(--teal), var(--blue)); }
-.avatarOrange { background: var(--or-grad); }
-.miniName { font-size: 13px; color: var(--txt); font-weight: 700; }
+.miniPhoto {
+  width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--or-light); flex-shrink: 0;
+}
+.miniName { font-size: 13px; font-weight: 700; color: var(--txt); }
 .miniRole { font-size: 12px; color: var(--txt3); }
-@media (max-width: 780px) { .grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 780px) { .layout { grid-template-columns: 1fr; } }

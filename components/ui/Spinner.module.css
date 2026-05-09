@@ -1,0 +1,84 @@
+.wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 16px; }
+.sm  { --sz: 40px;  } .sm  .ring { width: var(--sz); height: var(--sz); }
+.md  { --sz: 64px;  } .md  .ring { width: var(--sz); height: var(--sz); }
+.lg  { --sz: 100px; } .lg  .ring { width: var(--sz); height: var(--sz); }
+
+.ring { position: relative; display: flex; align-items: center; justify-content: center; }
+.svg  { width: 100%; height: 100%; display: block; }
+
+/* Outer arc — clockwise */
+.arc {
+  stroke-dasharray: 80 184;
+  stroke-dashoffset: 0;
+  transform-origin: 50% 50%;
+  animation: spinCW 1.2s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+@keyframes spinCW {
+  0%   { transform: rotate(-90deg); stroke-dasharray: 16 248; }
+  50%  { stroke-dasharray: 140 124; }
+  100% { transform: rotate(270deg); stroke-dasharray: 16 248; }
+}
+
+/* Inner arc — counter-clockwise */
+.arcInner {
+  stroke-dasharray: 50 132;
+  transform-origin: 50% 50%;
+  animation: spinCCW 1.6s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+@keyframes spinCCW {
+  0%   { transform: rotate(90deg);  stroke-dasharray: 10 172; }
+  50%  { stroke-dasharray: 90 92; }
+  100% { transform: rotate(-270deg); stroke-dasharray: 10 172; }
+}
+
+/* Centre dot pulse */
+.dot { animation: dotP 1.2s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes dotP { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.75); opacity: 0.7; } }
+
+/* Outer orbiting node */
+.orbit1 {
+  transform-origin: 50% 50%;
+  animation: spinCW 1.2s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+.orbitGlow { animation: glowP 1.2s ease-in-out infinite; }
+@keyframes glowP { 0%,100% { opacity: 0.2; } 50% { opacity: 0.5; } }
+
+/* Inner orbiting node (opposite) */
+.orbit2 {
+  transform-origin: 50% 50%;
+  animation: spinCCW 1.6s cubic-bezier(0.4,0,0.2,1) infinite;
+}
+
+/* Connector */
+.connector { animation: connFade 1.2s ease-in-out infinite; }
+@keyframes connFade { 0%,100% { opacity: 0.15; } 50% { opacity: 0.4; } }
+
+/* Label */
+.label {
+  font-size: 13px !important;
+  color: var(--txt3, #9098A9) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em;
+  animation: labelFade 1.4s ease-in-out infinite;
+}
+@keyframes labelFade { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* Page overlay */
+.overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(255,255,255,0.95);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+}
+.loaderCard {
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+  padding: 52px 64px;
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06);
+}
+.loaderText  { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.loaderBrand { font-size: 16px; font-weight: 800; color: #0D0D0D; letter-spacing: -0.02em; }
+.loaderSub   { font-size: 13px; color: #9098A9; font-weight: 500; }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './ContactForm.module.css';
+import Spinner from './Spinner';
 
 interface FormState {
   name: string;
@@ -158,7 +159,7 @@ export default function ContactForm() {
       {serverError && <p className={styles.serverError}>{serverError}</p>}
 
       <button type="submit" className={styles.submit} disabled={disabled}>
-        {disabled ? <><span className="spinner" /> Sending…</> : 'Send message →'}
+        {disabled ? <><Spinner size="sm" label="" /> Sending…</> : 'Send message →'}
       </button>
     </form>
   );
