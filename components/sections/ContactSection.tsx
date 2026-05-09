@@ -9,37 +9,79 @@ const nextSteps = [
   'First deliverable in under 7 days',
 ];
 
+const avatars = [
+  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&h=60&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=60&h=60&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&q=80',
+];
+
+function Stars() {
+  return (
+    <div className={styles.stars}>
+      {[...Array(5)].map((_,i) => (
+        <svg key={i} width="16" height="16" viewBox="0 0 16 16" fill="#FBBF24">
+          <path d="M8 1.5l1.8 3.7 4.1.6-3 2.9.7 4.1L8 10.7l-3.6 1.9.7-4.1-3-2.9 4.1-.6z"/>
+        </svg>
+      ))}
+      <span className={styles.starsLabel}>4.9 out of 5</span>
+    </div>
+  );
+}
+
 export default function ContactSection() {
   return (
-    <section className="section" id="contact">
+    <section className="section section-alt" id="contact">
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <Reveal><div className="eyebrow">Contact</div></Reveal>
-          <Reveal delay={0.07}><h2>Let&apos;s see if we&apos;re <em>a fit.</em></h2></Reveal>
-          <Reveal delay={0.14}><p>30-minute call, no deck, no pitch — or fill in the form and we&apos;ll reply within 24 hours.</p></Reveal>
-        </div>
+
+        {/* Pre-form CTA moment (#8) */}
         <Reveal>
+          <div className={styles.ctaMoment}>
+            <div className={styles.ctaAvatars}>
+              {avatars.map((src, i) => (
+                <img key={i} src={src} alt="Client" className={styles.ctaAvatar} style={{ zIndex: avatars.length - i }} loading="lazy" />
+              ))}
+            </div>
+            <div className={styles.ctaMeta}>
+              <Stars />
+              <p className={styles.ctaQuote}>
+                <em>"Most clients get a reply within 3 hours."</em>
+              </p>
+              <span className={styles.ctaSub}>Trusted by 100+ companies across US, UK, Canada & AU</span>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.07}>
           <div className={styles.card}>
             <div className={styles.formSide}>
               <div className={styles.formHeader}>
-                <h2>Send us a message</h2>
-                <p>Tell us what&apos;s slowing you down. We&apos;ll reply within 24 hours.</p>
+                <div className="eyebrow">Contact</div>
+                <h2>Let&apos;s see if we&apos;re <em>a fit.</em></h2>
+                <p>30-minute call, no deck, no pitch — or fill in the form and we&apos;ll reply within 24 hours.</p>
               </div>
               <ContactForm />
             </div>
+
             <div className={styles.metaSide}>
               <div className={styles.metaImg}>
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=240&fit=crop&q=80" alt="Team meeting" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=240&fit=crop&q=80" alt="Team" loading="lazy" />
+                <div className={styles.metaImgOverlay} />
               </div>
-              <div className={styles.metaImgOverlay} />
               <div className={styles.metaContent}>
                 <div className={styles.contactInfo}>
                   <h3>Get in touch directly</h3>
                   <div className={styles.infoList}>
-                    <a href="mailto:bobby@etdatasolutions.com" className={styles.infoItem}><span className={styles.infoIcon}>✉</span>bobby@etdatasolutions.com</a>
-                    <a href="tel:+13023579776" className={styles.infoItem}><span className={styles.infoIcon}>📞</span>+1-302-357-9776 (US)</a>
-                    <a href="tel:+916265348189" className={styles.infoItem}><span className={styles.infoIcon}>📞</span>+91 62653 48189 (India)</a>
-                    <div className={styles.infoItem}><span className={styles.infoIcon}>📍</span>Indore, India · Serving globally</div>
+                    {[
+                      { icon: '✉', label: 'bobby@etdatasolutions.com', href: 'mailto:bobby@etdatasolutions.com' },
+                      { icon: '📞', label: '+1-302-357-9776 (US)', href: 'tel:+13023579776' },
+                      { icon: '📞', label: '+91 62653 48189 (India)', href: 'tel:+916265348189' },
+                      { icon: '📍', label: 'Indore, India · Serving globally', href: undefined },
+                    ].map((item) => (
+                      item.href
+                        ? <a key={item.label} href={item.href} className={styles.infoItem}><span className={styles.infoIcon}>{item.icon}</span>{item.label}</a>
+                        : <div key={item.label} className={styles.infoItem}><span className={styles.infoIcon}>{item.icon}</span>{item.label}</div>
+                    ))}
                   </div>
                 </div>
                 <div className={styles.whatNext}>

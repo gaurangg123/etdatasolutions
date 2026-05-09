@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './Hero.module.css';
 
@@ -11,117 +10,140 @@ const stats = [
   { num: '24/7', label: 'Always on',        sub: 'No gaps · any timezone',           accent: true },
 ];
 
-const trust = ['30-day guarantee', 'First delivery in 7 days', 'Rated 4.9/5 by clients'];
-
 const heroPhotos = [
-  { src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=260&h=180&fit=crop&q=80', alt: 'Team collaborating' },
-  { src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=260&h=160&fit=crop&q=80', alt: 'Data work' },
-  { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=260&h=160&fit=crop&q=80', alt: 'Analytics dashboard' },
+  { src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=260&h=180&fit=crop&q=80', alt: 'Team' },
+  { src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=260&h=160&fit=crop&q=80', alt: 'Work' },
+  { src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=260&h=160&fit=crop&q=80', alt: 'Data' },
 ];
 
 export default function Hero() {
   const reduced = useReducedMotion();
   const fadeUp = (delay: number) => ({
-    initial: reduced ? {} : { opacity: 0, y: 28 },
+    initial: reduced ? {} : { opacity: 0, y: 32 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: [0.22,1,0.36,1] as [number,number,number,number], delay },
+    transition: { duration: 0.85, ease: [0.22,1,0.36,1] as [number,number,number,number], delay },
   });
 
   return (
     <section className={styles.hero}>
-      {/* Background decoration */}
-      <div className={styles.bgRing1} aria-hidden />
-      <div className={styles.bgRing2} aria-hidden />
+      {/* Decorative rings */}
+      <div className={styles.ring1} aria-hidden />
+      <div className={styles.ring2} aria-hidden />
+      <div className={styles.ring3} aria-hidden />
 
       <div className="container">
         <div className={styles.grid}>
-          {/* ── Left ── */}
+
+          {/* ── Left text ── */}
           <div className={styles.text}>
             <motion.div className={styles.statusPill} {...fadeUp(0)}>
               <span className="pulse-dot" />
               Now accepting new clients &nbsp;·&nbsp; 7-day delivery
             </motion.div>
 
-            <motion.h1 {...fadeUp(0.07)}>
-              The work that <em>slows you down</em> doesn't have to.
-            </motion.h1>
+            {/* Two-tone headline (#1) */}
+            <motion.div {...fadeUp(0.08)}>
+              <h1 className={styles.headline}>
+                <span className={styles.headlineDark}>The work that</span>
+                <br />
+                <span className={styles.headlineGrad}><em>slows you down</em></span>
+                <br />
+                <span className={styles.headlineDark}>doesn't have to.</span>
+              </h1>
+            </motion.div>
 
-            <motion.p className={styles.sub} {...fadeUp(0.14)}>
+            <motion.p className={styles.sub} {...fadeUp(0.16)}>
               ET Data Solutions handles staffing, data entry, QA testing, and data engineering —
               quietly, accurately, and on schedule.
             </motion.p>
 
-            <motion.div className={styles.ctas} {...fadeUp(0.21)}>
+            <motion.div className={styles.ctas} {...fadeUp(0.24)}>
               <Link href="/contact" className="btn-primary">Book a free consultation</Link>
               <Link href="/services" className="btn-glass">See what we handle</Link>
             </motion.div>
 
-            <motion.div className={styles.trust} {...fadeUp(0.28)}>
-              {trust.map((t) => (
+            <motion.div className={styles.trust} {...fadeUp(0.32)}>
+              {['30-day guarantee', 'First delivery in 7 days', 'Rated 4.9/5 by clients'].map((t) => (
                 <div key={t} className={styles.trustItem}>
-                  <span className={styles.checkIcon}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="var(--or)" opacity="0.12"/><path d="M4 7l2 2 4-4" stroke="var(--or)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </span>
+                  <svg className={styles.checkSvg} width="16" height="16" viewBox="0 0 16 16">
+                    <circle cx="8" cy="8" r="8" fill="var(--or)" opacity="0.12"/>
+                    <path d="M5 8.5l2 2 4-4" stroke="var(--or)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  </svg>
                   {t}
                 </div>
               ))}
             </motion.div>
 
-            {/* Photo strip */}
-            <motion.div className={styles.photoStrip} {...fadeUp(0.35)}>
+            <motion.div className={styles.photoStrip} {...fadeUp(0.40)}>
               {heroPhotos.map((p) => (
                 <div key={p.src} className={styles.photoChip}>
                   <img src={p.src} alt={p.alt} loading="lazy" />
                 </div>
               ))}
-              <div className={styles.photoLabel}>
-                <span className={styles.photoAvatarStack}>
-                  {['SM','DR','EN'].map((i) => <span key={i} className={styles.photoAvatar}>{i}</span>)}
+              <div className={styles.photoMeta}>
+                <span className={styles.avatarStack}>
+                  {['SM','DR','EN'].map((i,idx) => (
+                    <span key={i} className={styles.avatar} style={{ zIndex: 3-idx }}>{i}</span>
+                  ))}
                 </span>
-                <span>100+ clients worldwide</span>
+                <span className={styles.photoLabel}>100+ clients worldwide</span>
               </div>
             </motion.div>
           </div>
 
-          {/* ── Right dashboard card ── */}
-          <motion.div className={styles.cardWrap} {...fadeUp(0.14)}
-            style={reduced ? {} : { animation: 'float 8s ease-in-out infinite' }}>
-            <div className={styles.card}>
-              <div className={styles.blobBlue} />
-              <div className={styles.blobOrange} />
-              <div className={styles.titleBar}>
-                <div className={styles.macDots}>
-                  <span className={styles.dotRed} /><span className={styles.dotYellow} /><span className={styles.dotGreen} />
-                </div>
-                <span className={styles.cardLabel}>operations · live</span>
-              </div>
-              <div className={styles.statGrid}>
-                {stats.map((s) => (
-                  <div key={s.num} className={styles.statCell}>
-                    <div className={`${styles.statNum} ${s.accent ? 'grad-text' : styles.statNumMuted}`}>{s.num}</div>
-                    <div className={styles.statLabel}>{s.label}</div>
-                    <div className={styles.statSub}>{s.sub}</div>
+          {/* ── Right card ── */}
+          <div className={styles.cardCol}>
+            {/* Orange glow behind card (#1) */}
+            <div className={styles.cardGlow} aria-hidden />
+
+            <motion.div
+              {...fadeUp(0.16)}
+              style={reduced ? {} : { animation: 'float 8s ease-in-out infinite' }}
+            >
+              <div className={styles.card}>
+                <div className={styles.blobBlue} />
+                <div className={styles.blobOrange} />
+
+                <div className={styles.titleBar}>
+                  <div className={styles.macDots}>
+                    <span className={styles.dotRed}/><span className={styles.dotYellow}/><span className={styles.dotGreen}/>
                   </div>
-                ))}
-              </div>
-              {/* Mini chart bar */}
-              <div className={styles.miniChart}>
-                <div className={styles.chartLabel}>Accuracy trend — last 6 months</div>
-                <div className={styles.bars}>
-                  {[82,88,91,94,97,99].map((v,i) => (
-                    <div key={i} className={styles.barWrap}>
-                      <div className={styles.bar} style={{ height: `${v}%` }} />
-                      <span className={styles.barVal}>{v}%</span>
+                  <span className={styles.cardLabel}>operations · live</span>
+                  <span className={styles.liveIndicator}><span className={styles.liveDot}/>Live</span>
+                </div>
+
+                <div className={styles.statGrid}>
+                  {stats.map((s) => (
+                    <div key={s.num} className={styles.statCell}>
+                      <div className={`${styles.statNum} ${s.accent ? 'grad-text' : styles.statMuted}`}>{s.num}</div>
+                      <div className={styles.statLabel}>{s.label}</div>
+                      <div className={styles.statSub}>{s.sub}</div>
                     </div>
                   ))}
                 </div>
+
+                <div className={styles.miniChart}>
+                  <div className={styles.chartTop}>
+                    <span className={styles.chartLabel}>Accuracy trend — last 6 months</span>
+                    <span className={styles.chartBadge}>↑ 17%</span>
+                  </div>
+                  <div className={styles.bars}>
+                    {[{v:82,m:'Jan'},{v:88,m:'Feb'},{v:91,m:'Mar'},{v:94,m:'Apr'},{v:97,m:'May'},{v:99,m:'Jun'}].map(({v,m},i)=>(
+                      <div key={m} className={styles.barWrap}>
+                        <div className={styles.bar} style={{ height: `${v}%`, animationDelay: `${i*0.1}s` }} />
+                        <span className={styles.barMon}>{m}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.cardFooter}>
+                  <span className={styles.footerHint}>Ready to scale?</span>
+                  <Link href="/contact" className={styles.footerLink}>Get a free audit →</Link>
+                </div>
               </div>
-              <div className={styles.cardFooter}>
-                <span className={styles.cardFooterHint}>Ready to scale?</span>
-                <Link href="/contact" className={styles.cardFooterLink}>Get a free audit →</Link>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

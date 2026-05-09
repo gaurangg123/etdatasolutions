@@ -1,86 +1,69 @@
 .about {}
-
-/* Split layout */
-.splitGrid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-  align-items: center; margin-bottom: 100px;
-}
+.splitGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 100px; }
 .splitText { display: flex; flex-direction: column; gap: 16px; }
-
 .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .badge {
-  font-size: 12px; font-weight: 600; color: var(--txt2);
-  background: var(--bg2); border: 1.5px solid var(--bdr);
-  border-radius: 999px; padding: 5px 12px;
+  font-size: 12px; font-weight: 700; color: var(--txt2);
+  background: #fff; border: 1.5px solid var(--bdr);
+  border-radius: 999px; padding: 5px 14px;
+  box-shadow: var(--shadow-xs); transition: all 0.2s;
 }
+.badge:hover { border-color: var(--or); color: var(--or); }
 .learnMore {
-  display: inline-flex; align-items: center;
-  font-size: 14px; font-weight: 700; color: var(--or);
-  margin-top: 8px; transition: gap 0.2s; gap: 4px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 700; color: var(--or); margin-top: 8px; transition: gap 0.25s;
 }
-.learnMore:hover { gap: 8px; }
+.learnMore:hover { gap: 10px; }
 
-/* Image stack */
 .splitImageWrap { position: relative; }
-.imageStack { position: relative; padding: 20px 20px 60px 0; }
-
+.imageStack { position: relative; padding: 24px 24px 64px 0; }
 .imgMain {
-  border-radius: 20px; overflow: hidden;
-  box-shadow: 0 24px 64px -12px rgba(180,60,0,0.16);
-  border: 3px solid #fff;
+  border-radius: 22px; overflow: hidden;
+  box-shadow: var(--shadow-xl); border: 3px solid #fff;
 }
 .imgMain img { width: 100%; height: 380px; object-fit: cover; display: block; }
-
 .imgAccent {
-  position: absolute; bottom: 0; right: -10px;
-  width: 200px; border-radius: 16px; overflow: hidden;
-  box-shadow: 0 16px 40px -8px rgba(180,60,0,0.20);
-  border: 3px solid #fff;
+  position: absolute; bottom: 0; right: -12px; width: 200px;
+  border-radius: 18px; overflow: hidden;
+  box-shadow: var(--shadow-lg); border: 3px solid #fff;
 }
-.imgAccent img { width: 100%; height: 130px; object-fit: cover; display: block; }
-
+.imgAccent img { width: 100%; height: 134px; object-fit: cover; display: block; }
 .imgBadge {
-  position: absolute; top: 32px; left: -24px;
-  background: var(--or-grad); border-radius: 16px; padding: 16px 20px;
-  box-shadow: 0 12px 32px rgba(232,74,12,0.32);
-  color: #fff; text-align: center;
+  position: absolute; top: 36px; left: -28px;
+  background: var(--or-grad); border-radius: 18px; padding: 18px 22px;
+  box-shadow: var(--shadow-or); color: #fff; text-align: center;
 }
 .badgeNum  { font-size: 28px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
-.badgeText { font-size: 11px; opacity: 0.85; line-height: 1.4; margin-top: 3px; }
+.badgeText { font-size: 11px; opacity: 0.85; line-height: 1.4; margin-top: 4px; }
 
-/* Process */
-.processHeader {
-  margin-bottom: 40px; display: flex; flex-direction: column; gap: 12px;
-}
+/* Process header */
+.processHeader { margin-bottom: 44px; display: flex; flex-direction: column; gap: 12px; }
+
+/* 4 cards — tiered depth (#3) */
 .grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-
 .card {
   padding: 32px 24px; background: #fff;
   border: 1.5px solid var(--bdr); border-radius: 20px;
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 2px 8px rgba(180,60,0,0.04);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s, box-shadow 0.35s;
   position: relative; overflow: hidden;
 }
-.card::after {
-  content: ''; position: absolute; top: 0; right: 0;
-  width: 60px; height: 60px;
-  background: var(--or-light); border-radius: 0 20px 0 60px;
-  opacity: 0; transition: opacity 0.3s;
+.card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--or-light) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.35s; border-radius: 20px;
 }
-.card:hover { transform: translateY(-4px); border-color: var(--or); box-shadow: 0 16px 40px rgba(180,60,0,0.12); }
-.card:hover::after { opacity: 1; }
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--bdr-or);
+  box-shadow: 0 20px 48px rgba(232,74,12,0.12), 0 4px 12px rgba(0,0,0,0.06);
+}
+.card:hover::before { opacity: 1; }
 
-.stepNum { font-size: 42px; font-weight: 800; line-height: 1; margin-bottom: 14px; letter-spacing: -0.04em; }
-.card h3 { font-size: 17px; margin-bottom: 10px; color: var(--txt); }
-.card p  { font-size: 14px; color: var(--txt2); line-height: 1.65; }
+.stepNum { font-size: 42px; font-weight: 800; line-height: 1; margin-bottom: 16px; letter-spacing: -0.04em; position: relative; }
+.card :global(h3) { font-size: 17px; margin-bottom: 10px; color: var(--txt); position: relative; }
+.card :global(p)  { font-size: 14px; color: var(--txt2); line-height: 1.65; position: relative; }
 
-@media (max-width: 980px) {
-  .splitGrid { grid-template-columns: 1fr; gap: 48px; }
-  .imageStack { padding: 0; max-width: 520px; }
-  .imgBadge { left: 16px; }
-}
-@media (max-width: 780px) {
-  .grid { grid-template-columns: 1fr 1fr; }
-  .splitGrid { margin-bottom: 60px; }
-}
+@media (max-width: 980px) { .splitGrid { grid-template-columns: 1fr; gap: 48px; } .imageStack { padding: 0; max-width: 520px; } .imgBadge { left: 16px; } }
+@media (max-width: 780px) { .grid { grid-template-columns: 1fr 1fr; } .splitGrid { margin-bottom: 60px; } }
 @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }

@@ -15,13 +15,13 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
-      <Hero />
-      <TrustStrip />
-      <ResultsBanner />
-      <About />
-      <Services />
-      <Testimonials />
-      <ContactSection />
+      <Hero />            {/* white   */}
+      <TrustStrip />      {/* white   */}
+      <ResultsBanner />   {/* orange  */}
+      <About />           {/* white   */}
+      <Services />        {/* bg2 (section-alt applied in component) */}
+      <Testimonials />    {/* white   */}
+      <ContactSection />  {/* bg2 (section-alt applied in component) */}
     </main>
   );
 }

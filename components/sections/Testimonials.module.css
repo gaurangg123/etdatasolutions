@@ -1,58 +1,48 @@
 .header { max-width: 640px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 14px; }
-
 .layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: start; }
 .featWrap { height: 100%; }
 
+/* Primary/featured card — strongest shadow (#3) */
 .featured {
-  background: #fff; border: 1.5px solid var(--bdr); border-radius: 28px;
-  overflow: hidden; box-shadow: 0 4px 20px rgba(180,60,0,0.07);
-  display: flex; flex-direction: column; height: 100%;
-  transition: box-shadow 0.3s;
+  background: #fff; border: 1.5px solid var(--bdr-or); border-radius: 28px;
+  overflow: hidden; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; height: 100%;
+  transition: box-shadow 0.35s, transform 0.35s;
 }
-.featured:hover { box-shadow: 0 16px 48px rgba(180,60,0,0.12); }
-
-.featBg { height: 4px; background: var(--or-grad); }
-
+.featured:hover { box-shadow: var(--shadow-xl); transform: translateY(-4px); }
+.featTop { height: 4px; background: var(--or-grad); }
 .stars { display: flex; gap: 3px; padding: 24px 28px 0; }
-
 .featQuote {
   font-size: 18px; font-style: italic; color: var(--txt2);
-  line-height: 1.68; padding: 16px 28px 24px;
-  flex: 1;
+  line-height: 1.7; padding: 16px 28px 24px; flex: 1;
 }
-
 .featAttr { display: flex; align-items: center; gap: 14px; padding: 0 28px 24px; }
 .featPhoto {
-  width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
-  border: 3px solid var(--or-light); flex-shrink: 0;
+  width: 54px; height: 54px; border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--or-light); flex-shrink: 0; box-shadow: var(--shadow-sm);
 }
 .attrName { font-size: 14px; font-weight: 700; color: var(--txt); }
 .attrRole { font-size: 13px; color: var(--txt3); }
-
-.featImage {
-  margin-top: auto; height: 160px; overflow: hidden;
-  border-top: 1px solid var(--bdr);
-}
+.featImage { height: 160px; overflow: hidden; border-top: 1px solid var(--bdr); }
 .featImage img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
-.featured:hover .featImage img { transform: scale(1.04); }
+.featured:hover .featImage img { transform: scale(1.05); }
 
-/* Mini cards */
+/* Mini cards — medium shadow (#3) */
 .miniStack { display: flex; flex-direction: column; gap: 16px; }
 .mini {
   background: #fff; border: 1.5px solid var(--bdr); border-radius: 20px;
-  padding: 24px; box-shadow: 0 2px 8px rgba(180,60,0,0.04);
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  padding: 24px; box-shadow: var(--shadow-sm);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s, box-shadow 0.35s;
 }
-.mini:hover { transform: translateY(-3px); border-color: var(--or); box-shadow: 0 12px 32px rgba(180,60,0,0.10); }
-
-.miniQuote {
-  font-size: 14px !important; font-style: italic;
-  color: var(--txt2) !important; line-height: 1.65; margin: 10px 0 16px;
+.mini:hover {
+  transform: translateY(-5px);
+  border-color: var(--bdr-or);
+  box-shadow: 0 16px 40px rgba(232,74,12,0.10), 0 4px 12px rgba(0,0,0,0.06);
 }
+.miniQuote { font-size: 14px !important; font-style: italic; color: var(--txt2) !important; line-height: 1.65; margin: 10px 0 16px; }
 .miniAttr { display: flex; align-items: center; gap: 10px; }
 .miniPhoto {
-  width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
-  border: 2px solid var(--or-light); flex-shrink: 0;
+  width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--or-light); flex-shrink: 0; box-shadow: var(--shadow-xs);
 }
 .miniName { font-size: 13px; font-weight: 700; color: var(--txt); }
 .miniRole { font-size: 12px; color: var(--txt3); }

@@ -1,11 +1,13 @@
-.strip { border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); padding: 22px 0; background: var(--bg2); }
-.inner { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-.label { font-size: 12px; color: var(--txt3); white-space: nowrap; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
-.divider { width: 1px; height: 20px; background: var(--bdr); flex-shrink: 0; }
-.regions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.strip { border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); padding: 24px 0; background: var(--bg); }
+.inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--txt3); white-space: nowrap; flex-shrink: 0; }
+.divider { width: 1px; height: 22px; background: var(--bdr); flex-shrink: 0; }
+.regions { display: flex; gap: 8px; flex-wrap: wrap; }
 .region {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 14px; font-weight: 600; color: var(--txt);
-  background: #fff; border: 1.5px solid var(--bdr); border-radius: 999px; padding: 5px 14px;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 700; color: var(--txt);
+  background: #fff; border: 1.5px solid var(--bdr);
+  border-radius: 999px; padding: 6px 14px;
+  box-shadow: var(--shadow-xs); transition: all 0.2s;
 }
-.sep { display: none; }
+.region:hover { border-color: var(--or); color: var(--or); transform: translateY(-1px); }
