@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, company, service, budget, message } = body;
+    const { name, email, company, service, message } = body;
 
     // Server-side validation
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
@@ -31,7 +31,6 @@ export async function POST(req: NextRequest) {
     //     `Email:   ${email}`,
     //     `Company: ${company || '—'}`,
     //     `Service: ${service || '—'}`,
-    //     `Budget:  ${budget || '—'}`,
     //     ``,
     //     `Message:`,
     //     message,
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest) {
     // ──────────────────────────────────────────────────────────
 
     // Simulated success while Resend is not yet wired up
-    console.log('Contact form submission:', { name, email, company, service, budget, message });
+    console.log('Contact form submission:', { name, email, company, service, message });
 
     return NextResponse.json({ ok: true });
   } catch (err) {

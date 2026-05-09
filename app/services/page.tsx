@@ -22,7 +22,7 @@ const services = [
     ],
     forWho: 'Startups and scale-ups that need high-quality operational support without the overhead of full-time hiring.',
     tech: 'LinkedIn Recruiter · ATS integrations · Slack · Notion · Google Workspace',
-    pricing: 'From $400/mo per VA · Custom packages for teams of 3+',
+    engagement: 'Monthly retainer with two-week scaling notice. Custom packages for teams of 3+.',
     tags: ['Executive support', 'Research', 'Inbox triage', 'Calendar management'],
   },
   {
@@ -42,7 +42,7 @@ const services = [
     ],
     forWho: 'Operations, finance, and logistics teams drowning in spreadsheets, PDFs, or messy CRM data.',
     tech: 'Excel · Google Sheets · Airtable · HubSpot · Salesforce · Zoho · Custom OCR pipelines',
-    pricing: 'From $300/mo · Per-record pricing available for large batches',
+    engagement: 'Monthly retainer or per-batch project scoping for one-off migrations.',
     tags: ['CRM cleanup', 'Form processing', 'Data migration', 'OCR/ICR'],
   },
   {
@@ -61,9 +61,9 @@ const services = [
       'Test case writing and maintenance',
       'Detailed bug reports with reproduction steps',
     ],
-    forWho: 'Product teams shipping fast who need systematic coverage that automation alone can\'t provide.',
+    forWho: "Product teams shipping fast who need systematic coverage that automation alone can't provide.",
     tech: 'Jira · Linear · TestRail · BrowserStack · Sauce Labs · Playwright (for reference runs)',
-    pricing: 'From $600/mo · Sprint-based and pre-release engagements available',
+    engagement: 'Sprint-based engagements, pre-release sweeps, or ongoing monthly retainer.',
     tags: ['Web & mobile', 'Regression', 'Bug triage', 'WCAG', 'UAT'],
   },
   {
@@ -84,7 +84,7 @@ const services = [
     ],
     forWho: 'Data teams that need reliable infrastructure built fast, without hiring full-time senior engineers.',
     tech: 'Snowflake · BigQuery · Databricks · dbt · Airflow · Prefect · Power BI · Tableau · Fivetran · Airbyte',
-    pricing: 'From $1,500/mo · Project-based scoping available',
+    engagement: 'Project-based scoping for builds; monthly retainer for ongoing maintenance.',
     tags: ['ETL pipelines', 'Warehouse', 'Dashboards', 'dbt', 'Snowflake'],
   },
 ];
@@ -97,15 +97,12 @@ export default function ServicesPage() {
           <Reveal><div className="eyebrow">Services</div></Reveal>
           <Reveal delay={0.07}><h1>Four practices, <em>one standard.</em></h1></Reveal>
           <Reveal delay={0.14}>
-            <p>
-              Each service is built on documented SOPs, multi-pass quality checks, and weekly
-              metrics you can audit. Start with one, or let us run all four end-to-end.
-            </p>
+            <p>Each service is built on documented SOPs, multi-pass quality checks, and weekly metrics you can audit. Start with one, or let us run all four end-to-end.</p>
           </Reveal>
         </div>
 
         <div className={styles.list}>
-          {services.map((s, i) => (
+          {services.map((s) => (
             <Reveal key={s.id} delay={0.07}>
               <section id={s.id} className={styles.serviceBlock}>
                 <div className={styles.serviceLeft}>
@@ -137,8 +134,8 @@ export default function ServicesPage() {
                       <p className={styles.infoText}>{s.tech}</p>
                     </div>
                     <div className={styles.infoSection}>
-                      <h4>Pricing signal</h4>
-                      <p className={`${styles.infoText} ${styles.pricing}`}>{s.pricing}</p>
+                      <h4>Engagement model</h4>
+                      <p className={`${styles.infoText} ${styles.engagement}`}>{s.engagement}</p>
                     </div>
                   </div>
                 </div>

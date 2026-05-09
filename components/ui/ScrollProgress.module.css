@@ -1,0 +1,9 @@
+.bar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--or-grad);
+  transform-origin: 0%;
+  z-index: 200;
+  box-shadow: 0 1px 8px rgba(232,74,12,0.35);
+  pointer-events: none;
+}

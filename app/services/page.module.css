@@ -22,5 +22,5 @@
 .deliverables :global(li) { display: flex; gap: 8px; font-size: 13px; color: var(--txt2); line-height: 1.5; }
 .bullet { color: var(--or); flex-shrink: 0; font-weight: 700; }
 .infoText { font-size: 13px !important; color: var(--txt2) !important; line-height: 1.6 !important; }
-.pricing { color: var(--or) !important; font-weight: 700 !important; }
+.engagement { color: var(--or) !important; font-weight: 700 !important; }
 @media (max-width: 780px) { .serviceBlock { grid-template-columns: 1fr; padding: 32px 24px; } }

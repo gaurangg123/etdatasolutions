@@ -3,7 +3,6 @@ import styles from './ComparisonTable.module.css';
 
 const rows = [
   { label: 'Time to start',       et: '7 days',     inhouse: '3–6 months',   offshore: '4–8 weeks' },
-  { label: 'Cost (vs in-house)',   et: '60–70% less', inhouse: 'Baseline',    offshore: '40–50% less' },
   { label: 'Quality control',      et: 'Multi-level QC', inhouse: 'Varies',   offshore: 'Inconsistent' },
   { label: 'Time zone coverage',   et: 'Any timezone', inhouse: 'Office hours', offshore: 'Offset delays' },
   { label: 'Dedicated contact',    et: '✓ Always',   inhouse: 'Internal only', offshore: 'Account manager' },

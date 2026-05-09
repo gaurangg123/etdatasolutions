@@ -10,7 +10,7 @@ const faqs = [
   { q: 'Can I start with just one service?', a: 'Absolutely. Most clients start with a single service — often Data Entry or a QA engagement — and expand once they\'ve seen the quality. There\'s no minimum commitment across multiple services.' },
   { q: 'What\'s the 30-day guarantee?', a: 'If your first 30 days of deliverables don\'t meet the accuracy and turnaround standards we agreed on at the start, you receive a full refund. No clauses, no negotiations. We\'ve never had to invoke it.' },
   { q: 'How do you measure and report quality?', a: 'Every deliverable goes through a two-pass review before reaching you. We provide weekly reports showing accuracy rates, turnaround times, error logs, and output volume — all in a format you can audit independently.' },
-  { q: 'What\'s your pricing model?', a: 'We price on a monthly retainer basis, sized to your volume. For one-off projects we offer flat-rate scoping. Pricing starts from $300/mo for Data Entry, $400/mo for VA work, and $600/mo for QA. Book a call for a custom quote.' },
+  { q: 'How does engagement work?', a: 'We work on a monthly retainer model sized to your volume, or per-project scoping for one-off work. Every engagement starts with a 30-minute scoping call, then a 7-day pilot deliverable before any longer commitment. Custom packages are available for teams running multiple services.' },
   { q: 'What happens if I want to scale up or down?', a: 'You can scale the team up or down with two weeks\' notice. We maintain a bench of vetted specialists across all four practices, so scaling up doesn\'t mean a new hiring cycle.' },
 ];
 
