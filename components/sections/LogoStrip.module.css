@@ -1,0 +1,31 @@
+.wrap { padding: 40px 0; border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); overflow: hidden; background: var(--bg); }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--txt3); font-weight: 700; margin-bottom: 24px; }
+
+.track { overflow: hidden; position: relative; }
+.track::before, .track::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+}
+.track::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
+.track::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+
+.rail {
+  display: flex; gap: 16px; width: max-content;
+  animation: scroll 28s linear infinite;
+}
+.rail:hover { animation-play-state: paused; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.logo {
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; border: 1.5px solid var(--bdr);
+  border-radius: 999px; padding: 10px 20px;
+  box-shadow: var(--shadow-xs); white-space: nowrap;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+.logo:hover { border-color: var(--bdr-or); box-shadow: var(--shadow-sm); }
+
+.logoName     { font-size: 14px; font-weight: 700; color: var(--txt); }
+.logoIndustry { font-size: 11px; font-weight: 600; color: var(--txt3); background: var(--bg2); border-radius: 999px; padding: 2px 8px; }
+
+@media (prefers-reduced-motion: reduce) { .rail { animation: none; } }

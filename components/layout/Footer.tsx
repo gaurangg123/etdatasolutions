@@ -17,6 +17,10 @@ export default function Footer() {
               <Image src="/logo.png" alt="ET Data Solutions" height={38} width={148} style={{ objectFit:'contain', objectPosition:'left' }} />
             </Link>
             <p className={styles.tagline}>India-based outsourcing. Globally delivered. Est. 2014.</p>
+            <div className={styles.privacyBadge}>
+              <span className={styles.privacyDot}/>
+              Privacy-first analytics · No cookies · GDPR safe
+            </div>
             <div className={styles.social}>
               <a href="mailto:bobby@etdatasolutions.com" className={styles.socialLink} aria-label="Email"><MailIcon /></a>
               <a href="tel:+13023579776" className={styles.socialLink} aria-label="Phone"><PhoneIcon /></a>

@@ -21,7 +21,6 @@
 
 /* Two-tone headline (#1) */
 .headline { display: block; }
-.headlineDark { color: var(--txt); display: block; }
 .headlineGrad {
   display: block; font-style: italic; font-weight: 800;
   background: var(--or-grad);
@@ -120,9 +119,9 @@
 .barWrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
 .bar {
   width: 100%; background: var(--or-grad); border-radius: 4px 4px 0 0;
-  animation: barGrow 0.8s ease-out both;
+  transition: height 0.7s cubic-bezier(0.22,1,0.36,1);
+  min-height: 4px;
 }
-@keyframes barGrow { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); } }
 .barMon { font-size: 9px; color: var(--txt3); font-weight: 600; }
 
 .cardFooter {

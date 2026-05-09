@@ -46,3 +46,9 @@ a.contactItem:hover svg { opacity: 1; }
 
 @media (max-width: 900px) { .main { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .main { grid-template-columns: 1fr; gap: 32px; } }
+
+.privacyBadge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--txt3); font-weight: 500; margin-top: 12px;
+}
+.privacyDot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
