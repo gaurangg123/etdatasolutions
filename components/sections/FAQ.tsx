@@ -24,7 +24,7 @@ function Item({ faq, idx }: { faq: typeof faqs[0]; idx: number }) {
           <path d="M6 9l6 6 6-6"/>
         </svg>
       </button>
-      <div className={styles.answerWrap} style={{ maxHeight: open ? '300px' : '0' }}>
+      <div className={styles.answerWrap} style={{ maxHeight: open ? '500px' : '0' }}>
         <p className={styles.answer}>{faq.a}</p>
       </div>
     </div>

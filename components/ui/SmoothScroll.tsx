@@ -23,6 +23,8 @@ export default function SmoothScroll() {
           touchMultiplier: 1.6,
           lerp: 0.1,
         });
+        // Forward scroll events so Framer Motion useScroll still works
+        lenis.on('scroll', () => { window.dispatchEvent(new Event('scroll', { bubbles: false })); });
         const raf = (time: number) => {
           lenis?.raf(time);
           rafId = requestAnimationFrame(raf);

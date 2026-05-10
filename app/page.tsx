@@ -6,7 +6,6 @@ import About from '@/components/sections/About';
 import HowDifferent from '@/components/sections/HowDifferent';
 import Services from '@/components/sections/Services';
 import CaseStudies from '@/components/sections/CaseStudies';
-import ComparisonTable from '@/components/sections/ComparisonTable';
 import Testimonials from '@/components/sections/Testimonials';
 import FAQ from '@/components/sections/FAQ';
 import ContactSection from '@/components/sections/ContactSection';
@@ -26,7 +25,6 @@ export default function HomePage() {
       <HowDifferent />    {/* bg2    */}
       <Services />        {/* bg2    */}
       <CaseStudies />     {/* white  */}
-      <ComparisonTable /> {/* white  */}
       <Testimonials />    {/* white  */}
       <FAQ />             {/* bg2    */}
       <ContactSection />  {/* bg2    */}

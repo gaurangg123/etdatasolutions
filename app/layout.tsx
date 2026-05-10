@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import SmoothScroll from '@/components/ui/SmoothScroll';
+import NavigationProgress from '@/components/ui/NavigationProgress';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <SmoothScroll />
+        <NavigationProgress />
         <ScrollProgress />
         <div className="atmosphere" aria-hidden>
           <div className="atmo-blob blue" />

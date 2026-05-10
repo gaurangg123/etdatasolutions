@@ -49,7 +49,7 @@ export default function AboutPage() {
         </div>
 
         {/* Results */}
-        <section className={styles.section}>
+        <section className={styles.sectionBlock}>
           <Reveal><div className="eyebrow">Results</div></Reveal>
           <Reveal delay={0.07}><h2>The numbers clients <em>remember.</em></h2></Reveal>
           <div className={styles.resultsGrid}>
@@ -65,7 +65,7 @@ export default function AboutPage() {
         </section>
 
         {/* Process */}
-        <section className={styles.section}>
+        <section className={styles.sectionBlock}>
           <Reveal><div className="eyebrow">Process</div></Reveal>
           <Reveal delay={0.07}><h2>How we work, <em>step by step.</em></h2></Reveal>
           <div className={styles.processGrid}>
@@ -82,7 +82,7 @@ export default function AboutPage() {
         </section>
 
         {/* Values */}
-        <section className={styles.section}>
+        <section className={styles.sectionBlock}>
           <Reveal><div className="eyebrow">Values</div></Reveal>
           <Reveal delay={0.07}><h2>What we stand for, <em>every day.</em></h2></Reveal>
           <div className={styles.valuesGrid}>

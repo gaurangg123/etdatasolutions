@@ -12,7 +12,7 @@
   display: flex; gap: 16px; width: max-content;
   animation: scroll 28s linear infinite;
 }
-.rail:hover { animation-play-state: paused; }
+@media (hover: hover) { .rail:hover { animation-play-state: paused; } }
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 .logo {

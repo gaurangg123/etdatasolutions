@@ -11,7 +11,7 @@
 .card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--or-grad); transform: scaleX(0); transform-origin: left;
-  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
 }
 .card:hover { transform: translateY(-6px); border-color: var(--bdr-or); box-shadow: var(--shadow-lg); }
 .card:hover::before { transform: scaleX(1); }

@@ -1,4 +1,5 @@
 'use client';
+import { useId } from 'react';
 import styles from './Spinner.module.css';
 
 interface SpinnerProps {
@@ -7,16 +8,17 @@ interface SpinnerProps {
 }
 
 export default function Spinner({ size = 'md', label = 'Loading…' }: SpinnerProps) {
+  const uid = useId().replace(/:/g, '');
   return (
     <div className={`${styles.wrap} ${styles[size]}`} role="status" aria-label={label}>
       <div className={styles.ring}>
         <svg className={styles.svg} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id={`sg1-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%"   stopColor="#E84A0C" />
               <stop offset="100%" stopColor="#FF6B35" />
             </linearGradient>
-            <linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id={`sg2-${uid}`} x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%"   stopColor="#FF6B35" stopOpacity="0" />
               <stop offset="100%" stopColor="#E84A0C" />
             </linearGradient>
@@ -26,7 +28,7 @@ export default function Spinner({ size = 'md', label = 'Loading…' }: SpinnerPr
           <circle cx="50" cy="50" r="42" stroke="#FFE4D6" strokeWidth="5" />
 
           {/* Spinning arc */}
-          <circle cx="50" cy="50" r="42" stroke="url(#sg1)"
+          <circle cx="50" cy="50" r="42" stroke={`url(#sg1-${uid})`}
             strokeWidth="5" strokeLinecap="round"
             className={styles.arc}
           />
@@ -35,7 +37,7 @@ export default function Spinner({ size = 'md', label = 'Loading…' }: SpinnerPr
           <circle cx="50" cy="50" r="29" stroke="#FFE4D6" strokeWidth="3" />
 
           {/* Inner spinning arc (opposite direction) */}
-          <circle cx="50" cy="50" r="29" stroke="url(#sg2)"
+          <circle cx="50" cy="50" r="29" stroke={`url(#sg2-${uid})`}
             strokeWidth="3" strokeLinecap="round"
             className={styles.arcInner}
           />

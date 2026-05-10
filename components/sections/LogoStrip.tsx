@@ -21,7 +21,7 @@ export default function LogoStrip() {
       <div className={styles.track}>
         <div className={styles.rail}>
           {doubled.map((l, i) => (
-            <div key={i} className={styles.logo}>
+            <div key={`logo-${i}`} className={styles.logo}>
               <span className={styles.logoName}>{l.name}</span>
               <span className={styles.logoIndustry}>{l.industry}</span>
             </div>

@@ -64,7 +64,8 @@ function ServiceCard({ svc, delay }: { svc: typeof services[0]; delay: number })
   };
   return (
     <Reveal delay={delay} scale>
-      <div ref={ref} id={svc.id} className={styles.card} onPointerMove={onPointerMove}>
+      <div ref={ref} id={svc.id} className={styles.card} onPointerMove={onPointerMove}
+          onPointerLeave={() => { const el = ref.current; if(el){el.style.removeProperty("--mx");el.style.removeProperty("--my");} }}>
         <div className={styles.cardImg}>
           <img src={svc.img} alt={svc.title} loading="lazy" />
           <div className={styles.imgOverlay} />
