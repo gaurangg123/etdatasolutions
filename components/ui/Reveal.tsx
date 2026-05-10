@@ -13,6 +13,7 @@ export default function Reveal({ children, delay = 0, className, scale = false }
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const prefersReduced = useReducedMotion();
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 780;
 
   useEffect(() => {
     const el = ref.current;
@@ -31,7 +32,7 @@ export default function Reveal({ children, delay = 0, className, scale = false }
       className={className}
       initial={prefersReduced ? false : { opacity: 0, y: 28, scale: scale ? 0.96 : 1 }}
       animate={inView || prefersReduced ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay }}
+      transition={{ duration: prefersReduced ? 0 : (typeof window !== 'undefined' && window.innerWidth < 780 ? 0.5 : 0.75), ease: [0.22, 1, 0.36, 1], delay: typeof window !== 'undefined' && window.innerWidth < 780 ? delay * 0.6 : delay }}
     >
       {children}
     </motion.div>

@@ -32,11 +32,11 @@ export default function Hero() {
 
   // Scroll-linked parallax
   const { scrollY } = useScroll();
-  const ring1Y = useTransform(scrollY, [0, 800], [0, -120]);
-  const ring2Y = useTransform(scrollY, [0, 800], [0, -80]);
-  const ring3Y = useTransform(scrollY, [0, 800], [0, -40]);
-  const cardY  = useTransform(scrollY, [0, 600], [0, 80]);
-  const cardScale = useTransform(scrollY, [0, 600], [1, 0.92]);
+  const ring1Y = useTransform(scrollY, [0, 800], [0, -80]);
+  const ring2Y = useTransform(scrollY, [0, 800], [0, -50]);
+  const ring3Y = useTransform(scrollY, [0, 800], [0, -25]);
+  const cardY  = useTransform(scrollY, [0, 600], [0, 50]);
+  const cardScale = useTransform(scrollY, [0, 600], [1, 0.95]);
   const textOpacity = useTransform(scrollY, [0, 400], [1, 0.6]);
   const textY  = useTransform(scrollY, [0, 600], [0, -30]);
 

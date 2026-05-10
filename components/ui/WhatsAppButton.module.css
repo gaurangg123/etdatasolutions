@@ -36,4 +36,5 @@
 .tooltipVisible { opacity: 1; transform: translateY(50%) translateX(0); }
 
 /* On mobile, push up above floating CTA bar */
-@media (max-width: 780px) { .btn { bottom: calc(88px + env(safe-area-inset-bottom)); right: 18px; } }
+@media (max-width: 780px) { .btn { bottom: calc(90px + env(safe-area-inset-bottom)); right: 16px; } }
+@media (max-width: 360px) { .btn { width: 48px; height: 48px; right: 12px; } }

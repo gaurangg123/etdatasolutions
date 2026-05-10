@@ -14,7 +14,7 @@
 
 .question {
   width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  padding: 22px 20px; background: none; border: none; cursor: pointer; text-align: left;
+  padding: 24px 24px; min-height: 72px; background: none; border: none; cursor: pointer; text-align: left;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700;
   color: var(--txt); transition: color 0.2s;
 }
@@ -27,8 +27,8 @@
   overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1);
 }
 .answer {
-  padding: 0 20px 22px; font-size: 14px !important;
-  color: var(--txt2) !important; line-height: 1.75 !important;
+  padding: 4px 24px 28px; font-size: 14px !important;
+  color: var(--txt2) !important; line-height: 1.8 !important;
 }
 
 @media (max-width: 780px) {

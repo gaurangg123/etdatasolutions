@@ -1,7 +1,7 @@
 .wrap { padding: 40px 0; border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); overflow: hidden; background: var(--bg); }
 .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--txt3); font-weight: 700; margin-bottom: 24px; }
 
-.track { overflow: hidden; position: relative; }
+.track { overflow: hidden; position: relative; contain: layout; }
 .track::before, .track::after {
   content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
 }
@@ -9,8 +9,9 @@
 .track::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
 
 .rail {
-  display: flex; gap: 16px; width: max-content;
+  display: flex; gap: 16px; padding-right: 16px; width: max-content;
   animation: scroll 28s linear infinite;
+  will-change: transform;
 }
 @media (hover: hover) { .rail:hover { animation-play-state: paused; } }
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }

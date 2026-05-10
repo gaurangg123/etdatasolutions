@@ -1,4 +1,5 @@
 'use client';
+import { memo } from 'react';
 import Counter from '@/components/ui/Counter';
 import styles from './ResultsBanner.module.css';
 
@@ -10,7 +11,7 @@ const metrics = [
   { to: 4.9, suffix: '/5', label: 'Client satisfaction', decimals: 1, bg: '4.9' },
 ];
 
-export default function ResultsBanner() {
+const ResultsBanner = memo(function ResultsBanner() {
   return (
     <div className={styles.wrap}>
       <div className={styles.inner}>

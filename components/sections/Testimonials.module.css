@@ -18,7 +18,7 @@
 .featAttr { display: flex; align-items: center; gap: 14px; padding: 0 28px 24px; }
 .featPhoto {
   width: 54px; height: 54px; border-radius: 50%; object-fit: cover;
-  border: 3px solid var(--or-light); flex-shrink: 0; box-shadow: var(--shadow-sm);
+  border: 3px solid var(--or-light); flex-shrink: 0; box-shadow: var(--card-shadow);
 }
 .attrName { font-size: 14px; font-weight: 700; color: var(--txt); }
 .attrRole { font-size: 13px; color: var(--txt3); }
@@ -30,7 +30,7 @@
 .miniStack { display: flex; flex-direction: column; gap: 16px; }
 .mini {
   background: #fff; border: 1.5px solid var(--bdr); border-radius: 20px;
-  padding: 24px; box-shadow: var(--shadow-sm);
+  padding: 24px; box-shadow: var(--card-shadow);
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s, box-shadow 0.35s;
 }
 .mini:hover {

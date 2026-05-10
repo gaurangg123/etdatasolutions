@@ -36,6 +36,16 @@
   --blob-op:   0.07;
 
   --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px;
+
+  /* ── Consistent tag tokens ── */
+  --tag-bg:   rgba(232,74,12,0.08);
+  --tag-bdr:  rgba(232,74,12,0.20);
+  --tag-txt:  #D94000;
+
+  /* ── Card shadows — tiered ── */
+  --card-shadow:       0 2px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 20px 56px rgba(0,0,0,0.11), 0 4px 16px rgba(0,0,0,0.06);
+  --card-shadow-feat:  0 8px 32px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.05);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -56,7 +66,7 @@ h1,h2,h3,h4,h5,h6 {
   color: var(--txt);
   line-height: 1.1;
 }
-h1 { font-size: clamp(42px, 6vw, 76px); letter-spacing: -0.035em; line-height: 1.05; }
+h1 { font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.03em; line-height: 1.07; }
 h2 { font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.028em; }
 h3 { font-size: clamp(18px, 2vw, 22px); letter-spacing: -0.015em; }
 
@@ -142,6 +152,18 @@ a  { text-decoration: none; color: inherit; }
   border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block;
 }
 
+
+
+/* Body text max-width on large screens */
+p { max-width: 72ch; }
+
+/* Faster reveal animations on mobile */
+@media (max-width: 780px) {
+  .section { padding: 72px 0; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 780px) {
+  [data-framer-motion] { transition-duration: 0.5s !important; }
+}
 
 /* ── Cross-device polish ── */
 html.lenis, html.lenis body { height: auto; }

@@ -13,7 +13,7 @@
 .tagline { font-style: italic; font-size: 15px !important; color: var(--or) !important; font-weight: 600; }
 .serviceLeft :global(p) { font-size: 15px; color: var(--txt2); line-height: 1.65; }
 .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-.tag { font-size: 12px; color: var(--or); background: var(--or-light); border: 1px solid rgba(232,74,12,0.18); border-radius: 999px; padding: 4px 12px; font-weight: 500; }
+.tag { font-size: 12px; color: var(--tag-txt); background: var(--tag-bg); border: 1px solid var(--tag-bdr); border-radius: 999px; padding: 4px 12px; font-weight: 500; }
 .infoCard { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: 16px; overflow: hidden; }
 .infoSection { padding: 20px 22px; border-bottom: 1px solid var(--bdr); }
 .infoSection:last-child { border-bottom: none; }

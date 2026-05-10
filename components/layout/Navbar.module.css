@@ -22,7 +22,7 @@
   font-family: var(--font-jakarta), sans-serif;
 }
 .link:hover { color: var(--txt); background: var(--bg2); }
-.active { color: var(--or) !important; background: var(--or-light) !important; }
+.active { color: var(--or) !important; background: var(--or-light) !important; box-shadow: 0 0 0 1.5px var(--bdr-or); }
 .active::after {
   content: ''; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
   width: 4px; height: 4px; border-radius: 50%; background: var(--or);
@@ -63,8 +63,9 @@
 .mobileMenu {
   display: none;
   position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 90;
-  background: rgba(255,255,255,0.97);
-  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.94);
+  -webkit-backdrop-filter: blur(32px) saturate(180%); backdrop-filter: blur(32px) saturate(180%);
+  border-bottom: 1px solid var(--bdr);
   padding: 100px 28px 40px;
   flex-direction: column; justify-content: space-between;
 }
