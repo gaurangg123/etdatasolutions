@@ -31,10 +31,17 @@ const points = [
       </svg>
     ),
     title: '30-day money-back guarantee',
-    body: 'If your first month of deliverables doesn\'t meet the agreed standard, you get a full refund. No questions, no negotiation.',
+    body: "If your first month of deliverables doesn't meet the agreed standard, you get a full refund. No questions, no negotiation.",
     stat: 'Zero-risk start',
   },
 ];
+
+const ArrowIcon = () => (
+  <svg className={styles.arrow} width="20" height="20" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <path d="M5 12h14M12 5l7 7-7 7"/>
+  </svg>
+);
 
 export default function HowDifferent() {
   return (
@@ -50,11 +57,12 @@ export default function HowDifferent() {
             <Reveal key={p.title} delay={i * 0.1} scale>
               <div className={styles.card}>
                 <div className={styles.iconWrap}>{p.icon}</div>
-                <div className={styles.statBadge}>{p.stat}</div>
-                <h3 className={styles.title}>{p.title}</h3>
-                <p className={styles.body}>{p.body}</p>
-              </div>
-              <svg className={styles.arrow} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div className={styles.content}>
+                  <div className={styles.statBadge}>{p.stat}</div>
+                  <h3 className={styles.title}>{p.title}</h3>
+                  <p className={styles.body}>{p.body}</p>
+                </div>
+                <ArrowIcon />
               </div>
             </Reveal>
           ))}
