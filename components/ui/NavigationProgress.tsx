@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Spinner from './Spinner';
 import styles from './NavigationProgress.module.css';
@@ -10,50 +10,65 @@ export default function NavigationProgress() {
   const [progress, setProgress] = useState(0);
   const [showOverlay, setShowOverlay] = useState(false);
   const lastPathRef = useRef(pathname);
-  const overlayTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const completeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const overlayTimer = useRef<NodeJS.Timeout | null>(null);
+  const safetyTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const reset = () => {
+    if (overlayTimer.current) clearTimeout(overlayTimer.current);
+    if (safetyTimer.current) clearTimeout(safetyTimer.current);
+    setShowOverlay(false);
+    setLoading(false);
+    setProgress(0);
+  };
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      const link = target?.closest('a');
+      const link = (e.target as HTMLElement)?.closest('a');
       if (!link) return;
       const href = link.getAttribute('href');
       if (!href) return;
-      // Skip externals, anchors, mailto/tel
-      if (href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-      if (link.target === '_blank') return;
-      if ((e as any).metaKey || (e as any).ctrlKey || (e as any).shiftKey) return;
+      // Skip externals, anchors, mailto/tel, _blank, modifier keys
+      if (href.startsWith('#') || href.startsWith('http') ||
+          href.startsWith('mailto:') || href.startsWith('tel:') ||
+          link.target === '_blank' ||
+          (e as MouseEvent).metaKey || (e as MouseEvent).ctrlKey) return;
 
-      // Navigating — start progress
+      // ✅ KEY FIX: skip if already on that page
+      const currentPath = window.location.pathname;
+      const targetPath = href.split('?')[0].split('#')[0] || '/';
+      if (targetPath === currentPath) return;
+
       setLoading(true);
       setProgress(15);
-      requestAnimationFrame(() => requestAnimationFrame(() => setProgress(45)));
-      // Show overlay if nav takes >220ms (slow connections)
-      if (overlayTimerRef.current) clearTimeout(overlayTimerRef.current);
-      overlayTimerRef.current = setTimeout(() => setShowOverlay(true), 220);
+      requestAnimationFrame(() => requestAnimationFrame(() => setProgress(50)));
+
+      // Show spinner overlay only for slow navigations (>250ms)
+      overlayTimer.current = setTimeout(() => setShowOverlay(true), 250);
+
+      // Safety: auto-dismiss after 4s no matter what
+      safetyTimer.current = setTimeout(reset, 4000);
     };
+
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
+  // Complete on pathname change
   useEffect(() => {
     if (lastPathRef.current === pathname) return;
     lastPathRef.current = pathname;
-    // Route changed — complete
-    if (overlayTimerRef.current) clearTimeout(overlayTimerRef.current);
+    if (overlayTimer.current) clearTimeout(overlayTimer.current);
+    if (safetyTimer.current) clearTimeout(safetyTimer.current);
     setShowOverlay(false);
     setProgress(100);
-    if (completeTimerRef.current) clearTimeout(completeTimerRef.current);
-    completeTimerRef.current = setTimeout(() => {
-      setLoading(false);
-      setProgress(0);
-    }, 350);
+    const t = setTimeout(reset, 350);
+    return () => clearTimeout(t);
   }, [pathname]);
 
   return (
     <>
-      <div className={`${styles.bar} ${loading ? styles.visible : ''}`} style={{ width: `${progress}%` }} aria-hidden />
+      <div className={`${styles.bar} ${loading ? styles.visible : ''}`}
+        style={{ width: `${progress}%` }} aria-hidden />
       {showOverlay && (
         <div className={styles.overlay}>
           <div className={styles.spinnerWrap}>
