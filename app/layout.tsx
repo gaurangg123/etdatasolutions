@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -7,6 +8,16 @@ import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import ScrollProgress from '@/components/ui/ScrollProgress';
+import SplashScreen from '@/components/ui/SplashScreen';
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['300','400','500','600','700','800'],
+  style: ['normal','italic'],
+  display: 'swap',
+  variable: '--font-jakarta',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: { template: '%s — ET Data Solutions', default: 'ET Data Solutions — Staffing, Data, QA & Data Engineering' },
@@ -24,8 +35,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={jakarta.variable}>
       <body>
+        <SplashScreen />
         <SmoothScroll />
         <NavigationProgress />
         <ScrollProgress />
