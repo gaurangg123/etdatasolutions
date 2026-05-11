@@ -23,3 +23,6 @@
   .processGrid { grid-template-columns: 1fr; }
   .valuesGrid  { grid-template-columns: 1fr 1fr; }
 }
+
+/* Scroll snap support */
+.main { scroll-snap-align: start; }

@@ -1,4 +1,9 @@
-.hero { padding: 160px 0 100px; position: relative; overflow: hidden; background: #fff; }
+.hero {
+  padding: 0 0 0; position: relative; overflow: hidden; background: #fff;
+  min-height: 100dvh; display: flex; align-items: center;
+  scroll-snap-align: start;
+  padding-top: 80px; padding-bottom: 60px;
+}
 
 /* Decorative rings (#1) */
 .ring1,.ring2,.ring3 {
@@ -137,8 +142,8 @@
   .cardCol { max-width: 500px; margin: 0 auto; width: 100%; }
 }
 @media (max-width: 780px) {
-  .hero { padding: 100px 0 64px; }
-  .scrollHint { margin-top: 40px; }
+  .hero { padding-top: 90px; padding-bottom: 48px; }
+  .scrollHint { margin-top: 32px; }
 }
 @media (max-width: 780px) { .hero { padding: 120px 0 80px; } }
 

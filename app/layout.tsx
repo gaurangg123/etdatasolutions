@@ -5,8 +5,6 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
-import SmoothScroll from '@/components/ui/SmoothScroll';
-import NavigationProgress from '@/components/ui/NavigationProgress';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 import SplashScreen from '@/components/ui/SplashScreen';
 import BackToTop from '@/components/ui/BackToTop';
@@ -39,8 +37,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={jakarta.variable}>
       <body>
         <SplashScreen />
-        <SmoothScroll />
-        <NavigationProgress />
         <ScrollProgress />
         <div className="atmosphere" aria-hidden>
           <div className="atmo-blob blue" />
