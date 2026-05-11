@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Reveal from '@/components/ui/Reveal';
 import styles from './CaseStudies.module.css';
 
@@ -48,7 +49,7 @@ export default function CaseStudies() {
             <Reveal key={c.metric} delay={i * 0.1} scale>
               <div className={`${styles.card} ${styles[`color-${c.color}`]}`}>
                 <div className={styles.cardImg}>
-                  <img src={c.img} alt={c.industry} loading="lazy" />
+                  <Image src={c.img} alt={c.industry} width={400} height={220} style={{objectFit:"cover",width:"100%",height:"100%"}} />
                   <div className={styles.imgOverlay} />
                   <div className={styles.badge}>
                     <span className={styles.badgeService}>{c.service}</span>

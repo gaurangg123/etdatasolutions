@@ -22,9 +22,9 @@ export default function Footer() {
               Privacy-first analytics · No cookies · GDPR safe
             </div>
             <div className={styles.social}>
-              <a href="mailto:bobby@etdatasolutions.com" className={styles.socialLink} aria-label="Email"><MailIcon /></a>
+              <a href={`mailto:${"bobby"}@${"etdatasolutions.com"}`} className={styles.socialLink} aria-label="Email"><MailIcon /></a>
               <a href="tel:+13023579776" className={styles.socialLink} aria-label="Phone"><PhoneIcon /></a>
-              <a href="https://linkedin.com" className={styles.socialLink} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><LiIcon /></a>
+              <a href="https://www.linkedin.com/company/et-data-solutions" className={styles.socialLink} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><LiIcon /></a>
             </div>
           </div>
 
@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <h4 className={styles.colTitle}>Contact</h4>
             <div className={styles.contactList}>
-              <a href="mailto:bobby@etdatasolutions.com" className={styles.contactItem}><MailIcon />bobby@etdatasolutions.com</a>
+              <a href={`mailto:${"bobby"}@${"etdatasolutions.com"}`} className={styles.contactItem}><MailIcon />bobby@etdatasolutions.com</a>
               <a href="tel:+13023579776" className={styles.contactItem}><PhoneIcon />+1-302-357-9776 (US)</a>
               <a href="tel:+916265348189" className={styles.contactItem}><PhoneIcon />+91 62653 48189 (IN)</a>
               <span className={styles.contactItem}><PinIcon />Indore, India</span>

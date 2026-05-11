@@ -35,7 +35,7 @@ export default function ContactPage() {
               <div className={styles.contactInfo}>
                 <h3>Direct contact</h3>
                 <div className={styles.infoList}>
-                  <a href="mailto:bobby@etdatasolutions.com" className={styles.infoItem}>
+                  <a href={`mailto:${"bobby"}@${"etdatasolutions.com"}`} className={styles.infoItem}>
                     <span className={styles.icon}>✉</span>
                     bobby@etdatasolutions.com
                   </a>

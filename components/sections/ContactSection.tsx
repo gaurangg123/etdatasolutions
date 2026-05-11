@@ -1,4 +1,5 @@
 import Reveal from '@/components/ui/Reveal';
+import Image from 'next/image';
 import ContactForm from '@/components/ui/ContactForm';
 import styles from './ContactSection.module.css';
 
@@ -39,7 +40,7 @@ export default function ContactSection() {
           <div className={styles.ctaMoment}>
             <div className={styles.ctaAvatars}>
               {avatars.map((src, i) => (
-                <img key={i} src={src} alt="Client" className={styles.ctaAvatar} style={{ zIndex: avatars.length - i }} loading="lazy" />
+                <Image key={i} src={src} alt="Client" className={styles.ctaAvatar} width={44} height={44} style={{ zIndex: avatars.length - i, objectFit:"cover" }} />
               ))}
             </div>
             <div className={styles.ctaMeta}>
@@ -65,7 +66,7 @@ export default function ContactSection() {
 
             <div className={styles.metaSide}>
               <div className={styles.metaImg}>
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=240&fit=crop&q=80" alt="Team" loading="lazy" />
+                <Image src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=240&fit=crop&q=80" alt="Team" width={600} height={240} style={{objectFit:"cover",width:"100%",height:"100%"}} priority />
                 <div className={styles.metaImgOverlay} />
               </div>
               <div className={styles.metaContent}>

@@ -106,7 +106,7 @@ export default function SplashScreen() {
   useEffect(() => {
     // Only show once per session
     if (typeof window === 'undefined') return;
-    if (sessionStorage.getItem('et_splash_done')) return;
+    try { if (sessionStorage.getItem('et_splash_done')) return; } catch { return; }
     setVisible(true);
 
     const DURATION = 2600; // total ms
@@ -133,7 +133,7 @@ export default function SplashScreen() {
           setExiting(true);
           setTimeout(() => {
             setVisible(false);
-            sessionStorage.setItem('et_splash_done', '1');
+            try { sessionStorage.setItem('et_splash_done', '1'); } catch {}
           }, 600);
         }, 200);
       }

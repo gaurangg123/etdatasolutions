@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
@@ -90,7 +91,7 @@ export default function Hero() {
             </motion.div>
             <motion.div className={styles.photoStrip} {...fadeUp(0.40)}>
               {heroPhotos.map((p) => (
-                <div key={p.src} className={styles.photoChip}><img src={p.src} alt={p.alt} loading="lazy" /></div>
+                <div key={p.src} className={styles.photoChip}><Image src={p.src} alt={p.alt} width={68} height={50} style={{objectFit:"cover",width:"100%",height:"100%"}} /></div>
               ))}
               <div className={styles.photoMeta}>
                 <span className={styles.avatarStack}>

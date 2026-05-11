@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useRef } from 'react';
 import Link from 'next/link';
 import Reveal from '@/components/ui/Reveal';
@@ -67,7 +68,7 @@ function ServiceCard({ svc, delay }: { svc: typeof services[0]; delay: number })
       <div ref={ref} id={svc.id} className={styles.card} onPointerMove={onPointerMove}
           onPointerLeave={() => { const el = ref.current; if(el){el.style.removeProperty("--mx");el.style.removeProperty("--my");} }}>
         <div className={styles.cardImg}>
-          <img src={svc.img} alt={svc.title} loading="lazy" />
+          <Image src={svc.img} alt={svc.title} width={500} height={281} style={{objectFit:"cover",width:"100%",height:"100%"}} />
           <div className={styles.imgOverlay} />
           <div className={styles.iconBadge}>{svc.icon}</div>
         </div>

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import Image from 'next/image';
 import Reveal from '@/components/ui/Reveal';
 import styles from './Testimonials.module.css';
 
@@ -29,11 +31,11 @@ export default function Testimonials() {
               <Stars />
               <blockquote className={styles.featQuote}>&ldquo;{featuredQ}&rdquo;</blockquote>
               <div className={styles.featAttr}>
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&q=80" alt="Sarah Marshall" className={styles.featPhoto} />
+                <Image src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&q=80" alt="Sarah Marshall" className={styles.featPhoto} width={54} height={54} />
                 <div><div className={styles.attrName}>Sarah Marshall</div><div className={styles.attrRole}>VP Operations · Logistics SaaS, UK</div></div>
               </div>
               <div className={styles.featImage}>
-                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=500&h=200&fit=crop&q=80" alt="Team" loading="lazy" />
+                <Image src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=500&h=200&fit=crop&q=80" alt="Team" width={500} height={200} style={{objectFit:"cover",width:"100%",height:"100%"}} />
               </div>
             </div>
           </Reveal>
@@ -44,7 +46,7 @@ export default function Testimonials() {
                   <Stars />
                   <p className={styles.miniQuote}>&ldquo;{m.quote}&rdquo;</p>
                   <div className={styles.miniAttr}>
-                    <img src={m.photo} alt={m.name} className={styles.miniPhoto} />
+                    <Image src={m.photo} alt={m.name} className={styles.miniPhoto} width={38} height={38} />
                     <div><div className={styles.miniName}>{m.name}</div><div className={styles.miniRole}>{m.role}</div></div>
                   </div>
                 </div>

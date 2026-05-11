@@ -12,27 +12,30 @@ interface RevealProps {
 export default function Reveal({ children, delay = 0, className, scale = false }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const prefersReduced = useReducedMotion();
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 780;
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    setIsMobile(window.innerWidth < 780);
+    const el = ref.current; if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setInView(true); obs.unobserve(el); } },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
+  const duration = prefersReduced ? 0 : isMobile ? 0.45 : 0.75;
+  const actualDelay = isMobile ? delay * 0.5 : delay;
+
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={prefersReduced ? false : { opacity: 0, y: 28, scale: scale ? 0.96 : 1 }}
+      initial={prefersReduced ? false : { opacity: 0, y: isMobile ? 16 : 28, scale: scale ? 0.97 : 1 }}
       animate={inView || prefersReduced ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: prefersReduced ? 0 : (typeof window !== 'undefined' && window.innerWidth < 780 ? 0.5 : 0.75), ease: [0.22, 1, 0.36, 1], delay: typeof window !== 'undefined' && window.innerWidth < 780 ? delay * 0.6 : delay }}
+      transition={{ duration, ease: [0.22, 1, 0.36, 1], delay: actualDelay }}
     >
       {children}
     </motion.div>
