@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Image from 'next/image';
 import Reveal from '@/components/ui/Reveal';
 import styles from './Testimonials.module.css';
 
