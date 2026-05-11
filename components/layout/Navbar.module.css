@@ -1,6 +1,6 @@
 .wrapper {
   position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
-  z-index: 100; width: min(980px, calc(100vw - 32px));
+  z-index: 1000; width: min(980px, calc(100vw - 32px));
 }
 
 .pill {

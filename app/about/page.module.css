@@ -1,4 +1,4 @@
-.main { padding: 140px 0 120px; }
+.main { padding-top: 110px; scroll-snap-align: start; padding: 110px 0 100px; }
 .header { max-width: 760px; margin-bottom: 100px; display: flex; flex-direction: column; gap: 20px; }
 .sectionBlock { margin-bottom: 100px; display: flex; flex-direction: column; gap: 16px; }
 .sectionBlock :global(h2) { margin-bottom: 8px; }
@@ -25,4 +25,4 @@
 }
 
 /* Scroll snap support */
-.main { scroll-snap-align: start; }
+.main { padding-top: 110px; scroll-snap-align: start; scroll-snap-align: start; }

@@ -19,7 +19,7 @@ export default function ContactPage() {
 
         <div className={styles.header}>
           <Reveal><div className="eyebrow">Contact</div></Reveal>
-          <Reveal delay={0.07}><h1>Let&apos;s see if we&apos;re <em>a fit.</em></h1></Reveal>
+          <Reveal delay={0.07}><h1>Let&apos;s see if we&apos;re <em style={{whiteSpace:"nowrap"}}>a fit.</em></h1></Reveal>
           <Reveal delay={0.14}>
             <p>30-minute call, no deck, no pitch — or fill in the form and we&apos;ll reply within 24 hours.</p>
           </Reveal>

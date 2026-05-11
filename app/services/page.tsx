@@ -58,9 +58,14 @@ export default function ServicesPage() {
             {/* Quick-jump links */}
             <Reveal delay={0.21}>
               <div className={styles.jumpLinks}>
-                {services.map(s => (
-                  <a key={s.id} href={`#${s.id}`} className={styles.jumpLink}>{s.title.split(' ')[0]} {s.title.split(' ')[1]}</a>
-                ))}
+                {[
+                    { id:'staffing', label:'Staffing & VA' },
+                    { id:'data',     label:'Data Entry' },
+                    { id:'qa',       label:'Manual QA' },
+                    { id:'engineering', label:'Data Engineering' },
+                  ].map(s => (
+                    <a key={s.id} href={`#${s.id}`} className={styles.jumpLink}>{s.label}</a>
+                  ))}
               </div>
             </Reveal>
           </div>

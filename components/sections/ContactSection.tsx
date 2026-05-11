@@ -58,7 +58,7 @@ export default function ContactSection() {
             <div className={styles.formSide}>
               <div className={styles.formHeader}>
                 <div className="eyebrow">Contact</div>
-                <h2>Let&apos;s see if we&apos;re <em>a fit.</em></h2>
+                <h2>Let&apos;s see if we&apos;re <em style={{whiteSpace:"nowrap"}}>a&nbsp;fit.</em></h2>
                 <p>30-minute call, no deck, no pitch — or fill in the form and we&apos;ll reply within 24 hours.</p>
               </div>
               <ContactForm />

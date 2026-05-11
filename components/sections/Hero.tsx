@@ -17,18 +17,12 @@ const heroPhotos = [
 
 export default function Hero() {
   const reduced = useReducedMotion();
-  const heroRef = useRef<HTMLElement>(null);
   const [barsLoaded, setBarsLoaded] = useState(false);
 
-  // Trigger bars when hero enters view
+  // Trigger bars on mount with a slight delay for the transition to be visible
   useEffect(() => {
-    const el = heroRef.current; if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setTimeout(() => setBarsLoaded(true), 300); obs.disconnect(); } },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const t = setTimeout(() => setBarsLoaded(true), 700);
+    return () => clearTimeout(t);
   }, []);
 
   // Scroll-linked parallax
@@ -54,7 +48,7 @@ export default function Hero() {
   });
 
   return (
-    <section className={styles.hero} ref={heroRef}>
+    <section className={styles.hero}>
       {/* Parallax decorative rings */}
       <motion.div className={styles.ring1} style={reduced ? {} : { y: ring1YSpring }} aria-hidden />
       <motion.div className={styles.ring2} style={reduced ? {} : { y: ring2YSpring }} aria-hidden />

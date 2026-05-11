@@ -51,8 +51,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
-  /* Full-page scroll-snap — one section per screen */
   scroll-snap-type: y proximity;
+  /* Push snapped sections below the fixed navbar (height ~72px + 18px gap + buffer) */
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -70,7 +71,7 @@ h1,h2,h3,h4,h5,h6 {
   color: var(--txt);
   line-height: 1.1;
 }
-h1 { font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.03em; line-height: 1.07; }
+h1 { font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.03em; line-height: 1.07; min-height: 1em; }
 h2 { font-size: clamp(30px, 4.2vw, 52px); letter-spacing: -0.028em; }
 h3 { font-size: clamp(18px, 2vw, 22px); letter-spacing: -0.015em; }
 
@@ -104,6 +105,12 @@ a  { text-decoration: none; color: inherit; }
   justify-content: center;
   scroll-snap-align: start;
   scroll-snap-stop: normal;
+  isolation: isolate;           /* prevent stacking context bleed */
+  background: var(--bg);        /* solid bg so sections don't show through */
+  position: relative;
+}
+.section-alt {
+  background: var(--bg2);
 }
 /* Alternating section backgrounds (#5) */
 .section-alt { background: var(--bg2); }
@@ -123,7 +130,10 @@ a  { text-decoration: none; color: inherit; }
   -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
 }
-.page-wrap { position: relative; z-index: 1; }
+.page-wrap { position: relative; z-index: 1; background: var(--bg); }
+.page-wrap > main > *:first-child:not(.hero-section) {
+  padding-top: max(100px, calc(env(safe-area-inset-top) + 100px));
+}
 
 /* Buttons */
 .btn-primary {

@@ -1,3 +1,4 @@
+.testimonials { background: var(--bg); }
 .header { max-width: 640px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 14px; }
 .layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: start; }
 .featWrap { height: 100%; }

@@ -1,3 +1,4 @@
+.faqSection { background: var(--bg2); }
 .layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
 .left { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 100px; }
 .faqCta { width: fit-content; margin-top: 8px; }

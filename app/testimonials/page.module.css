@@ -1,3 +1,4 @@
+.main { padding-top: 110px; }
 .header { max-width: 600px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 16px; }
 .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
 .card { padding: 32px 28px; background: #fff; border: 1.5px solid var(--bdr); border-radius: 20px; display: flex; flex-direction: column; gap: 24px; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; box-shadow: 0 2px 8px rgba(180,60,0,0.04); }

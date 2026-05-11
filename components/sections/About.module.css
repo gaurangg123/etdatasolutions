@@ -1,4 +1,4 @@
-.about {}
+.about { background: var(--bg); }
 .splitGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 100px; }
 .splitText { display: flex; flex-direction: column; gap: 16px; }
 .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
