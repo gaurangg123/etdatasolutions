@@ -14,4 +14,4 @@
 @media (max-width: 780px) { .grid { grid-template-columns: 1fr; } }
 
 /* Scroll snap support */
-.main { scroll-snap-align: start; }
+.main { }

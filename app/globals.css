@@ -97,7 +97,7 @@ a  { text-decoration: none; color: inherit; }
 }
 
 .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-.section {
+.section { scroll-margin-top: 90px;
   padding: 80px 0;
   min-height: 100dvh;
   display: flex;
@@ -115,6 +115,13 @@ a  { text-decoration: none; color: inherit; }
 /* Alternating section backgrounds (#5) */
 .section-alt { background: var(--bg2); }
 
+/* Section flow — clear visual separation */
+.section + .section,
+.section-alt + .section,
+.section + .section-alt {
+  border-top: 1px solid var(--bdr);
+}
+
 /* Atmosphere */
 .atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .atmo-blob  { position: absolute; border-radius: 50%; filter: blur(160px); opacity: var(--blob-op); }
@@ -131,9 +138,7 @@ a  { text-decoration: none; color: inherit; }
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
 }
 .page-wrap { position: relative; z-index: 1; background: var(--bg); }
-.page-wrap > main > *:first-child:not(.hero-section) {
-  padding-top: max(100px, calc(env(safe-area-inset-top) + 100px));
-}
+
 
 /* Buttons */
 .btn-primary {
@@ -181,7 +186,7 @@ p { max-width: 72ch; }
 
 /* Faster reveal animations on mobile */
 @media (max-width: 780px) {
-  .section { padding: 72px 0; }
+  .section { scroll-margin-top: 90px; padding: 72px 0; }
 }
 @media (prefers-reduced-motion: no-preference) and (max-width: 780px) {
   [data-framer-motion] { transition-duration: 0.5s !important; }
@@ -213,4 +218,4 @@ body {
   .safe-top    { padding-top:    max(18px, env(safe-area-inset-top)); }
 }
 
-@media (max-width: 780px) { .section { padding: 80px 0; } }
+@media (max-width: 780px) { .section { scroll-margin-top: 90px; padding: 80px 0; } }

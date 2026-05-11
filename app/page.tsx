@@ -18,16 +18,16 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
-      <Hero />            {/* white  */}
-      <LogoStrip />       {/* white  */}
-      <ResultsBanner />   {/* orange */}
-      <About />           {/* white  */}
-      <HowDifferent />    {/* bg2    */}
-      <Services />        {/* bg2    */}
-      <CaseStudies />     {/* white  */}
-      <Testimonials />    {/* white  */}
-      <FAQ />             {/* bg2    */}
-      <ContactSection />  {/* bg2    */}
+      <div id="hero">       <Hero />           </div>
+                            <LogoStrip />
+                            <ResultsBanner />
+      <div id="about">      <About />          </div>
+      <div id="how-diff">   <HowDifferent />   </div>
+      <div id="services">   <Services />       </div>
+      <div id="case-studies"><CaseStudies />   </div>
+      <div id="testimonials"><Testimonials />  </div>
+      <div id="faq">        <FAQ />            </div>
+      <div id="contact">    <ContactSection /> </div>
     </main>
   );
 }

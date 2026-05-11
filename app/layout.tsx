@@ -8,6 +8,7 @@ import WhatsAppButton from '@/components/ui/WhatsAppButton';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 import SplashScreen from '@/components/ui/SplashScreen';
 import BackToTop from '@/components/ui/BackToTop';
+import SectionProgress from '@/components/ui/SectionProgress';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <FloatingCTA />
         <WhatsAppButton />
         <BackToTop />
+        <SectionProgress />
       </body>
     </html>
   );

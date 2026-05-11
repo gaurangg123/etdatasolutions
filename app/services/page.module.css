@@ -1,7 +1,4 @@
-.header {
-  max-width: 700px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 16px;
-  scroll-snap-align: start;
-}
+.header { max-width: 700px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 16px; }
 .list { display: flex; flex-direction: column; gap: 28px; }
 .serviceBlock {
   display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px;
@@ -32,13 +29,14 @@
 
 /* Each service as its own snap zone */
 .snapSection {
-  scroll-snap-align: start;
   scroll-margin-top: 90px;
-  padding: 100px 0 48px;
+  padding: 100px 0 64px;
   min-height: 100dvh;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--bdr);
 }
+.snapSection:last-child { border-bottom: none; }
 @media (max-width: 780px) {
   .snapSection { min-height: auto; padding: 60px 0 32px; }
 }

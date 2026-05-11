@@ -1,7 +1,6 @@
 .hero {
   position: relative; overflow: hidden; background: #fff;
   min-height: 100dvh; display: flex; align-items: center;
-  scroll-snap-align: start;
   padding-top: 120px; padding-bottom: 60px;
   isolation: isolate;
 }
