@@ -72,7 +72,7 @@ const testimonials = [
 
 export default function TestimonialsPage() {
   return (
-    <main style={{ padding: '140px 0 120px' }}>
+    <main className="nav-clearance">
       <div className="container">
         <div className={styles.header}>
           <Reveal><div className="eyebrow">Testimonials</div></Reveal>

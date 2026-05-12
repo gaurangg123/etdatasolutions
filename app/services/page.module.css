@@ -1,54 +1,43 @@
 .header { max-width: 700px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 16px; }
-.list { display: flex; flex-direction: column; gap: 28px; }
+
+.snapSection {
+  padding: 100px 0 64px;
+  border-bottom: 1px solid var(--bdr);
+  scroll-margin-top: 90px;
+}
+.snapSection:first-child { padding-top: calc(var(--nav-h) + 40px); }
+.snapSection:last-child { border-bottom: none; }
+
 .serviceBlock {
   display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px;
   padding: 48px 40px; background: #fff; border: 1.5px solid var(--bdr); border-radius: 24px;
-  align-items: center; transition: border-color 0.3s, box-shadow 0.3s;
+  align-items: start; transition: border-color 0.3s, box-shadow 0.3s;
   box-shadow: var(--card-shadow);
-  /* Snap each service as a full screen */
-  min-height: min(80vh, 600px);
 }
-.serviceBlock:hover { border-color: var(--or); box-shadow: 0 12px 40px rgba(180,60,0,0.10); }
+.serviceBlock:hover { border-color: var(--bdr-or); box-shadow: var(--card-shadow-hover); }
+
 .serviceLeft { display: flex; flex-direction: column; gap: 14px; }
-.svcIcon { width: 56px; height: 56px; border-radius: 14px; background: var(--or-light); border: 1.5px solid rgba(232,74,12,0.18); display: flex; align-items: center; justify-content: center; font-size: 26px; }
+.svcIcon { width: 56px; height: 56px; border-radius: 14px; background: var(--or-light); border: 1.5px solid var(--bdr-or); display: flex; align-items: center; justify-content: center; font-size: 26px; }
 .serviceLeft :global(h2) { font-size: clamp(22px,2.5vw,30px); color: var(--txt); }
 .tagline { font-style: italic; font-size: 15px !important; color: var(--or) !important; font-weight: 600; }
 .serviceLeft :global(p) { font-size: 15px; color: var(--txt2); line-height: 1.65; }
+
 .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-.tag { font-size: 12px; color: var(--tag-txt); background: var(--tag-bg); border: 1px solid var(--tag-bdr); border-radius: 999px; padding: 4px 12px; font-weight: 500; }
+.tag { font-size: 12px; color: var(--tag-txt); background: var(--tag-bg); border: 1px solid var(--tag-bdr); border-radius: 999px; padding: 4px 12px; font-weight: 700; }
+
+.serviceRight {}
 .infoCard { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: 16px; overflow: hidden; }
-.infoSection { padding: 20px 22px; border-bottom: 1px solid var(--bdr); }
+.infoSection { padding: 18px 22px; border-bottom: 1px solid var(--bdr); }
 .infoSection:last-child { border-bottom: none; }
 .infoSection :global(h4) { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--txt3); font-weight: 700; margin-bottom: 10px; }
 .deliverables { list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .deliverables :global(li) { display: flex; gap: 8px; font-size: 13px; color: var(--txt2); line-height: 1.5; }
 .bullet { color: var(--or); flex-shrink: 0; font-weight: 700; }
-.infoText { font-size: 13px !important; color: var(--txt2) !important; line-height: 1.6 !important; }
+.infoText { font-size: 13px !important; color: var(--txt2) !important; line-height: 1.6 !important; max-width: none !important; }
 .engagement { color: var(--or) !important; font-weight: 700 !important; }
-@media (max-width: 780px) { .serviceBlock { grid-template-columns: 1fr; padding: 32px 24px; } }
 
-/* Each service as its own snap zone */
-.snapSection {
-  scroll-margin-top: 90px;
-  padding: 100px 0 64px;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--bdr);
-}
-.snapSection:last-child { border-bottom: none; }
-@media (max-width: 780px) {
-  .snapSection { min-height: auto; padding: 60px 0 32px; }
-}
-
-/* Quick-jump navigation on services intro */
-.jumpLinks {
-  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;
-}
-.jumpLink {
-  font-size: 13px; font-weight: 700; color: var(--or);
-  background: var(--or-light); border: 1.5px solid var(--bdr-or);
-  border-radius: 999px; padding: 6px 16px;
-  transition: all 0.2s; text-decoration: none;
-}
+.jumpLinks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.jumpLink { font-size: 13px; font-weight: 700; color: var(--or); background: var(--or-light); border: 1.5px solid var(--bdr-or); border-radius: 999px; padding: 6px 16px; transition: all 0.2s; text-decoration: none; }
 .jumpLink:hover { background: var(--or); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-or); }
+
+@media (max-width: 780px) { .serviceBlock { grid-template-columns: 1fr; padding: 28px 20px; } }
