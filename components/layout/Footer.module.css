@@ -1,8 +1,4 @@
 .footer { position: relative; padding: 64px 0 0; background: var(--bg2); }
-.footer::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--or-grad);
-}
 
 /* iPad fix: 2-col at 900px instead of 4-col crushing */
 .main { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: 40px; padding-bottom: 48px; }
