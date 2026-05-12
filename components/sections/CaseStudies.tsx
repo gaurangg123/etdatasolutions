@@ -42,7 +42,7 @@ export default function CaseStudies() {
         <div className={styles.header}>
           <Reveal><div className="eyebrow">Case Studies</div></Reveal>
           <Reveal delay={0.07}><h2>Real results, <em>real numbers.</em></h2></Reveal>
-          <Reveal delay={0.14}><p>Three engagements. Three measurable outcomes. All verifiable.</p></Reveal>
+          <Reveal delay={0.14}><p>Three real engagements. Three measurable outcomes.</p></Reveal>
         </div>
         <div className={styles.grid}>
           {cases.map((c, i) => (

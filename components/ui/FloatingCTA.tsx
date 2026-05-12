@@ -14,10 +14,10 @@ export default function FloatingCTA() {
     <div className={`${styles.bar} ${visible ? styles.visible : ''}`} aria-hidden={!visible}>
       <div className={styles.content}>
         <div className={styles.text}>
-          <span className={styles.textMain}>Ready to get started?</span>
+          <span className={styles.textMain}>Questions? Bobby replies within 3 hours.</span>
           <span className={styles.textSub}>First delivery in 7 days</span>
         </div>
-        <Link href="/contact" className={styles.btn}>Book a free call</Link>
+        <Link href="/contact" className={styles.btn}>Send a message</Link>
       </div>
     </div>
   );

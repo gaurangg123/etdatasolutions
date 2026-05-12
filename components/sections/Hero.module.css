@@ -32,7 +32,8 @@
 .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; align-items: center; }
 
 .trust { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
-.trustItem { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--txt2); font-weight: 500; }
+.trustItem { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--txt2); font-weight: 500; }
+.trustIcon { font-size: 15px; flex-shrink: 0; }
 .checkSvg { flex-shrink: 0; }
 
 .photoStrip { display: flex; align-items: center; gap: 10px; margin-top: 32px; flex-wrap: wrap; }
@@ -40,9 +41,8 @@
 .photoChip:hover { transform: scale(1.06); }
 .photoChip img { width: 100%; height: 100%; object-fit: cover; }
 .photoMeta { display: flex; align-items: center; gap: 8px; }
-.avatarStack { display: flex; }
-.avatar { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; background: var(--or-grad); color: #fff; font-size: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-left: -7px; position: relative; }
-.avatarStack .avatar:first-child { margin-left: 0; }
+.avatarStack { display: flex; flex-direction: row; align-items: center; }
+.avatar { width: 26px; height: 26px; min-width: 26px; border-radius: 50%; border: 2.5px solid #fff; background: var(--or-grad); color: #fff; font-size: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; flex-shrink: 0; line-height: 1; }
 .photoLabel { font-size: 13px; color: var(--txt3); font-weight: 600; }
 
 /* Card column */
@@ -96,3 +96,12 @@
 
 @media (max-width: 980px) { .grid { grid-template-columns: 1fr; gap: 48px; } .cardCol { max-width: 500px; margin: 0 auto; width: 100%; } }
 @media (max-width: 780px) { .hero { padding-top: calc(var(--nav-h) + 24px); padding-bottom: 48px; min-height: 100svh; } .scrollHint { margin-top: 32px; } }
+
+/* CTA hierarchy fix */
+.ctaPrimary { font-size: 16px !important; padding: 15px 32px !important; box-shadow: 0 6px 24px rgba(232,74,12,0.30); }
+.ctaSecondary {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--txt3); font-weight: 500; padding: 6px 4px;
+  transition: color 0.2s; text-decoration: none;
+}
+.ctaSecondary:hover { color: var(--or); }

@@ -5,8 +5,8 @@
 }
 
 .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(0,0,0,0.15); border: none; cursor: pointer;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(0,0,0,0.12); border: none; cursor: pointer;
   transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
   position: relative; padding: 0;
   -webkit-tap-highlight-color: transparent;
@@ -14,8 +14,8 @@
 .dot:hover { background: var(--or); transform: scale(1.4); }
 .active {
   background: var(--or) !important;
-  width: 8px; height: 24px; border-radius: 4px;
-  box-shadow: 0 0 8px rgba(232,74,12,0.40);
+  width: 6px; height: 20px; border-radius: 3px;
+  box-shadow: 0 0 6px rgba(232,74,12,0.35);
 }
 
 .tooltip {
