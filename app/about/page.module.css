@@ -1,4 +1,4 @@
-.main { padding-top: 0; }
+.main { padding-top: calc(72px + 40px); }
 .header { max-width: 760px; margin-bottom: 80px; display: flex; flex-direction: column; gap: 20px; }
 .sectionBlock { margin-bottom: 80px; display: flex; flex-direction: column; gap: 16px; }
 .sectionBlock :global(h2) { margin-bottom: 8px; }
