@@ -14,7 +14,6 @@
 
 .statusPill { display:inline-flex; align-items:center; gap:10px; background:var(--or-light); border:1.5px solid var(--bdr-or); border-radius:999px; padding:7px 16px; font-size:12px; font-weight:700; color:var(--or); margin-bottom:24px; width:fit-content; }
 
-h1,.sub { /* inherits globals */ }
 .sub { font-size:17px !important; max-width:440px; margin-top:16px; }
 
 .ctas { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:28px; }
