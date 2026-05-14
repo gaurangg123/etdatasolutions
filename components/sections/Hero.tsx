@@ -105,7 +105,7 @@ export default function Hero() {
 
   return (
     <section className={styles.hero}>
-      
+      <div className={styles.ring1} aria-hidden/><div className={styles.ring2} aria-hidden/><div className={styles.ring3} aria-hidden/>
       <div className="container">
         <div className={styles.grid}>
           {/* Text — reduced density (#4) */}

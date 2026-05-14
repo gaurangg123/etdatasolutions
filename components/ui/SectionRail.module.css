@@ -1,0 +1,107 @@
+/* ══════════════════════════════════════════
+   SECTION RAIL
+   Right-edge minimal section navigator.
+   Hidden under 1280px so it never crowds the layout.
+   ══════════════════════════════════════════ */
+.rail {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 80;
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .rail { display: block; }
+}
+
+/* Faint background line */
+.line {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  right: 11px;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+/* ── Each tick ── */
+.tick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  outline: none;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.tick:focus-visible .tickBar {
+  outline: 2px solid var(--or);
+  outline-offset: 3px;
+}
+
+/* The label is hidden by default; reveals on active or hover */
+.tickLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  pointer-events: none;
+}
+
+/* The horizontal bar tick */
+.tickBar {
+  display: block;
+  width: 12px;
+  height: 1.5px;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 99px;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.25s ease;
+  flex-shrink: 0;
+}
+
+/* Hover state */
+.tick:hover .tickBar {
+  width: 22px;
+  background: var(--txt2);
+}
+.tick:hover .tickLabel {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--txt2);
+}
+
+/* Active state */
+.tickActive .tickBar {
+  width: 28px !important;
+  height: 2px;
+  background: var(--or-grad) !important;
+}
+.tickActive .tickLabel {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--or);
+}

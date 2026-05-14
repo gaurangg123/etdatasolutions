@@ -213,82 +213,36 @@ html.lenis,html.lenis body { height:auto; }
 .lenis.lenis-smooth { scroll-behavior:auto !important; }
 
 /* ══════════════════════════════════════
-   PARALLAX & SCROLL ENHANCEMENTS
+   SECTION SNAP (PROXIMITY MODE)
+   Soft snap that nudges to sections only
+   when user releases near a boundary.
+   Tall sections still scroll freely inside.
    ══════════════════════════════════════ */
-
-/* Smooth momentum scrolling on iOS */
 html {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: var(--nav-h);
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  /* Use the html element as the snap root */
 }
 
-/* Each major section gets a generous scroll-margin so snap nav hits cleanly */
-#hero, #about, #how-diff, #services, #case-studies, #testimonials, #faq, #contact {
-  scroll-margin-top: calc(var(--nav-h) + 8px);
-}
-
-/* Ensure parallax containers don't cause stacking issues */
-.parallax-root {
-  position: relative;
-  isolation: isolate;
-}
-
-/* ── Section entrance: subtle border-top accent line ── */
-#about, #services, #case-studies, #testimonials, #contact {
-  position: relative;
-}
-#about::before, #services::before, #case-studies::before,
-#testimonials::before, #contact::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 60px; height: 2px;
-  background: var(--or-grad);
-  border-radius: 999px;
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-/* ── "Reveal on enter" for sections that don't use Reveal ── */
-@keyframes sectionEnter {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Scroll-snap utility (opt-in, not global) ── */
-.snap-container {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100vh;
-}
-.snap-section {
+/* Only major sections get snap alignment */
+.snap-anchor {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
-  min-height: 100vh;
+  scroll-snap-stop: normal;
+  scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
-/* ══════════════════════════════════════
-   SCROLL-SNAP BODY LOCK
-   Body itself must NOT scroll — the snap
-   container handles all scrolling.
-   ══════════════════════════════════════ */
-html, body {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
+/* Sections still flow naturally — no forced 100vh */
+.snap-main > section {
+  position: relative;
 }
 
-/* Tighten section vertical padding for snap panels */
-.snap-section-inner .section,
-.snap-section-inner .section-alt {
-  padding-top: 48px !important;
-  padding-bottom: 48px !important;
+/* Reduce motion preference: kill snap entirely */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; scroll-behavior: auto; }
 }
 
-/* Social proof combo panel — tighter */
-.social-proof-combo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
+/* Mobile: disable snap, can be janky on touch with momentum scroll */
+@media (max-width: 1023px) {
+  html { scroll-snap-type: none; }
 }
