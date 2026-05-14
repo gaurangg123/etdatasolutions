@@ -211,3 +211,58 @@ img[width][height] { aspect-ratio:attr(width)/attr(height); }
 /* Lenis compat */
 html.lenis,html.lenis body { height:auto; }
 .lenis.lenis-smooth { scroll-behavior:auto !important; }
+
+/* ══════════════════════════════════════
+   PARALLAX & SCROLL ENHANCEMENTS
+   ══════════════════════════════════════ */
+
+/* Smooth momentum scrolling on iOS */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Each major section gets a generous scroll-margin so snap nav hits cleanly */
+#hero, #about, #how-diff, #services, #case-studies, #testimonials, #faq, #contact {
+  scroll-margin-top: calc(var(--nav-h) + 8px);
+}
+
+/* Ensure parallax containers don't cause stacking issues */
+.parallax-root {
+  position: relative;
+  isolation: isolate;
+}
+
+/* ── Section entrance: subtle border-top accent line ── */
+#about, #services, #case-studies, #testimonials, #contact {
+  position: relative;
+}
+#about::before, #services::before, #case-studies::before,
+#testimonials::before, #contact::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 2px;
+  background: var(--or-grad);
+  border-radius: 999px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ── "Reveal on enter" for sections that don't use Reveal ── */
+@keyframes sectionEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scroll-snap utility (opt-in, not global) ── */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+}

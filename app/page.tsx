@@ -9,6 +9,9 @@ import CaseStudies from '@/components/sections/CaseStudies';
 import Testimonials from '@/components/sections/Testimonials';
 import FAQ from '@/components/sections/FAQ';
 import ContactSection from '@/components/sections/ContactSection';
+import ParallaxHero from '@/components/ui/ParallaxHero';
+import ParallaxSection from '@/components/ui/ParallaxSection';
+import ScrollSnapNav from '@/components/ui/ScrollSnapNav';
 
 export const metadata: Metadata = {
   title: 'ET Data Solutions — Staffing, Data, QA & Data Engineering',
@@ -17,17 +20,75 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main>
-      <div id="hero">       <Hero />           </div>
-                            <LogoStrip />
-                            <ResultsBanner />
-      <div id="about">      <About />          </div>
-      <div id="how-diff">   <HowDifferent />   </div>
-      <div id="services">   <Services />       </div>
-      <div id="case-studies"><CaseStudies />   </div>
-      <div id="testimonials"><Testimonials />  </div>
-      <div id="faq">        <FAQ />            </div>
-      <div id="contact">    <ContactSection /> </div>
-    </main>
+    <>
+      {/* Floating dot navigator — desktop only, no layout impact */}
+      <ScrollSnapNav />
+
+      <main>
+        {/* Hero: multi-plane parallax + fade-scale on scroll-out */}
+        <div id="hero">
+          <ParallaxHero>
+            <Hero />
+          </ParallaxHero>
+        </div>
+
+        {/* Logo strip — grounded, no parallax */}
+        <LogoStrip />
+
+        {/* Results banner — shallow orb depth */}
+        <ParallaxSection depth="shallow" orbs>
+          <ResultsBanner />
+        </ParallaxSection>
+
+        {/* About */}
+        <div id="about" style={{ position: 'relative' }}>
+          <ParallaxSection depth="medium" orbs overlay>
+            <About />
+          </ParallaxSection>
+        </div>
+
+        {/* How Different */}
+        <div id="how-diff">
+          <ParallaxSection depth="shallow">
+            <HowDifferent />
+          </ParallaxSection>
+        </div>
+
+        {/* Services — most dramatic depth */}
+        <div id="services" style={{ position: 'relative' }}>
+          <ParallaxSection depth="deep" orbs overlay>
+            <Services />
+          </ParallaxSection>
+        </div>
+
+        {/* Case Studies */}
+        <div id="case-studies" style={{ position: 'relative' }}>
+          <ParallaxSection depth="medium" orbs>
+            <CaseStudies />
+          </ParallaxSection>
+        </div>
+
+        {/* Testimonials */}
+        <div id="testimonials" style={{ position: 'relative' }}>
+          <ParallaxSection depth="shallow" overlay>
+            <Testimonials />
+          </ParallaxSection>
+        </div>
+
+        {/* FAQ */}
+        <div id="faq">
+          <ParallaxSection depth="shallow">
+            <FAQ />
+          </ParallaxSection>
+        </div>
+
+        {/* Contact */}
+        <div id="contact" style={{ position: 'relative' }}>
+          <ParallaxSection depth="medium" orbs overlay>
+            <ContactSection />
+          </ParallaxSection>
+        </div>
+      </main>
+    </>
   );
 }

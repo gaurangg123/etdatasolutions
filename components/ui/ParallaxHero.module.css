@@ -1,0 +1,91 @@
+.heroWrap {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  isolation: isolate;
+}
+
+/* ── Ring layer (depth planes) ── */
+.ringLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.ringA {
+  width: 900px;
+  height: 900px;
+  border: 1px solid rgba(232, 74, 12, 0.06);
+  top: -380px;
+  right: -240px;
+}
+.ringB {
+  width: 650px;
+  height: 650px;
+  border: 1px solid rgba(232, 74, 12, 0.10);
+  top: -220px;
+  right: -100px;
+}
+.ringC {
+  width: 420px;
+  height: 420px;
+  border: 1.5px solid rgba(232, 74, 12, 0.16);
+  top: -60px;
+  right: 20px;
+}
+.ringD {
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(232, 74, 12, 0.08);
+  bottom: 40px;
+  left: -60px;
+}
+
+/* Floating particles */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(232, 74, 12, 0.3);
+  will-change: transform;
+  animation: particlePulse 3s ease-in-out infinite alternate;
+}
+
+.particle:nth-child(odd)  { background: rgba(13, 148, 136, 0.25); animation-delay: 0.5s; }
+.particle:nth-child(3n)   { background: rgba(37, 99, 235, 0.2);   animation-delay: 1s; }
+.particle:nth-child(5n)   { width: 6px; height: 6px; }
+
+@keyframes particlePulse {
+  from { opacity: 0.3; transform: scale(1); }
+  to   { opacity: 1;   transform: scale(1.6); }
+}
+
+/* ── Scroll vignette ── */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(10, 10, 15, 0.18) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Content (text + dashboard) ── */
+.contentWrap {
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+  transform-origin: center top;
+}

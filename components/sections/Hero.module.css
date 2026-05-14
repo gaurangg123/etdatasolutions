@@ -4,11 +4,6 @@
   min-height:100svh; display:flex; align-items:center;
 }
 
-/* Rings */
-.ring1,.ring2,.ring3 { position:absolute; border-radius:50%; pointer-events:none; border:1px solid rgba(232,74,12,0.07); }
-.ring1 { width:760px; height:760px; top:-280px; right:-180px; }
-.ring2 { width:540px; height:540px; top:-140px; right:-60px;  }
-.ring3 { width:330px; height:330px; top:-20px;  right:70px;   border-color:rgba(232,74,12,0.13); }
 
 .grid { display:grid; grid-template-columns:1fr 1.05fr; gap:64px; align-items:center; }
 
