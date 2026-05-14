@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <div className="grid-overlay" aria-hidden />
         <Navbar />
-        <div className="page-wrap">{children}</div>
+        {children}
         <Footer />
         <FloatingCTA />
         <WhatsAppButton />

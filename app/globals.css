@@ -266,3 +266,29 @@ html {
   scroll-snap-stop: always;
   min-height: 100vh;
 }
+
+/* ══════════════════════════════════════
+   SCROLL-SNAP BODY LOCK
+   Body itself must NOT scroll — the snap
+   container handles all scrolling.
+   ══════════════════════════════════════ */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+/* Tighten section vertical padding for snap panels */
+.snap-section-inner .section,
+.snap-section-inner .section-alt {
+  padding-top: 48px !important;
+  padding-bottom: 48px !important;
+}
+
+/* Social proof combo panel — tighter */
+.social-proof-combo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
