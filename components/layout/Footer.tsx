@@ -8,22 +8,29 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.top}>
+          {/* ── Brand ── */}
           <div className={styles.brand}>
-            <Link href="/" className={styles.logo}>
+            <Link href="/" className={styles.logo} aria-label="ET Data Solutions home">
               <span className={styles.logoMark}>
                 <span className={styles.logoDot} />
               </span>
               <span className={styles.logoText}>ET Data Solutions</span>
             </Link>
             <p className={styles.tagline}>
-              The work that slows you down,<br /> handled quietly.
+              Staffing, data, QA &amp; engineering — delivered quietly from Indore, India.
             </p>
+            <div className={styles.ctaWrap}>
+              <Link href="/#contact" className="btn-link">
+                Book a consultation &rarr;
+              </Link>
+            </div>
           </div>
 
+          {/* ── Link columns ── */}
           <div className={styles.cols}>
             <div className={styles.col}>
-              <span className={styles.colTitle}>Practice</span>
-              <Link href="/services/staffing">Staffing</Link>
+              <span className={styles.colTitle}>Services</span>
+              <Link href="/services/staffing">Staffing & VAs</Link>
               <Link href="/services/data-entry">Data Entry</Link>
               <Link href="/services/qa-testing">QA Testing</Link>
               <Link href="/services/data-engineering">Data Engineering</Link>
@@ -31,9 +38,9 @@ export default function Footer() {
 
             <div className={styles.col}>
               <span className={styles.colTitle}>Company</span>
-              <Link href="/work">Work</Link>
+              <Link href="/work">Case Studies</Link>
               <Link href="/#contact">Contact</Link>
-              <a href="mailto:hello@etdatasolutions.com">Email us</a>
+              <a href="mailto:hello@etdatasolutions.com">hello@etdatasolutions.com</a>
             </div>
 
             <div className={styles.col}>

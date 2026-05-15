@@ -22,11 +22,11 @@ const industries = [
 
 export default function ProofStrip() {
   return (
-    <section id="proof" className={`section ${styles.section}`}>
+    <section className={styles.section}>
       <div className="container">
         <Reveal>
           <div className={styles.statsRow}>
-            {stats.map((s, i) => (
+            {stats.map((s) => (
               <div key={s.lbl} className={styles.stat}>
                 <span className={styles.num}>{s.num}</span>
                 <span className={styles.lbl}>{s.lbl}</span>
@@ -35,15 +35,15 @@ export default function ProofStrip() {
           </div>
         </Reveal>
 
-        <div className={styles.hairline} />
+        <div className={styles.divider} />
 
-        <Reveal delay={150}>
+        <Reveal delay={100}>
           <div className={styles.indRow}>
             <span className={styles.indLabel}>Trusted across</span>
             <div className={styles.indList}>
-              {industries.map((i, idx) => (
-                <span key={i} className={styles.indItem}>
-                  {i}
+              {industries.map((ind, idx) => (
+                <span key={ind} className={styles.indItem}>
+                  {ind}
                   {idx < industries.length - 1 && <span className={styles.dot}>·</span>}
                 </span>
               ))}

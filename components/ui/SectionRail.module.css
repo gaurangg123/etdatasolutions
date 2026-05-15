@@ -51,7 +51,7 @@
   display: block;
   width: 14px;
   height: 1.5px;
-  background: var(--hairline-strong);
+  background: var(--border-strong);
   border-radius: 99px;
   transition: width 0.3s var(--ease), background 0.25s var(--ease);
   flex-shrink: 0;

@@ -98,7 +98,7 @@
 
 /* ── Labels ── */
 .label {
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), 'Inter', sans-serif;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.18em;

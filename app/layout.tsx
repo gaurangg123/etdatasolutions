@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-const jakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   display: 'swap',
-  variable: '--font-jakarta',
+  variable: '--font-inter',
   preload: true,
 });
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: 'ET Data Solutions — Staffing, Data, QA & Engineering',
   },
   description:
-    'Quiet, accurate work that lets your team focus. Staffing, data entry, QA testing, and data engineering — delivered globally from Indore, India.',
+    'Professional staffing, data entry, QA testing, and data engineering — delivered accurately and on time from Indore, India.',
   metadataBase: new URL('https://etdatasolutions.com'),
   openGraph: { siteName: 'ET Data Solutions', type: 'website', locale: 'en_US' },
   twitter: { card: 'summary_large_image' },
@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en" className={inter.variable}>
       <body>
         <Navbar />
         {children}

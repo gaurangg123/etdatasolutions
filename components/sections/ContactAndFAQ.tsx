@@ -6,20 +6,27 @@ import styles from './ContactAndFAQ.module.css';
 const faqs = [
   {
     q: 'How quickly can you start?',
-    a: 'For most engagements, we have a pilot team ready within 72 hours of a scoping call. Your first deliverable arrives within 7 days \u2014 guaranteed.',
+    a: 'For most engagements, we have a pilot team ready within 72 hours of a scoping call. Your first deliverable arrives within 7 days — guaranteed.',
   },
   {
     q: 'What time zones do you cover?',
-    a: 'Our team in Indore, India covers US (EST/PST), UK (GMT), Canadian, and Australian business hours. We work when you work \u2014 no overnight gaps.',
+    a: 'Our team in Indore, India covers US (EST/PST), UK (GMT), Canadian, and Australian business hours. We work when you work — no overnight gaps.',
   },
   {
     q: 'How do you handle NDAs and data security?',
     a: 'All team members sign comprehensive NDAs. We operate under ISO 27001-aligned practices with role-based access control and no data stored on personal devices.',
   },
   {
-    q: 'What\u2019s the 30-day guarantee?',
-    a: 'If your first 30 days of deliverables don\u2019t meet the accuracy and turnaround standards agreed at the start, you get a full refund. No clauses, no negotiation.',
+    q: 'What\'s the 30-day guarantee?',
+    a: 'If your first 30 days of deliverables don\'t meet the accuracy and turnaround standards agreed at the start, you get a full refund. No clauses, no negotiation.',
   },
+];
+
+const metaItems = [
+  { label: 'Headquartered',  val: 'Indore, India' },
+  { label: 'Serving',        val: 'US · UK · CA · AU' },
+  { label: 'Reply time',     val: 'Within 4 hours' },
+  { label: 'First delivery', val: 'Within 7 days' },
 ];
 
 export default function ContactAndFAQ() {
@@ -36,60 +43,53 @@ export default function ContactAndFAQ() {
             </Reveal>
             <Reveal delay={80}>
               <h2 className={styles.heading}>
-                Let&rsquo;s talk about the work<br />
-                <em>that&rsquo;s slowing you down.</em>
+                Ready to offload the work that&rsquo;s slowing you down?
               </h2>
             </Reveal>
-            <Reveal delay={160}>
+            <Reveal delay={140}>
               <p className={styles.lede}>
                 30-minute scoping call. No sales script.
-                Free pilot brief at the end \u2014 yours to take with or without us.
+                Free pilot brief at the end — yours to keep with or without us.
               </p>
             </Reveal>
 
-            <Reveal delay={240}>
+            <Reveal delay={200}>
               <div className={styles.actions}>
                 <a
                   href="https://calendly.com/etdatasolutions/intro"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary"
+                  className="btn btn-primary btn-lg"
                 >
-                  Book a consultation
-                  <span className="arrow">&rarr;</span>
+                  Book a free consultation
+                  <span>&rarr;</span>
                 </a>
-                <a href="mailto:hello@etdatasolutions.com" className="btn-link">
-                  hello@etdatasolutions.com
+                <a href="mailto:hello@etdatasolutions.com" className="btn btn-secondary btn-lg">
+                  Email us
                 </a>
               </div>
             </Reveal>
 
-            <Reveal delay={320}>
-              <div className={styles.meta}>
-                <div>
-                  <span className={styles.metaLabel}>Headquartered</span>
-                  <span className={styles.metaVal}>Indore, India</span>
-                </div>
-                <div>
-                  <span className={styles.metaLabel}>Serving</span>
-                  <span className={styles.metaVal}>US &middot; UK &middot; CA &middot; AU</span>
-                </div>
-                <div>
-                  <span className={styles.metaLabel}>Reply time</span>
-                  <span className={styles.metaVal}>Within 4 hours</span>
-                </div>
+            <Reveal delay={260}>
+              <div className={styles.metaGrid}>
+                {metaItems.map((m) => (
+                  <div key={m.label} className={styles.metaCard}>
+                    <span className={styles.metaLabel}>{m.label}</span>
+                    <span className={styles.metaVal}>{m.val}</span>
+                  </div>
+                ))}
               </div>
             </Reveal>
           </div>
 
           {/* ── Right: FAQ accordion ── */}
           <div className={styles.right}>
-            <Reveal delay={120}>
+            <Reveal delay={100}>
               <span className={styles.rightLabel}>Common questions</span>
             </Reveal>
             <div className={styles.faqList}>
               {faqs.map((f, i) => (
-                <Reveal key={f.q} delay={200 + i * 60}>
+                <Reveal key={f.q} delay={160 + i * 60}>
                   <div className={styles.faq}>
                     <button
                       className={styles.faqQ}
@@ -98,8 +98,8 @@ export default function ContactAndFAQ() {
                     >
                       <span>{f.q}</span>
                       <span className={`${styles.faqIcon} ${open === i ? styles.faqIconOpen : ''}`}>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                          <path d="M3 7h8M7 3v8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <path d="M2 6h8M6 2v8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                         </svg>
                       </span>
                     </button>

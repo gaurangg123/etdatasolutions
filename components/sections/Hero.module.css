@@ -1,16 +1,46 @@
 .hero {
-  padding-top: calc(var(--nav-h) + 80px);
-  padding-bottom: 120px;
-  min-height: calc(100vh - var(--nav-h));
+  padding-top: calc(var(--nav-h) + 72px);
+  padding-bottom: 100px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative background orbs */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: -8%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 65%);
+  pointer-events: none;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 80px;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .left {
@@ -18,114 +48,225 @@
   flex-direction: column;
 }
 
-.meta {
+/* Live badge */
+.badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 13px;
   font-weight: 500;
   color: var(--ink-2);
-  margin-bottom: 40px;
-  padding: 6px 14px;
-  border: 1px solid var(--hairline-strong);
+  margin-bottom: 32px;
+  padding: 7px 14px 7px 8px;
+  border: 1px solid var(--border);
   border-radius: 999px;
+  background: var(--bg);
+  box-shadow: var(--shadow-sm);
   width: fit-content;
 }
 
-.metaDot {
-  width: 6px;
-  height: 6px;
+.badgeDot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--orange);
   position: relative;
+  flex-shrink: 0;
 }
-.metaDot::before {
+.badgeDot::before {
   content: '';
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--orange);
   opacity: 0.3;
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.badgeDot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: 0.1;
+  animation: pulse 2.5s ease-in-out infinite 0.3s;
 }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 0.3; }
-  50%      { transform: scale(1.6); opacity: 0; }
+  50%       { transform: scale(1.8); opacity: 0; }
+}
+
+.badgePill {
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .display {
   font-size: var(--font-display);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  margin-bottom: 32px;
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+
+.displayAccent {
+  position: relative;
+  color: var(--orange);
+  display: inline;
 }
 
 .lede {
-  font-size: 19px;
-  line-height: 1.55;
+  font-size: 18px;
+  line-height: 1.65;
   color: var(--ink-2);
-  max-width: 480px;
+  max-width: 500px;
   margin-bottom: 40px;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 28px;
-  margin-bottom: 64px;
+  gap: 14px;
+  margin-bottom: 56px;
   flex-wrap: wrap;
 }
 
-.footnote {
+/* Stats row */
+.stats {
   display: flex;
-  gap: 48px;
-  padding-top: 32px;
-  border-top: 1px solid var(--hairline);
+  gap: 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
 }
 
-.fnItem {
+.stat {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+  padding-right: 40px;
+  border-right: 1px solid var(--border);
+  margin-right: 40px;
+}
+.stat:last-child {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
 }
 
-.fnNum {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.statNum {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: var(--ink);
+  line-height: 1;
 }
 
-.fnLbl {
+.statLbl {
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: var(--ink-3);
   font-weight: 500;
+  line-height: 1.4;
 }
 
+/* ── Right visual ── */
 .right {
   position: relative;
   width: 100%;
 }
 
-/* Mobile */
+/* Feature cards floating on the right */
+.visualStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.featureCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.featureCard:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.featureCard:nth-child(2) {
+  margin-left: 20px;
+}
+.featureCard:nth-child(4) {
+  margin-left: 20px;
+}
+
+.featureIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--orange-light);
+  border: 1px solid var(--orange-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.featureBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.featureTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.featureDesc {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+
+/* ── Responsive ── */
 @media (max-width: 968px) {
   .hero {
     padding-top: calc(var(--nav-h) + 48px);
-    padding-bottom: 80px;
+    padding-bottom: 72px;
     min-height: auto;
   }
   .grid {
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 52px;
   }
-  .lede { font-size: 17px; }
-  .footnote {
-    gap: 28px;
-  }
-  .fnNum { font-size: 20px; }
-  .actions { gap: 20px; }
+  .lede { font-size: 17px; max-width: 100%; }
+  .stats { gap: 0; }
+  .stat { padding-right: 28px; margin-right: 28px; }
+  .statNum { font-size: 22px; }
+  .actions { gap: 12px; }
+  .right { display: none; }
+}
+
+@media (max-width: 480px) {
+  .display { letter-spacing: -0.03em; }
+  .stat { padding-right: 20px; margin-right: 20px; }
 }

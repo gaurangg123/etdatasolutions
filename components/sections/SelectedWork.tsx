@@ -10,7 +10,7 @@ const cases = [
     service: 'Data Entry',
     problem: 'Invoice processing took 14 days end-to-end, blocking cash flow.',
     outcome: 'Reduced to 3 days. Zero errors in a 6-month audit across 4,800 invoices.',
-    quote: 'They fixed a workflow we\u2019d been losing money on for years \u2014 quietly, without making it a big deal.',
+    quote: 'They fixed a workflow we’d been losing money on for years — quietly, without making it a big deal.',
     attribution: 'COO, Logistics Co.',
     metric: { val: '$40K', sub: 'saved annually' },
   },
@@ -21,7 +21,7 @@ const cases = [
     service: 'Manual QA',
     problem: 'Weekly shipping with no structured QA. P1 bugs reaching production.',
     outcome: 'Zero critical bugs across 4 consecutive releases. 23 medium bugs caught pre-release.',
-    quote: 'Our release confidence went from anxious to boring \u2014 in the best possible way.',
+    quote: 'Our release confidence went from anxious to boring — in the best possible way.',
     attribution: 'Head of Engineering',
     metric: { val: '0', sub: 'P1 bugs on launch' },
   },
@@ -40,18 +40,18 @@ const cases = [
 
 export default function SelectedWork() {
   return (
-    <section id="work" className={`section section-dark ${styles.section}`}>
+    <section id="work" className={`section ${styles.section}`}>
       <div className="container">
         <div className={styles.header}>
           <Reveal>
-            <span className="eyebrow">Selected work</span>
+            <span className={styles.eyebrowDark}>Selected work</span>
           </Reveal>
           <Reveal delay={80}>
             <h2 className={styles.heading}>
-              Three engagements. <em>Three real outcomes.</em>
+              Real clients. Real outcomes.
             </h2>
           </Reveal>
-          <Reveal delay={160}>
+          <Reveal delay={150}>
             <p className={styles.lede}>
               Named clients changed for confidentiality. Numbers are exact.
             </p>
@@ -60,7 +60,7 @@ export default function SelectedWork() {
 
         <div className={styles.list}>
           {cases.map((c, i) => (
-            <Reveal key={c.num} delay={i * 100}>
+            <Reveal key={c.num} delay={i * 80}>
               <article className={styles.case}>
                 <div className={styles.caseHead}>
                   <span className={styles.caseNum}>{c.num}</span>
@@ -99,10 +99,10 @@ export default function SelectedWork() {
           ))}
         </div>
 
-        <Reveal delay={400}>
-          <div className={styles.footer}>
+        <Reveal delay={300}>
+          <div className={styles.sectionFooter}>
             <a href="/work" className="btn-link">
-              View all case studies <span className="arrow">&rarr;</span>
+              View all case studies <span>&rarr;</span>
             </a>
           </div>
         </Reveal>
