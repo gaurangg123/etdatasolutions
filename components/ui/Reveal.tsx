@@ -1,43 +1,46 @@
 'use client';
-import { useRef, useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState, ReactNode } from 'react';
 
-interface RevealProps {
-  children: React.ReactNode;
+interface Props {
+  children: ReactNode;
   delay?: number;
+  as?: keyof React.JSX.IntrinsicElements;
   className?: string;
-  scale?: boolean;
 }
 
-export default function Reveal({ children, delay = 0, className, scale = false }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const prefersReduced = useReducedMotion();
+/**
+ * One animation, one purpose: fade up 16px when entering viewport.
+ * No scale, no springs, no choreographed sequences.
+ */
+export default function Reveal({ children, delay = 0, as = 'div', className = '' }: Props) {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 780);
-    const el = ref.current; if (!el) return;
+    const el = ref.current;
+    if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.unobserve(el); } },
-      { threshold: 0.08 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  const duration = prefersReduced ? 0 : isMobile ? 0.45 : 0.75;
-  const actualDelay = isMobile ? delay * 0.5 : delay;
-
+  const Tag = as as 'div';
   return (
-    <motion.div
+    <Tag
+      // @ts-expect-error - ref typing across dynamic tag
       ref={ref}
-      className={className}
-      initial={prefersReduced ? false : { opacity: 0, y: isMobile ? 16 : 28, scale: scale ? 0.97 : 1 }}
-      animate={inView || prefersReduced ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration, ease: [0.22, 1, 0.36, 1], delay: actualDelay }}
+      className={`reveal ${visible ? 'in-view' : ''} ${className}`}
+      style={delay ? { ['--reveal-delay' as string]: `${delay}ms` } : undefined}
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }

@@ -1,0 +1,183 @@
+.section {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+}
+
+.header {
+  max-width: 720px;
+  margin-bottom: 96px;
+}
+
+.heading {
+  font-size: var(--font-h2);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+
+.lede {
+  font-size: 15px;
+  color: var(--dark-ink-2);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  margin-bottom: 80px;
+}
+
+/* ── Individual case ── */
+.case {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--dark-hairline);
+}
+
+.caseHead {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.caseNum {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.caseMeta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark-ink-2);
+  font-weight: 500;
+}
+
+.caseClient {
+  color: var(--dark-ink);
+  font-weight: 600;
+}
+
+.caseDot {
+  color: var(--dark-ink-2);
+  opacity: 0.5;
+}
+
+/* ── Body: two-column ── */
+.caseBody {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.caseContent {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  align-items: baseline;
+}
+
+.rowLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--dark-ink-2);
+  font-weight: 600;
+}
+
+.rowText {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--dark-ink);
+  font-weight: 400;
+}
+
+/* ── Quote ── */
+.quote {
+  margin-top: 16px;
+  padding-left: 124px;
+  border-left: none;
+}
+
+.quote p {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--dark-ink);
+  font-style: italic;
+  font-family: 'Georgia', serif;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.quote cite {
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark-ink-2);
+  font-weight: 600;
+}
+
+/* ── Metric sidebar ── */
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  background: var(--dark-elev);
+  border-radius: var(--radius);
+  border: 1px solid var(--dark-hairline);
+}
+
+.metricVal {
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.metricSub {
+  font-size: 13px;
+  color: var(--dark-ink-2);
+  line-height: 1.4;
+}
+
+/* ── Footer ── */
+.footer {
+  padding-top: 48px;
+  border-top: 1px solid var(--dark-hairline);
+}
+
+/* Mobile */
+@media (max-width: 868px) {
+  .header { margin-bottom: 56px; }
+  .list { gap: 56px; margin-bottom: 56px; }
+  .caseHead { flex-direction: column; gap: 8px; }
+  .caseBody {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .rowText { font-size: 16px; }
+  .quote { padding-left: 0; }
+  .metric { padding: 24px; }
+  .metricVal { font-size: 36px; }
+}

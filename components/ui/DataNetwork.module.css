@@ -1,0 +1,116 @@
+.wrap {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Lines ── */
+.line, .lineFaint {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  transition: stroke-dashoffset 0.9s var(--ease);
+  transition-delay: var(--line-delay, 0ms);
+}
+
+.line {
+  stroke: rgba(10, 10, 10, 0.18);
+  stroke-width: 1;
+  fill: none;
+}
+
+.lineFaint {
+  stroke: rgba(10, 10, 10, 0.1);
+  stroke-width: 0.8;
+  fill: none;
+}
+
+.drawn .line,
+.drawn .lineFaint {
+  stroke-dashoffset: 0;
+}
+
+/* ── Nodes ── */
+.node, .hubNode {
+  opacity: 0;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  transition-delay: var(--node-delay, 0ms);
+  transform: scale(0.6);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.drawn .node,
+.drawn .hubNode {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nodeOuter {
+  fill: rgba(10, 10, 10, 0.25);
+}
+
+.nodeSat {
+  fill: var(--bg);
+  stroke: rgba(10, 10, 10, 0.5);
+  stroke-width: 1.5;
+}
+
+.nodePulse {
+  fill: none;
+  stroke: rgba(10, 10, 10, 0.15);
+  stroke-width: 1;
+  animation: nodePulse 3s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes nodePulse {
+  0%   { transform: scale(0.7); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ── Hub (centerpiece, orange) ── */
+.hubRing {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+.hubCore {
+  fill: var(--accent);
+}
+
+.glow {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  transition-delay: 700ms;
+}
+.drawn .glow { opacity: 1; }
+
+/* ── Labels ── */
+.label {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  fill: var(--ink-3);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  transition-delay: var(--node-delay, 0ms);
+}
+.drawn .label { opacity: 1; }
+
+/* Mobile: simpler */
+@media (max-width: 640px) {
+  .wrap { max-width: 360px; }
+  .label { font-size: 10px; }
+}

@@ -5,25 +5,50 @@ export const metadata: Metadata = { title: '404 — Page Not Found' };
 
 export default function NotFound() {
   return (
-    <main style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'120px 24px' }}>
-      <div style={{ textAlign:'center', maxWidth:'480px' }}>
-        <div style={{
-          fontSize:'clamp(80px,14vw,140px)', fontWeight:'800',
-          background:'linear-gradient(135deg,#E84A0C,#FF6B35)',
-          WebkitBackgroundClip:'text', backgroundClip:'text',
-          WebkitTextFillColor:'transparent', lineHeight:'1', marginBottom:'24px',
-          fontFamily:"var(--font-jakarta,'Plus Jakarta Sans',sans-serif)",
-          letterSpacing:'-0.04em',
-        }}>404</div>
-        <h1 style={{ fontSize:'clamp(22px,3vw,32px)', fontWeight:'700', color:'var(--txt)', marginBottom:'16px', letterSpacing:'-0.02em' }}>
-          Page not found
+    <main style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '120px 24px',
+    }}>
+      <div style={{ textAlign: 'center', maxWidth: '520px' }}>
+        <span style={{
+          fontSize: '11px',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+          letterSpacing: '0.14em',
+          color: 'var(--ink-3)',
+          marginBottom: '24px',
+          display: 'inline-block',
+        }}>
+          Error 404
+        </span>
+        <h1 style={{
+          fontSize: 'clamp(40px, 6vw, 72px)',
+          fontWeight: 600,
+          letterSpacing: '-0.035em',
+          lineHeight: 1.05,
+          marginBottom: '20px',
+          color: 'var(--ink)',
+        }}>
+          This page <em style={{ fontFamily: 'Georgia, serif', fontWeight: 400 }}>doesn&rsquo;t exist.</em>
         </h1>
-        <p style={{ fontSize:'16px', color:'var(--txt2)', lineHeight:'1.7', marginBottom:'36px' }}>
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
+        <p style={{
+          fontSize: '17px',
+          color: 'var(--ink-2)',
+          lineHeight: 1.55,
+          marginBottom: '40px',
+        }}>
+          The page you&rsquo;re looking for has moved, been renamed, or never existed.
         </p>
-        <div style={{ display:'flex', gap:'12px', justifyContent:'center', flexWrap:'wrap' }}>
-          <Link href="/" className="btn-primary">Go home</Link>
-          <Link href="/contact" className="btn-glass">Contact us</Link>
+        <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link href="/" className="btn btn-primary">
+            Back to home <span className="arrow">&rarr;</span>
+          </Link>
+          <Link href="/#contact" className="btn-link">
+            Get in touch
+          </Link>
         </div>
       </div>
     </main>

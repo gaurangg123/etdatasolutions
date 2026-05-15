@@ -1,43 +1,94 @@
-.header { max-width: 700px; margin-bottom: 60px; display: flex; flex-direction: column; gap: 16px; }
-
-.snapSection {
-  padding: 100px 0 64px;
-  border-bottom: 1px solid var(--bdr);
-  scroll-margin-top: 90px;
+.intro {
+  padding-top: calc(var(--nav-h) + 96px);
+  padding-bottom: 64px;
 }
-.snapSection:first-child { padding-top: calc(var(--nav-h) + 40px); }
-.snapSection:last-child { border-bottom: none; }
 
-.serviceBlock {
-  display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px;
-  padding: 48px 40px; background: #fff; border: 1.5px solid var(--bdr); border-radius: 24px;
-  align-items: start; transition: border-color 0.3s, box-shadow 0.3s;
-  box-shadow: var(--card-shadow);
+.h1 {
+  font-size: var(--font-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin-bottom: 32px;
+  max-width: 900px;
 }
-.serviceBlock:hover { border-color: var(--bdr-or); box-shadow: var(--card-shadow-hover); }
 
-.serviceLeft { display: flex; flex-direction: column; gap: 14px; }
-.svcIcon { width: 56px; height: 56px; border-radius: 14px; background: var(--or-light); border: 1.5px solid var(--bdr-or); display: flex; align-items: center; justify-content: center; font-size: 26px; }
-.serviceLeft :global(h2) { font-size: clamp(22px,2.5vw,30px); color: var(--txt); }
-.tagline { font-style: italic; font-size: 15px !important; color: var(--or) !important; font-weight: 600; }
-.serviceLeft :global(p) { font-size: 15px; color: var(--txt2); line-height: 1.65; }
+.lede {
+  font-size: 19px;
+  line-height: 1.55;
+  max-width: 560px;
+}
 
-.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-.tag { font-size: 12px; color: var(--tag-txt); background: var(--tag-bg); border: 1px solid var(--tag-bdr); border-radius: 999px; padding: 4px 12px; font-weight: 700; }
+.list {
+  padding-top: 32px;
+  padding-bottom: var(--space-section);
+}
 
-.serviceRight {}
-.infoCard { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: 16px; overflow: hidden; }
-.infoSection { padding: 18px 22px; border-bottom: 1px solid var(--bdr); }
-.infoSection:last-child { border-bottom: none; }
-.infoSection :global(h4) { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--txt3); font-weight: 700; margin-bottom: 10px; }
-.deliverables { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-.deliverables :global(li) { display: flex; gap: 8px; font-size: 13px; color: var(--txt2); line-height: 1.5; }
-.bullet { color: var(--or); flex-shrink: 0; font-weight: 700; }
-.infoText { font-size: 13px !important; color: var(--txt2) !important; line-height: 1.6 !important; max-width: none !important; }
-.engagement { color: var(--or) !important; font-weight: 700 !important; }
+.row {
+  display: grid;
+  grid-template-columns: 80px 1fr 32px;
+  align-items: center;
+  gap: 32px;
+  padding: 40px 0;
+  border-top: 1px solid var(--hairline);
+  transition: color 0.2s var(--ease);
+  color: var(--ink);
+}
+.row:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
 
-.jumpLinks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-.jumpLink { font-size: 13px; font-weight: 700; color: var(--or); background: var(--or-light); border: 1.5px solid var(--bdr-or); border-radius: 999px; padding: 6px 16px; transition: all 0.2s; text-decoration: none; }
-.jumpLink:hover { background: var(--or); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-or); }
+.row:hover .rowNum,
+.row:hover .rowTitle {
+  color: var(--accent);
+}
 
-@media (max-width: 780px) { .serviceBlock { grid-template-columns: 1fr; padding: 28px 20px; } }
+.row:hover .rowArrow {
+  transform: translateX(6px);
+  color: var(--accent);
+}
+
+.rowNum {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  transition: color 0.2s var(--ease);
+}
+
+.rowBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rowTitle {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  transition: color 0.2s var(--ease);
+}
+
+.rowTag {
+  font-size: 16px;
+  color: var(--ink-2);
+}
+
+.rowArrow {
+  font-size: 22px;
+  color: var(--ink-3);
+  transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+@media (max-width: 768px) {
+  .intro {
+    padding-top: calc(var(--nav-h) + 56px);
+  }
+  .row {
+    grid-template-columns: 48px 1fr 24px;
+    gap: 16px;
+    padding: 28px 0;
+  }
+  .rowTitle { font-size: 22px; }
+  .rowTag { font-size: 14px; }
+}

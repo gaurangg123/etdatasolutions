@@ -1,0 +1,225 @@
+.head {
+  padding-top: calc(var(--nav-h) + 64px);
+  padding-bottom: 80px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 48px;
+  font-weight: 500;
+  transition: color 0.2s var(--ease);
+}
+.backLink:hover { color: var(--ink); }
+
+.num {
+  display: inline-block;
+  font-size: 13px;
+  color: var(--ink-3);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin-bottom: 24px;
+  max-width: 900px;
+}
+
+.tag {
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--ink-2);
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+
+.blurb {
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+/* ── Block layout ── */
+.block {
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+}
+
+.blockGrid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ── Capabilities list ── */
+.capList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.capList li {
+  font-size: clamp(20px, 2.3vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  padding: 20px 0;
+  border-top: 1px solid var(--hairline);
+}
+.capList li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* ── Process ── */
+.process {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--dark-hairline);
+}
+
+.stepNum {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  padding-top: 4px;
+}
+
+.stepTitle {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--dark-ink);
+  margin-bottom: 8px;
+}
+
+.stepDesc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--dark-ink-2);
+  max-width: 540px;
+}
+
+/* ── Two-col (deliverables + pricing) ── */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+
+.delList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.delList li {
+  font-size: 17px;
+  color: var(--ink);
+  padding-left: 22px;
+  position: relative;
+}
+
+.delList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 12px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.pricing {
+  font-size: 17px;
+  color: var(--ink);
+  margin: 8px 0 32px;
+  max-width: 380px;
+  line-height: 1.55;
+}
+
+/* ── Other services ── */
+.others {
+  padding-top: 64px;
+  padding-bottom: var(--space-section);
+}
+
+.othersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.otherCard {
+  background: var(--bg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.3s var(--ease);
+  color: var(--ink);
+  min-height: 180px;
+  position: relative;
+}
+
+.otherCard:hover {
+  background: var(--bg-elev);
+}
+
+.otherNum {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+}
+
+.otherTitle {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  max-width: 200px;
+}
+
+.otherArrow {
+  margin-top: auto;
+  font-size: 20px;
+  color: var(--ink-3);
+  align-self: flex-start;
+  transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.otherCard:hover .otherArrow {
+  transform: translateX(6px);
+  color: var(--accent);
+}
+
+/* Mobile */
+@media (max-width: 868px) {
+  .head { padding-top: calc(var(--nav-h) + 32px); padding-bottom: 48px; }
+  .blockGrid { grid-template-columns: 1fr; gap: 32px; }
+  .twoCol { grid-template-columns: 1fr; gap: 48px; }
+  .othersGrid { grid-template-columns: 1fr; }
+  .step { grid-template-columns: 40px 1fr; gap: 16px; }
+}
