@@ -1,116 +1,127 @@
 .intro {
   padding-top: calc(var(--nav-h) + 96px);
-  padding-bottom: 64px;
+  padding-bottom: 56px;
+  background: var(--bg);
 }
 
 .h1 {
   font-size: var(--font-display);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
-  margin-bottom: 32px;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+  color: var(--ink);
 }
 
 .lede {
-  font-size: 19px;
-  line-height: 1.55;
-  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.65;
+  max-width: 540px;
+  color: var(--ink-2);
 }
 
 .list {
-  padding-top: 80px;
+  padding-top: 40px;
   padding-bottom: var(--space-section);
+  background: var(--ink);
 }
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 240px;
+  grid-template-columns: 1fr 220px;
   align-items: center;
-  gap: 64px;
-  padding: 48px 0;
-  border-top: 1px solid var(--dark-hairline);
-  color: var(--dark-ink);
+  gap: 56px;
+  padding: 44px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
   transition: padding-left 0.3s var(--ease);
+  cursor: pointer;
 }
 .row:last-child {
-  border-bottom: 1px solid var(--dark-hairline);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-
 .row:hover {
   padding-left: 16px;
 }
 
 .rowTop {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 16px;
-  font-size: 12px;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
+  flex-wrap: wrap;
 }
 
 .rowNum {
-  color: var(--accent);
+  color: var(--orange);
 }
 
 .rowMeta {
-  color: var(--dark-ink-2);
+  color: rgba(255,255,255,0.4);
+  font-weight: 600;
 }
 
 .rowBody {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .rowTitle {
-  font-size: clamp(24px, 3vw, 36px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--dark-ink);
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #fff;
   transition: color 0.2s var(--ease);
+  line-height: 1.2;
 }
 
 .row:hover .rowTitle {
-  color: var(--accent);
+  color: var(--orange);
 }
 
 .rowProblem {
-  font-size: 16px;
-  color: var(--dark-ink-2);
-  max-width: 500px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  max-width: 480px;
+  line-height: 1.55;
 }
 
 .rowMetric {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   align-items: flex-start;
 }
 
 .metricVal {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--accent);
+  font-size: clamp(30px, 3.5vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--orange);
   line-height: 1;
 }
 
 .metricSub {
   font-size: 12px;
-  color: var(--dark-ink-2);
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 @media (max-width: 768px) {
-  .intro { padding-top: calc(var(--nav-h) + 56px); }
-  .list { padding-top: 48px; }
+  .intro { padding-top: calc(var(--nav-h) + 52px); }
+  .list { padding-top: 24px; }
   .row {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
     padding: 32px 0;
   }
   .row:hover { padding-left: 0; }
-  .rowTitle { font-size: 22px; }
+  .rowTitle { font-size: 20px; }
 }

@@ -17,10 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const c = caseStudies.find(x => x.slug === slug);
   if (!c) return {};
-  return {
-    title: `${c.client} — ${c.service}`,
-    description: c.outcome,
-  };
+  return { title: `${c.client} — ${c.service}`, description: c.outcome };
 }
 
 export default async function WorkDetail({ params }: Props) {
@@ -33,8 +30,8 @@ export default async function WorkDetail({ params }: Props) {
 
   return (
     <main>
-      {/* Header */}
-      <section className={`section ${styles.head}`}>
+      {/* ── Header (light) ── */}
+      <section className={styles.head}>
         <div className="container">
           <Reveal>
             <Link href="/work" className={styles.backLink}>
@@ -56,18 +53,18 @@ export default async function WorkDetail({ params }: Props) {
             <h1 className={styles.title}>{c.client}</h1>
           </Reveal>
           <Reveal delay={180}>
-            <p className={styles.tag}><em>{c.problem}</em></p>
+            <p className={styles.tag}>{c.problem}</p>
           </Reveal>
         </div>
       </section>
 
-      {/* Outcome highlight */}
-      <section className={`section section-dark ${styles.outcome}`}>
+      {/* ── Outcome (dark) ── */}
+      <section className={styles.outcome}>
         <div className="container">
           <Reveal>
             <div className={styles.outcomeWrap}>
               <div>
-                <span className="eyebrow">Outcome</span>
+                <span className={styles.outcomeLabel}>Outcome</span>
                 <p className={styles.outcomeText}>{c.outcome}</p>
               </div>
               <div className={styles.metric}>
@@ -79,12 +76,12 @@ export default async function WorkDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Context */}
-      <section className={`section ${styles.body}`}>
+      {/* ── Context (light) ── */}
+      <section className={styles.body}>
         <div className="container">
           <div className={styles.bodyGrid}>
             <Reveal>
-              <span className="eyebrow">Context</span>
+              <span className={styles.bodyLabel}>Context</span>
             </Reveal>
             <Reveal delay={80}>
               <p className={styles.bodyText}>{c.context}</p>
@@ -93,12 +90,12 @@ export default async function WorkDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Approach */}
-      <section className={`section ${styles.body}`}>
+      {/* ── Approach (light) ── */}
+      <section className={styles.body} style={{ paddingTop: 0, borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <div className={styles.bodyGrid}>
             <Reveal>
-              <span className="eyebrow">Approach</span>
+              <span className={styles.bodyLabel}>Approach</span>
             </Reveal>
             <ol className={styles.approach}>
               {c.approach.map((a, i) => (
@@ -114,8 +111,8 @@ export default async function WorkDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Quote */}
-      <section className={`section ${styles.quoteSec}`}>
+      {/* ── Quote (white) ── */}
+      <section className={styles.quoteSec}>
         <div className="container">
           <Reveal>
             <blockquote className={styles.quote}>
@@ -126,9 +123,9 @@ export default async function WorkDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Related service */}
+      {/* ── Related service ── */}
       {relatedService && (
-        <section className={`section ${styles.related}`}>
+        <section className={styles.related}>
           <div className="container">
             <Reveal>
               <span className="eyebrow">The practice</span>
@@ -146,8 +143,8 @@ export default async function WorkDetail({ params }: Props) {
         </section>
       )}
 
-      {/* Other work */}
-      <section className={`section ${styles.others}`}>
+      {/* ── Other work ── */}
+      <section className={styles.others}>
         <div className="container">
           <Reveal>
             <span className="eyebrow">More work</span>

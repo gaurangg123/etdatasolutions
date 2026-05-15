@@ -7,22 +7,20 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Real engagements, real outcomes. Three case studies from our staffing, data, QA, and engineering practices.',
+    'Real engagements, real outcomes. Case studies from our staffing, data, QA, and engineering practices.',
 };
 
 export default function WorkIndex() {
   return (
     <main>
+      {/* ── Intro (light) ── */}
       <section className={`section ${styles.intro}`}>
         <div className="container">
           <Reveal>
             <span className="eyebrow">Selected work</span>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className={styles.h1}>
-              The receipts.<br />
-              <em>Numbers, named.</em>
-            </h1>
+            <h1 className={styles.h1}>Real clients.<br />Real outcomes.</h1>
           </Reveal>
           <Reveal delay={160}>
             <p className={styles.lede}>
@@ -32,20 +30,21 @@ export default function WorkIndex() {
         </div>
       </section>
 
-      <section className={`section section-dark ${styles.list}`}>
+      {/* ── Case list (dark) ── */}
+      <section className={`section ${styles.list}`}>
         <div className="container">
           {caseStudies.map((c, i) => (
             <Reveal key={c.slug} delay={i * 80}>
               <Link href={`/work/${c.slug}`} className={styles.row}>
-                <div className={styles.rowTop}>
-                  <span className={styles.rowNum}>{c.num}</span>
-                  <span className={styles.rowMeta}>
-                    {c.region} &middot; {c.service}
-                  </span>
-                </div>
-                <div className={styles.rowBody}>
-                  <h2 className={styles.rowTitle}>{c.client}</h2>
-                  <p className={styles.rowProblem}>{c.problem}</p>
+                <div>
+                  <div className={styles.rowTop}>
+                    <span className={styles.rowNum}>{c.num}</span>
+                    <span className={styles.rowMeta}>{c.region} · {c.service}</span>
+                  </div>
+                  <div className={styles.rowBody}>
+                    <h2 className={styles.rowTitle}>{c.client}</h2>
+                    <p className={styles.rowProblem}>{c.problem}</p>
+                  </div>
                 </div>
                 <div className={styles.rowMetric}>
                   <span className={styles.metricVal}>{c.metric.val}</span>

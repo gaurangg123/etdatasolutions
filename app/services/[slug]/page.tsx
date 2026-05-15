@@ -17,10 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const s = services.find(x => x.slug === slug);
   if (!s) return {};
-  return {
-    title: s.title,
-    description: s.tagline,
-  };
+  return { title: s.title, description: s.tagline };
 }
 
 export default async function ServiceDetail({ params }: Props) {
@@ -32,22 +29,22 @@ export default async function ServiceDetail({ params }: Props) {
 
   return (
     <main>
-      {/* Header */}
-      <section className={`section ${styles.head}`}>
+      {/* ── Header ── */}
+      <section className={styles.head}>
         <div className="container">
           <Reveal>
             <Link href="/services" className={styles.backLink}>
               <span>&larr;</span> All services
             </Link>
           </Reveal>
-          <Reveal delay={80}>
-            <span className={styles.num}>{s.num}</span>
+          <Reveal delay={60}>
+            <span className={styles.num}>{s.num} · {s.title}</span>
           </Reveal>
           <Reveal delay={120}>
             <h1 className={styles.title}>{s.title}</h1>
           </Reveal>
           <Reveal delay={180}>
-            <p className={styles.tag}><em>{s.tagline}</em></p>
+            <p className={styles.tag}>{s.tagline}</p>
           </Reveal>
           <Reveal delay={240}>
             <p className={styles.blurb}>{s.blurb}</p>
@@ -55,30 +52,28 @@ export default async function ServiceDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Capabilities */}
-      <section className={`section ${styles.block}`}>
+      {/* ── Capabilities (dark) ── */}
+      <section className={styles.block}>
         <div className="container">
           <div className={styles.blockGrid}>
             <Reveal>
-              <span className="eyebrow">Capabilities</span>
+              <span className={styles.blockLabel}>Capabilities</span>
             </Reveal>
             <Reveal delay={80}>
               <ul className={styles.capList}>
-                {s.capabilities.map(c => (
-                  <li key={c}>{c}</li>
-                ))}
+                {s.capabilities.map(c => <li key={c}>{c}</li>)}
               </ul>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Process */}
-      <section className={`section section-dark ${styles.block}`}>
+      {/* ── Process (dark) ── */}
+      <section className={styles.block} style={{ paddingTop: 0 }}>
         <div className="container">
           <div className={styles.blockGrid}>
             <Reveal>
-              <span className="eyebrow">How it works</span>
+              <span className={styles.blockLabel}>How it works</span>
             </Reveal>
             <div className={styles.process}>
               {s.process.map((p, i) => (
@@ -97,27 +92,24 @@ export default async function ServiceDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Deliverables + Pricing */}
-      <section className={`section ${styles.block}`}>
+      {/* ── Deliverables + Pricing (light) ── */}
+      <section className={styles.lightBlock}>
         <div className="container">
           <div className={styles.twoCol}>
             <Reveal>
               <div>
-                <span className="eyebrow">What you get</span>
+                <span className={styles.colHead}>What you get</span>
                 <ul className={styles.delList}>
-                  {s.deliverables.map(d => (
-                    <li key={d}>{d}</li>
-                  ))}
+                  {s.deliverables.map(d => <li key={d}>{d}</li>)}
                 </ul>
               </div>
             </Reveal>
             <Reveal delay={120}>
               <div>
-                <span className="eyebrow">Engagement</span>
+                <span className={styles.colHead}>Engagement & pricing</span>
                 <p className={styles.pricing}>{s.pricing}</p>
-                <Link href="/#contact" className="btn btn-primary">
-                  Start a conversation
-                  <span className="arrow">&rarr;</span>
+                <Link href="/#contact" className="btn btn-primary" style={{ marginTop: '28px' }}>
+                  Start a conversation <span>&rarr;</span>
                 </Link>
               </div>
             </Reveal>
@@ -125,8 +117,8 @@ export default async function ServiceDetail({ params }: Props) {
         </div>
       </section>
 
-      {/* Other services */}
-      <section className={`section ${styles.others}`}>
+      {/* ── Other services ── */}
+      <section className={styles.others}>
         <div className="container">
           <Reveal>
             <span className="eyebrow">Other practices</span>
