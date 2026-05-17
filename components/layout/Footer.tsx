@@ -12,10 +12,10 @@ const quickLinks = [
 ];
 
 const serviceLinks = [
-  { href: '/services#staffing',           label: 'Staffing & Recruiting' },
+  { href: '/services#staffing',           label: 'Recruitment Services' },
   { href: '/services#virtual-assistants', label: 'Virtual Assistants' },
-  { href: '/services#data-entry',         label: 'Data Entry' },
-  { href: '/services#custom-solutions',   label: 'Custom Solutions' },
+  { href: '/services#data-entry',         label: 'Data Entry & Macros' },
+  { href: '/services#data-engineering',   label: 'Data Engineering' },
 ];
 
 export default function Footer() {

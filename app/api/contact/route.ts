@@ -22,11 +22,26 @@ function sanitize(str: unknown, max: number): string {
   return String(str ?? '').trim().slice(0, max);
 }
 
+// Default recipients (overridable via CONTACT_TO_EMAILS env var, comma-separated)
+const DEFAULT_RECIPIENTS = [
+  'bobby@etdatasolutions.com',
+  'gaurang@etdatasolutions.com',
+];
+
+function getRecipients(): string[] {
+  const env = process.env.CONTACT_TO_EMAILS || process.env.CONTACT_TO_EMAIL;
+  if (!env) return DEFAULT_RECIPIENTS;
+  return env.split(',').map((s) => s.trim()).filter(Boolean);
+}
+
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
     if (isRateLimited(ip)) {
-      return NextResponse.json({ error: 'Too many requests. Please try again in a minute.' }, { status: 429 });
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again in a minute.' },
+        { status: 429 },
+      );
     }
 
     const body = await req.json().catch(() => null);
@@ -51,17 +66,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Message is too short (minimum 20 characters).' }, { status: 400 });
     }
 
-    // ── Resend delivery ───────────────────────────────────
     const apiKey = process.env.RESEND_API_KEY;
-    const toAddress = process.env.CONTACT_TO_EMAIL || 'hello@etdatasolutions.com';
-    const fromAddress = process.env.CONTACT_FROM_EMAIL || 'ET Data Solutions <noreply@etdatasolutions.com>';
+    const fromAddress =
+      process.env.CONTACT_FROM_EMAIL || 'ET Data Solutions <noreply@etdatasolutions.com>';
+    const to = getRecipients();
 
     if (apiKey) {
       const { Resend } = await import('resend');
       const resend = new Resend(apiKey);
       const { error } = await resend.emails.send({
         from: fromAddress,
-        to: [toAddress],
+        to,
         reply_to: email,
         subject: `New enquiry from ${name}${company ? ` — ${company}` : ''}`,
         text: [
@@ -76,11 +91,15 @@ export async function POST(req: NextRequest) {
       });
       if (error) {
         console.error('Resend error:', error);
-        return NextResponse.json({ error: 'Failed to deliver message. Please try again.' }, { status: 502 });
+        return NextResponse.json(
+          { error: 'Failed to deliver message. Please try again.' },
+          { status: 502 },
+        );
       }
     } else {
-      // No API key: log and accept (dev mode).
-      console.warn('[contact] RESEND_API_KEY not set — message accepted but not delivered.', { name, email, company, service });
+      console.warn('[contact] RESEND_API_KEY not set — message accepted but not delivered.', {
+        name, email, company, service, to,
+      });
     }
 
     return NextResponse.json({ ok: true });

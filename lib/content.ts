@@ -6,8 +6,8 @@
 export const company = {
   name: 'ET Data Solutions',
   tagline: 'Operational excellence, delivered.',
-  email: 'hello@etdatasolutions.com',
-  phone: '+91 73XX XXX XXX',
+  email: 'bobby@etdatasolutions.com',
+  phone: '+91 62653-48189',
   location: 'Indore, Madhya Pradesh, India',
   social: {
     linkedin: 'https://www.linkedin.com/company/etdatasolutions',
@@ -38,7 +38,7 @@ export const services: Service[] = [
   {
     slug: 'staffing',
     num: '01',
-    title: 'Staffing & Recruiting',
+    title: 'Recruitment Services',
     short: 'Vetted specialists embedded in your workflows.',
     tagline: 'Hire faster. Scale smarter.',
     blurb:
@@ -72,7 +72,7 @@ export const services: Service[] = [
   {
     slug: 'data-entry',
     num: '03',
-    title: 'Data Entry Solutions',
+    title: 'Data Entry & Macro Services',
     short: 'Two-pass quality control. 99% accuracy.',
     tagline: 'Clean data, on time, every time.',
     blurb:
@@ -87,9 +87,9 @@ export const services: Service[] = [
     icon: 'database',
   },
   {
-    slug: 'custom-solutions',
+    slug: 'data-engineering',
     num: '04',
-    title: 'Custom Solutions',
+    title: 'Data Engineering & Visualizations',
     short: 'Tailored ops, QA, and data engineering.',
     tagline: 'Whatever the workflow, we build it.',
     blurb:

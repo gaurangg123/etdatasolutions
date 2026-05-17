@@ -4,14 +4,36 @@ import PageHeader from '@/components/ui/PageHeader';
 import CTABanner from '@/components/ui/CTABanner';
 import Reveal from '@/components/ui/Reveal';
 import { services, process } from '@/lib/content';
-import { Users, Headset, Database, Sparkles, Check, ArrowRight, MessageSquare, ClipboardList, Rocket, PackageCheck } from 'lucide-react';
+import {
+  RecruitmentArt,
+  VirtualAssistantArt,
+  DataEntryArt,
+  DataEngineeringArt,
+} from '@/components/ui/ServiceIllustrations';
+import {
+  Check,
+  ArrowRight,
+  MessageSquare,
+  ClipboardList,
+  Rocket,
+  PackageCheck,
+  ArrowUpRight,
+} from 'lucide-react';
 
-const iconMap = { users: Users, headset: Headset, database: Database, sparkles: Sparkles };
+// map service slug → illustration
+const artBySlug: Record<string, () => JSX.Element> = {
+  staffing: RecruitmentArt,
+  'virtual-assistants': VirtualAssistantArt,
+  'data-entry': DataEntryArt,
+  'data-engineering': DataEngineeringArt,
+};
+
 const processIcons = [MessageSquare, ClipboardList, Rocket, PackageCheck];
 
 export const metadata: Metadata = {
   title: 'Services',
-  description: 'Staffing, virtual assistants, data entry solutions, and custom services from ET Data Solutions.',
+  description:
+    'Recruitment services, virtual assistants, data entry & macros, and data engineering & visualizations from ET Data Solutions.',
 };
 
 export default function ServicesPage() {
@@ -19,16 +41,57 @@ export default function ServicesPage() {
     <>
       <PageHeader
         eyebrow="Our services"
-        title="What we do, in clear terms."
-        subtitle="Four core services. Hundreds of workflows. One predictable, accountable team behind all of it."
+        title="Four offerings. One accountable team."
+        subtitle="From global recruitment to data pipelines — handled with the discipline of an in-house function, at outsourcing economics."
       />
 
-      <section className="container-x section space-y-10">
+      {/* Card grid (2×2 on desktop, stacked on mobile) */}
+      <section className="container-x section">
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map((s, i) => {
+            const Art = artBySlug[s.slug];
+            return (
+              <Reveal key={s.slug} delay={(i % 2) * 0.1}>
+                <Link
+                  href={`#${s.slug}`}
+                  className="group relative block rounded-3xl border border-ink-100 bg-white overflow-hidden shadow-card hover:shadow-soft hover:-translate-y-1 hover:border-brand-300 transition-all duration-300 h-full"
+                >
+                  {/* illustration band */}
+                  <div className="relative h-52 sm:h-56 bg-gradient-to-br from-brand-50 to-brand-100/60 overflow-hidden">
+                    <div className="absolute inset-0 grid place-items-center p-6">
+                      {Art && <Art />}
+                    </div>
+                    {/* corner sheen */}
+                    <div aria-hidden className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-white/40 blur-2xl" />
+                  </div>
+
+                  {/* copy */}
+                  <div className="p-7">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <span className="text-xs font-mono text-brand-600">{s.num}</span>
+                        <h3 className="mt-1 text-xl font-bold tracking-tight text-ink-900">
+                          {s.title}
+                        </h3>
+                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-ink-400 group-hover:text-brand-600 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
+                    </div>
+                    <p className="mt-3 text-sm text-ink-600 leading-relaxed">{s.blurb}</p>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Detailed sections (one per service) */}
+      <section className="container-x pb-24 space-y-10">
         {services.map((s, i) => {
-          const Icon = iconMap[s.icon];
+          const Art = artBySlug[s.slug];
           const reverse = i % 2 === 1;
           return (
-            <Reveal key={s.slug}>
+            <Reveal key={`d-${s.slug}`}>
               <article
                 id={s.slug}
                 className="scroll-mt-28 rounded-3xl border border-ink-100 bg-white overflow-hidden shadow-card"
@@ -55,19 +118,17 @@ export default function ServicesPage() {
                       <Link href="/contact" className="btn-primary">
                         Get a quote <ArrowRight className="w-4 h-4" />
                       </Link>
-                      <Link href={`/contact?service=${encodeURIComponent(s.title)}`} className="btn-secondary">
-                        Learn more
+                      <Link
+                        href={`/contact?service=${encodeURIComponent(s.title)}`}
+                        className="btn-secondary"
+                      >
+                        Discuss this service
                       </Link>
                     </div>
                   </div>
 
                   <div className="relative bg-gradient-to-br from-brand-50 to-brand-100/50 p-8 sm:p-12 grid place-items-center [direction:ltr]">
-                    <div className="relative">
-                      <div className="absolute -inset-8 bg-brand-gradient opacity-30 rounded-full blur-3xl" />
-                      <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-3xl bg-white shadow-soft grid place-items-center">
-                        <Icon className="w-16 h-16 sm:w-20 sm:h-20 text-brand-500" strokeWidth={1.5} />
-                      </div>
-                    </div>
+                    <div className="w-full max-w-md">{Art && <Art />}</div>
                   </div>
                 </div>
               </article>
@@ -76,6 +137,7 @@ export default function ServicesPage() {
         })}
       </section>
 
+      {/* How we work timeline */}
       <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
         <div className="container-x section">
           <Reveal>
@@ -88,7 +150,10 @@ export default function ServicesPage() {
           </Reveal>
 
           <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div aria-hidden className="hidden lg:block absolute top-7 left-12 right-12 h-px bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200" />
+            <div
+              aria-hidden
+              className="hidden lg:block absolute top-7 left-12 right-12 h-px bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200"
+            />
             {process.map((p, i) => {
               const Icon = processIcons[i];
               return (
@@ -109,7 +174,7 @@ export default function ServicesPage() {
       </section>
 
       <CTABanner
-        title="Need a customised solution?"
+        title="Need a customised engagement?"
         subtitle="If none of the above fits exactly, tell us what you need. We've built far stranger things."
         ctaLabel="Talk to us"
       />

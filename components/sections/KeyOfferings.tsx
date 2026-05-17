@@ -1,9 +1,20 @@
 import Link from 'next/link';
-import { Users, Headset, Database, Sparkles, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { services } from '@/lib/content';
 import Reveal from '@/components/ui/Reveal';
+import {
+  RecruitmentArt,
+  VirtualAssistantArt,
+  DataEntryArt,
+  DataEngineeringArt,
+} from '@/components/ui/ServiceIllustrations';
 
-const iconMap = { users: Users, headset: Headset, database: Database, sparkles: Sparkles };
+const artBySlug: Record<string, () => JSX.Element> = {
+  staffing: RecruitmentArt,
+  'virtual-assistants': VirtualAssistantArt,
+  'data-entry': DataEntryArt,
+  'data-engineering': DataEngineeringArt,
+};
 
 export default function KeyOfferings() {
   return (
@@ -23,19 +34,26 @@ export default function KeyOfferings() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((s, i) => {
-            const Icon = iconMap[s.icon];
+            const Art = artBySlug[s.slug];
             return (
               <Reveal key={s.slug} delay={i * 0.08}>
-                <Link href={`/services#${s.slug}`} className="card block p-6 h-full group">
-                  <div className="flex items-start justify-between mb-5">
-                    <span className="grid place-items-center w-11 h-11 rounded-xl bg-brand-gradient text-white shadow-soft group-hover:scale-110 transition-transform">
-                      <Icon className="w-5 h-5" />
-                    </span>
-                    <ArrowUpRight className="w-5 h-5 text-ink-400 group-hover:text-brand-600 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
+                <Link
+                  href={`/services#${s.slug}`}
+                  className="group block rounded-2xl border border-ink-100 bg-white overflow-hidden hover:-translate-y-1 hover:shadow-soft hover:border-brand-300 transition-all duration-300 h-full"
+                >
+                  <div className="relative h-36 bg-gradient-to-br from-brand-50 to-brand-100/60 overflow-hidden">
+                    <div className="absolute inset-0 grid place-items-center p-3">
+                      {Art && <Art />}
+                    </div>
                   </div>
-                  <div className="text-xs font-mono text-ink-400 mb-1">{s.num}</div>
-                  <h3 className="text-lg font-semibold text-ink-900 mb-2">{s.title}</h3>
-                  <p className="text-sm text-ink-600 leading-relaxed">{s.short}</p>
+                  <div className="p-5">
+                    <div className="flex items-start justify-between mb-2">
+                      <span className="text-xs font-mono text-ink-400">{s.num}</span>
+                      <ArrowUpRight className="w-4 h-4 text-ink-400 group-hover:text-brand-600 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
+                    </div>
+                    <h3 className="text-base font-semibold text-ink-900 mb-1">{s.title}</h3>
+                    <p className="text-xs text-ink-600 leading-relaxed">{s.short}</p>
+                  </div>
                 </Link>
               </Reveal>
             );
