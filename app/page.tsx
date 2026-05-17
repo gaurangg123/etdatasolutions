@@ -8,12 +8,12 @@ import CTABanner from '@/components/ui/CTABanner';
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <MissionStatement />
-      <Snapshot />
-      <KeyOfferings />
-      <WhyChooseUs />
-      <CTABanner />
+      <section className="snap-section"><Hero /></section>
+      <section className="snap-section"><MissionStatement /></section>
+      <section className="snap-section"><Snapshot /></section>
+      <section className="snap-section"><KeyOfferings /></section>
+      <section className="snap-section"><WhyChooseUs /></section>
+      <section className="snap-section snap-loose"><CTABanner /></section>
     </>
   );
 }

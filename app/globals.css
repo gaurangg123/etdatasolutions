@@ -1,6 +1,5 @@
 /* ══════════════════════════════════════════════════════════
-   ET Data Solutions — v2 Design System
-   Light theme · Orange brand · Tailwind base
+   ET Data Solutions — v2 Design System (refined)
    ══════════════════════════════════════════════════════════ */
 
 @tailwind base;
@@ -9,23 +8,52 @@
 
 @layer base {
   :root {
-    --brand: #FF7A00;
-    --brand-2: #FFA94D;
-    --ink: #0F131C;
-    --ink-soft: #454C5A;
+    --brand-50:  #FFF5EC;
+    --brand-100: #FFE2C5;
+    --brand-300: #FFB069;
+    --brand-500: #F26A1E;     /* refined primary — warmer & richer */
+    --brand-600: #DC5A12;
+    --brand-700: #B0440A;
+    --ink: #0B0F1A;
+    --ink-soft: #3C4252;
     --bg: #FFFFFF;
-    --bg-soft: #FFF7EE;
+    --bg-soft: #FFF9F2;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
   body {
     @apply bg-white text-ink-800 antialiased;
-    font-feature-settings: 'ss01', 'ss02';
+    font-feature-settings: 'ss01', 'ss02', 'cv11';
   }
 
-  ::selection { background: #FFD9B3; color: #4D2200; }
+  ::selection { background: #FFD5A8; color: #4D2200; }
 
   h1, h2, h3, h4 { @apply font-display tracking-tight text-ink-900; }
+
+  /* Disable snap-mandatory on small heights (mobile keyboard etc) and on iframes */
+  @media (max-height: 640px) {
+    html { scroll-snap-type: y proximity; }
+  }
+
+  /* Each section that opts in snaps to top of viewport */
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100svh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Footer / very tall sections shouldn't force snap */
+  .snap-section.snap-loose {
+    scroll-snap-align: start;
+    min-height: auto;
+  }
 }
 
 @layer components {
@@ -42,9 +70,7 @@
   .btn-secondary {
     @apply btn bg-white text-ink-900 border border-ink-200 hover:border-brand-400 hover:text-brand-600;
   }
-  .btn-ghost {
-    @apply btn text-ink-800 hover:text-brand-600;
-  }
+  .btn-ghost  { @apply btn text-ink-800 hover:text-brand-600; }
 
   .card {
     @apply rounded-2xl bg-white border border-ink-100 shadow-card transition-all duration-300
@@ -53,18 +79,17 @@
 
   .pill {
     @apply inline-flex items-center gap-2 rounded-full bg-brand-50 text-brand-700
-           px-3 py-1 text-xs font-semibold tracking-wide uppercase;
+           px-3 py-1 text-xs font-semibold tracking-wide uppercase border border-brand-100;
   }
 
   .grad-text {
-    background: linear-gradient(135deg, #FF7A00 0%, #FFA94D 100%);
+    background: linear-gradient(135deg, #F26A1E 0%, #FFB069 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .section { @apply py-20 sm:py-28; }
-
   .section-header { @apply max-w-2xl mb-12 sm:mb-16; }
 
   .input {
@@ -75,19 +100,13 @@
   .label { @apply block text-sm font-medium text-ink-800 mb-2; }
 }
 
-/* Decorative gradient orb (used by Hero + headers) */
-.orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.55;
-  pointer-events: none;
-}
-.orb-a { background: radial-gradient(circle, #FFB97A 0%, transparent 70%); }
-.orb-b { background: radial-gradient(circle, #FF7A00 0%, transparent 70%); opacity: 0.35; }
+.orb { position: absolute; border-radius: 9999px; filter: blur(60px); opacity: 0.55; pointer-events: none; }
+.orb-a { background: radial-gradient(circle, #FFC089 0%, transparent 70%); }
+.orb-b { background: radial-gradient(circle, #F26A1E 0%, transparent 70%); opacity: 0.32; }
 
-/* Reduced motion respect */
+/* Smooth scroll for users who haven't disabled it */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;

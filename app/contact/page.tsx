@@ -14,58 +14,58 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Contact us"
-        title="Get in touch."
-        subtitle="Send a message, email, call, or book a slot directly on the calendar. We respond within one business day."
-      />
+      <section className="snap-section">
+        <PageHeader
+          eyebrow="Contact us"
+          title="Get in touch."
+          subtitle="Send a message, email, call, or book a slot directly on the calendar. We respond within one business day."
+        />
+      </section>
 
-      {/* Quick contact strip */}
-      <section className="container-x pt-12">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <QuickCard icon={Mail}  label="Email"  value={company.email}     href={`mailto:${company.email}`} />
-          <QuickCard icon={Phone} label="Phone"  value={company.phone}     href={`tel:${company.phone.replace(/[^+\d]/g, '')}`} />
-          <QuickCard icon={MapPin} label="Office" value={company.location} />
-          <QuickCard icon={CalendarClock} label="Hours" value="Mon–Fri · 9–7 IST" />
+      <section className="snap-section">
+        <div className="container-x">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <QuickCard icon={Mail}  label="Email"  value={company.email}     href={`mailto:${company.email}`} />
+            <QuickCard icon={Phone} label="Phone"  value={company.phone}     href={`tel:${company.phone.replace(/[^+\d]/g, '')}`} />
+            <QuickCard icon={MapPin} label="Office" value={company.location} />
+            <QuickCard icon={CalendarClock} label="Hours" value="Mon–Fri · 9–7 IST" />
+          </div>
+
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8">
+            <Reveal>
+              <div className="rounded-3xl border border-ink-100 bg-white shadow-card p-6 sm:p-10">
+                <h2 className="text-2xl font-bold mb-1">Send us a message</h2>
+                <p className="text-sm text-ink-500 mb-6">All fields marked with * are required.</p>
+                <ContactForm />
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <CalendlyEmbed />
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* Form + Calendly */}
-      <section className="container-x section grid lg:grid-cols-[1.1fr_1fr] gap-8">
-        <Reveal>
-          <div className="rounded-3xl border border-ink-100 bg-white shadow-card p-6 sm:p-10">
-            <h2 className="text-2xl font-bold mb-1">Send us a message</h2>
-            <p className="text-sm text-ink-500 mb-6">All fields marked with * are required.</p>
-            <ContactForm />
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <CalendlyEmbed />
-        </Reveal>
-      </section>
-
-      {/* Map */}
-      <section className="container-x pb-24">
-        <Reveal>
-          <div className="rounded-3xl overflow-hidden border border-ink-100 shadow-card">
-            <iframe
-              title="Office location"
-              src="https://www.google.com/maps?q=Indore,+Madhya+Pradesh,+India&output=embed"
-              className="w-full h-80"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </Reveal>
+      <section className="snap-section snap-loose">
+        <div className="container-x pb-20">
+          <Reveal>
+            <div className="rounded-3xl overflow-hidden border border-ink-100 shadow-card">
+              <iframe
+                title="Office location"
+                src="https://www.google.com/maps?q=Indore,+Madhya+Pradesh,+India&output=embed"
+                className="w-full h-80"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </Reveal>
+        </div>
       </section>
     </>
   );
 }
 
-function QuickCard({
-  icon: Icon, label, value, href,
-}: {
+function QuickCard({ icon: Icon, label, value, href }: {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
   value: string;
