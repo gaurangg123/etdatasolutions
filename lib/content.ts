@@ -38,7 +38,7 @@ export const services: Service[] = [
   {
     slug: 'staffing',
     num: '01',
-    title: 'Recruitment Services',
+    title: 'Recruitment and Staffing Services',
     short: 'Vetted specialists embedded in your workflows.',
     tagline: 'Hire faster. Scale smarter.',
     blurb:

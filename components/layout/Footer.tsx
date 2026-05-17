@@ -12,7 +12,7 @@ const quickLinks = [
 ];
 
 const serviceLinks = [
-  { href: '/services#staffing',           label: 'Recruitment Services' },
+  { href: '/services#staffing',           label: 'Recruitment & Staffing' },
   { href: '/services#virtual-assistants', label: 'Virtual Assistants' },
   { href: '/services#data-entry',         label: 'Data Entry & Macros' },
   { href: '/services#data-engineering',   label: 'Data Engineering' },
