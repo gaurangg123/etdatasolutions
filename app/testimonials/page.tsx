@@ -1,27 +1,24 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import PageHeader from '@/components/ui/PageHeader';
 import CTABanner from '@/components/ui/CTABanner';
 import Reveal from '@/components/ui/Reveal';
-import { featured, testimonials, caseHighlights } from '@/data/testimonials';
-import { Star, Quote } from 'lucide-react';
+import {
+  TestimonialCard,
+  TestimonialsCarousel,
+} from '@/components/sections/TestimonialsView';
+import { testimonials, caseHighlights } from '@/data/testimonials';
+import { Quote, Star } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Testimonials',
-  description: 'Hear from the teams who trust ET Data Solutions with their operations, data, and customer workflows.',
+  description:
+    'Hear from teams who trust ET Data Solutions with their recruitment, virtual assistant, data entry, and data engineering workflows.',
 };
 
-function Stars({ n }: { n: number }) {
-  return (
-    <div className="flex gap-0.5">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className={`w-4 h-4 ${i < n ? 'text-brand-500 fill-brand-500' : 'text-ink-200'}`} />
-      ))}
-    </div>
-  );
-}
-
 export default function TestimonialsPage() {
+  const featured = testimonials.find((t) => t.featured) ?? testimonials[0];
+  const others = testimonials.filter((t) => t !== featured);
+
   return (
     <>
       <PageHeader
@@ -30,56 +27,76 @@ export default function TestimonialsPage() {
         subtitle="The best signal of quality is a client who keeps coming back. Most of ours have, for years."
       />
 
-      {/* Featured */}
+      {/* Featured testimonial */}
       <section className="container-x section">
         <Reveal>
           <div className="relative rounded-3xl bg-brand-gradient text-white p-8 sm:p-14 shadow-soft overflow-hidden">
             <div aria-hidden className="absolute -top-20 -right-16 w-72 h-72 rounded-full bg-white/15 blur-3xl" />
-            <Quote className="w-12 h-12 text-white/40 mb-4" />
-            <p className="text-2xl sm:text-3xl font-medium leading-snug max-w-3xl">
-              “{featured.quote}”
-            </p>
-            <div className="mt-8 flex items-center gap-4">
-              <Image
-                src={featured.photo}
-                alt={featured.name}
-                width={56}
-                height={56}
-                className="rounded-full ring-2 ring-white/40 object-cover"
-              />
-              <div>
-                <div className="font-semibold">{featured.name}</div>
-                <div className="text-sm text-white/85">{featured.role}{featured.company ? ` · ${featured.company}` : ''}</div>
+            <div aria-hidden className="absolute -bottom-20 -left-12 w-60 h-60 rounded-full bg-white/10 blur-3xl" />
+
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/20 text-white text-[11px] font-bold tracking-wider uppercase px-3 py-1 backdrop-blur">
+                {featured.service}
+              </span>
+              <Quote className="w-12 h-12 text-white/40 mt-5" />
+              <p className="text-2xl sm:text-3xl font-medium leading-snug max-w-3xl mt-4">
+                “{featured.review}”
+              </p>
+              <div className="mt-8 flex items-center gap-4">
+                <span className="grid place-items-center w-14 h-14 rounded-full bg-white text-brand-700 text-base font-bold ring-2 ring-white/40">
+                  {featured.name
+                    .split(/\s+/)
+                    .map((w) => w[0])
+                    .filter(Boolean)
+                    .slice(0, 2)
+                    .join('')
+                    .toUpperCase()}
+                </span>
+                <div>
+                  <div className="font-semibold">{featured.name}</div>
+                  <div className="text-sm text-white/85">
+                    {featured.company || featured.service}
+                  </div>
+                </div>
+                <div className="ml-auto hidden sm:flex items-center gap-0.5">
+                  {Array.from({ length: featured.rating ?? 5 }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-white text-white" />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </Reveal>
       </section>
 
-      {/* Grid */}
+      {/* Grid (md+) — Carousel (mobile) */}
       <section className="container-x pb-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={(i % 3) * 0.08}>
-              <article className="card p-6 h-full flex flex-col">
-                <Stars n={t.rating} />
-                <p className="mt-4 text-ink-700 leading-relaxed flex-1">“{t.quote}”</p>
-                <div className="mt-5 flex items-center gap-3 pt-5 border-t border-ink-100">
-                  <Image
-                    src={t.photo}
-                    alt={t.name}
-                    width={44}
-                    height={44}
-                    className="rounded-full object-cover"
-                  />
-                  <div>
-                    <div className="font-semibold text-sm text-ink-900">{t.name}</div>
-                    <div className="text-xs text-ink-500">{t.role}{t.company ? ` · ${t.company}` : ''}</div>
-                  </div>
-                </div>
-              </article>
+        <Reveal>
+          <div className="flex items-end justify-between flex-wrap gap-3 mb-8">
+            <div>
+              <span className="pill">More client stories</span>
+              <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-tight">
+                Across every service we offer.
+              </h2>
+            </div>
+            <p className="text-sm text-ink-500 max-w-xs">
+              Real quotes from real engagements. Filter mentally by the service tag on each card.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Desktop / tablet grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {others.map((t, i) => (
+            <Reveal key={t.name + i} delay={(i % 3) * 0.08}>
+              <TestimonialCard t={t} />
             </Reveal>
           ))}
+        </div>
+
+        {/* Mobile carousel */}
+        <div className="md:hidden">
+          <TestimonialsCarousel list={others} />
         </div>
       </section>
 
@@ -98,9 +115,11 @@ export default function TestimonialsPage() {
           <div className="grid md:grid-cols-3 gap-5">
             {caseHighlights.map((c, i) => (
               <Reveal key={c.title} delay={i * 0.08}>
-                <div className="card p-7 h-full">
+                <div className="rounded-2xl bg-white border border-ink-100 shadow-card p-7 h-full hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300">
                   <div className="text-4xl font-bold grad-text">{c.metric}</div>
-                  <div className="text-xs uppercase tracking-wider text-ink-400 mt-1">{c.sub}</div>
+                  <div className="text-xs uppercase tracking-wider text-ink-400 mt-1">
+                    {c.sub}
+                  </div>
                   <h3 className="mt-5 font-semibold text-ink-900">{c.title}</h3>
                   <p className="mt-2 text-sm text-ink-600 leading-relaxed">{c.desc}</p>
                 </div>
