@@ -1,22 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FF7A00"/>
-      <stop offset="100%" stop-color="#FFA94D"/>
-    </linearGradient>
-  </defs>
-  <!-- Connection lines -->
-  <g stroke="url(#g)" stroke-width="12" stroke-linecap="round">
-    <line x1="70" y1="60" x2="120" y2="70"/>
-    <line x1="120" y1="70" x2="150" y2="110"/>
-    <line x1="70" y1="60" x2="60" y2="120"/>
-    <line x1="60" y1="120" x2="100" y2="155"/>
+  <g stroke="#1F6FBF" stroke-width="14" stroke-linecap="round">
+    <line x1="70"  y1="60"  x2="120" y2="70"/>
+    <line x1="120" y1="70"  x2="150" y2="110"/>
+    <line x1="70"  y1="60"  x2="60"  y2="120"/>
+    <line x1="60"  y1="120" x2="100" y2="155"/>
     <line x1="100" y1="155" x2="150" y2="110"/>
   </g>
-  <!-- Nodes -->
-  <circle cx="70"  cy="60"  r="20" fill="url(#g)"/>
-  <circle cx="120" cy="70"  r="14" fill="#FF7A00"/>
-  <circle cx="150" cy="110" r="18" fill="url(#g)"/>
-  <circle cx="60"  cy="120" r="12" fill="#FF7A00"/>
-  <circle cx="100" cy="155" r="16" fill="url(#g)"/>
+  <circle cx="70"  cy="60"  r="22" fill="#1F6FBF"/>
+  <circle cx="120" cy="70"  r="14" fill="#1FA1FF"/>
+  <circle cx="150" cy="110" r="18" fill="#1F6FBF"/>
+  <circle cx="60"  cy="120" r="12" fill="#1FA1FF"/>
+  <circle cx="100" cy="155" r="16" fill="#1F6FBF"/>
 </svg>
