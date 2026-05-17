@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       const { error } = await resend.emails.send({
         from: fromAddress,
         to: [toAddress],
-        replyTo: email,
+        reply_to: email,
         subject: `New enquiry from ${name}${company ? ` — ${company}` : ''}`,
         text: [
           `Name:    ${name}`,
