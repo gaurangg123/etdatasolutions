@@ -60,4 +60,41 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 c
+          <h4 className="text-sm font-semibold text-ink-900 mb-4">Services</h4>
+          <ul className="space-y-2.5 text-sm">
+            {serviceLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-ink-600 hover:text-brand-600 transition">{l.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-semibold text-ink-900 mb-4">Contact</h4>
+          <ul className="space-y-3 text-sm text-ink-600">
+            <li className="flex items-start gap-2">
+              <Mail className="w-4 h-4 mt-0.5 text-brand-500" />
+              <a href={`mailto:${company.email}`} className="hover:text-brand-600 transition">{company.email}</a>
+            </li>
+            <li className="flex items-start gap-2">
+              <Phone className="w-4 h-4 mt-0.5 text-brand-500" />
+              <span>{company.phone}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <MapPin className="w-4 h-4 mt-0.5 text-brand-500" />
+              <span>{company.location}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-ink-100">
+        <div className="container-x py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink-400">
+          <span>© {year} {company.name}. All rights reserved.</span>
+          <span>Made with care in Indore, India.</span>
+        </div>
+      </div>
+    </footer>
+  );
+}

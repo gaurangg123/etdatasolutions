@@ -87,4 +87,29 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transiti
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-t border-ink-100 bg-white"
+          >
+            <div className="container-x py-4 flex flex-col">
+              {links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={[
+                    'px-3 py-3 rounded-lg text-base font-medium',
+                    pathname === l.href ? 'text-brand-600 bg-brand-50' : 'text-ink-800',
+                  ].join(' ')}
+                >
+                  {l.label}
+                </Link>
+              ))}
+              <Link href="/contact" className="btn-primary mt-3 w-full">
+                Book a call
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}

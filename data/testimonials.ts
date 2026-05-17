@@ -44,4 +44,56 @@ export const testimonials: Testimonial[] = [
     quote: 'The invoice processing alone paid for the entire engagement within six weeks.',
     name: 'Michael Reeves',
     role: 'CFO',
-    company: 'A
+    company: 'Apex Freight, US',
+    photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=160&h=160&fit=crop&q=80',
+    rating: 5,
+  },
+  {
+    quote:
+      'Our release confidence went from anxious to boring — in the best possible way. Zero P1 bugs in four straight launches.',
+    name: 'Priya Anand',
+    role: 'Head of Engineering',
+    company: 'B2B SaaS, UK',
+    photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=160&h=160&fit=crop&q=80',
+    rating: 5,
+  },
+  {
+    quote:
+      'They built in five weeks what our internal team had been scoping for eighteen months. Surfaced $2.3M in unbilled services in the first month.',
+    name: 'James Whitaker',
+    role: 'CFO',
+    company: 'Healthtech, AU',
+    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=160&h=160&fit=crop&q=80',
+    rating: 5,
+  },
+  {
+    quote:
+      'Onboarding was painless. By week two, our VA was answering customer emails better than I do.',
+    name: 'Olivia Chen',
+    role: 'Founder',
+    company: 'D2C Beauty, US',
+    photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop&q=80',
+    rating: 5,
+  },
+];
+
+export const caseHighlights = [
+  {
+    metric: '$40K',
+    sub: 'saved annually',
+    title: 'Logistics invoice processing',
+    desc: 'Reduced invoice turnaround from 14 days to 3 with zero errors across 4,800 invoices.',
+  },
+  {
+    metric: '0',
+    sub: 'P1 bugs on launch',
+    title: 'SaaS QA coverage',
+    desc: 'Zero critical bugs across 4 consecutive releases. 23 medium issues caught pre-release.',
+  },
+  {
+    metric: '$2.3M',
+    sub: 'surfaced in 30 days',
+    title: 'Healthtech billing reconciliation',
+    desc: 'ETL pipeline unified three billing systems and surfaced unbilled services in week one.',
+  },
+];

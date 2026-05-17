@@ -38,4 +38,81 @@ export default function ServicesPage() {
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-xs font-mono text-brand-600">{s.num}</span>
                       <span className="pill">{s.tagline}</span>
-                    </
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{s.title}</h2>
+                    <p className="text-ink-600 leading-relaxed">{s.blurb}</p>
+
+                    <ul className="mt-6 space-y-2.5">
+                      {s.capabilities.map((c) => (
+                        <li key={c} className="flex items-start gap-2.5 text-sm text-ink-700">
+                          <Check className="w-4 h-4 mt-0.5 text-brand-500 shrink-0" />
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-7 flex flex-wrap gap-3">
+                      <Link href="/contact" className="btn-primary">
+                        Get a quote <ArrowRight className="w-4 h-4" />
+                      </Link>
+                      <Link href={`/contact?service=${encodeURIComponent(s.title)}`} className="btn-secondary">
+                        Learn more
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="relative bg-gradient-to-br from-brand-50 to-brand-100/50 p-8 sm:p-12 grid place-items-center [direction:ltr]">
+                    <div className="relative">
+                      <div className="absolute -inset-8 bg-brand-gradient opacity-30 rounded-full blur-3xl" />
+                      <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-3xl bg-white shadow-soft grid place-items-center">
+                        <Icon className="w-16 h-16 sm:w-20 sm:h-20 text-brand-500" strokeWidth={1.5} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          );
+        })}
+      </section>
+
+      <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
+        <div className="container-x section">
+          <Reveal>
+            <div className="section-header text-center mx-auto">
+              <span className="pill mb-3">How we work</span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                A four-step process. <span className="grad-text">No surprises.</span>
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div aria-hidden className="hidden lg:block absolute top-7 left-12 right-12 h-px bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200" />
+            {process.map((p, i) => {
+              const Icon = processIcons[i];
+              return (
+                <Reveal key={p.step} delay={i * 0.08}>
+                  <div className="relative bg-white rounded-2xl border border-ink-100 p-6 h-full hover:border-brand-200 hover:shadow-card transition">
+                    <span className="relative grid place-items-center w-14 h-14 rounded-2xl bg-brand-gradient text-white shadow-soft mb-4">
+                      <Icon className="w-6 h-6" />
+                    </span>
+                    <div className="text-xs font-mono text-brand-600 mb-1">{p.step}</div>
+                    <h3 className="font-semibold text-ink-900">{p.title}</h3>
+                    <p className="mt-2 text-sm text-ink-600 leading-relaxed">{p.desc}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <CTABanner
+        title="Need a customised solution?"
+        subtitle="If none of the above fits exactly, tell us what you need. We've built far stranger things."
+        ctaLabel="Talk to us"
+      />
+    </>
+  );
+}
