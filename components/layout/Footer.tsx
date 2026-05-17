@@ -1,67 +1,63 @@
 import Link from 'next/link';
-import styles from './Footer.module.css';
+import { Linkedin, Twitter, Mail, MapPin, Phone } from 'lucide-react';
+import Logo from '@/components/ui/Logo';
+import { company } from '@/lib/content';
+
+const quickLinks = [
+  { href: '/',             label: 'Home' },
+  { href: '/about',        label: 'About' },
+  { href: '/services',     label: 'Services' },
+  { href: '/testimonials', label: 'Testimonials' },
+  { href: '/contact',      label: 'Contact' },
+];
+
+const serviceLinks = [
+  { href: '/services#staffing',           label: 'Staffing & Recruiting' },
+  { href: '/services#virtual-assistants', label: 'Virtual Assistants' },
+  { href: '/services#data-entry',         label: 'Data Entry' },
+  { href: '/services#custom-solutions',   label: 'Custom Solutions' },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
-
   return (
-    <footer className={styles.footer}>
-      <div className="container">
-        <div className={styles.top}>
-          {/* ── Brand ── */}
-          <div className={styles.brand}>
-            <Link href="/" className={styles.logo} aria-label="ET Data Solutions home">
-              <span className={styles.logoMark}>
-                <span className={styles.logoDot} />
-              </span>
-              <span className={styles.logoText}>ET Data Solutions</span>
-            </Link>
-            <p className={styles.tagline}>
-              Staffing, data, QA &amp; engineering — delivered quietly from Indore, India.
-            </p>
-            <div className={styles.ctaWrap}>
-              <Link href="/#contact" className="btn-link">
-                Book a consultation &rarr;
-              </Link>
-            </div>
-          </div>
-
-          {/* ── Link columns ── */}
-          <div className={styles.cols}>
-            <div className={styles.col}>
-              <span className={styles.colTitle}>Services</span>
-              <Link href="/services/staffing">Staffing & VAs</Link>
-              <Link href="/services/data-entry">Data Entry</Link>
-              <Link href="/services/qa-testing">QA Testing</Link>
-              <Link href="/services/data-engineering">Data Engineering</Link>
-            </div>
-
-            <div className={styles.col}>
-              <span className={styles.colTitle}>Company</span>
-              <Link href="/work">Case Studies</Link>
-              <Link href="/#contact">Contact</Link>
-              <a href="mailto:hello@etdatasolutions.com">hello@etdatasolutions.com</a>
-            </div>
-
-            <div className={styles.col}>
-              <span className={styles.colTitle}>Reach</span>
-              <span>Indore, India</span>
-              <span>Serving US · UK · CA · AU</span>
-              <span>Reply within 4 hours</span>
-            </div>
+    <footer className="relative mt-20 border-t border-ink-100 bg-gradient-to-b from-white to-brand-50/40">
+      <div className="container-x py-16 grid gap-12 lg:grid-cols-4">
+        <div>
+          <Logo size={40} />
+          <p className="mt-4 text-sm text-ink-600 leading-relaxed max-w-xs">
+            {company.tagline} Staffing, virtual assistants, data, and QA — handled with the care of an in-house team.
+          </p>
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href={company.social.linkedin}
+              aria-label="LinkedIn"
+              target="_blank" rel="noreferrer"
+              className="p-2 rounded-lg border border-ink-200 text-ink-600 hover:text-brand-600 hover:border-brand-300 transition"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a
+              href={company.social.twitter}
+              aria-label="Twitter"
+              target="_blank" rel="noreferrer"
+              className="p-2 rounded-lg border border-ink-200 text-ink-600 hover:text-brand-600 hover:border-brand-300 transition"
+            >
+              <Twitter className="w-4 h-4" />
+            </a>
           </div>
         </div>
 
-        <div className={styles.bottom}>
-          <span className={styles.copy}>
-            &copy; {year} ET Data Solutions. All rights reserved.
-          </span>
-          <div className={styles.legal}>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </div>
+        <div>
+          <h4 className="text-sm font-semibold text-ink-900 mb-4">Company</h4>
+          <ul className="space-y-2.5 text-sm">
+            {quickLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-ink-600 hover:text-brand-600 transition">{l.label}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-    </footer>
-  );
-}
+
+        <div>
+          <h4 c

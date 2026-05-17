@@ -1,21 +1,24 @@
 'use client';
-import { usePathname } from 'next/navigation';
+
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import styles from './Navbar.module.css';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Logo from '@/components/ui/Logo';
 
 const links = [
-  { href: '/',         label: 'Home'     },
-  { href: '/services', label: 'Services' },
-  { href: '/work',     label: 'Work'     },
+  { href: '/',             label: 'Home' },
+  { href: '/about',        label: 'About' },
+  { href: '/services',     label: 'Services' },
+  { href: '/testimonials', label: 'Testimonials' },
+  { href: '/contact',      label: 'Contact' },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => { setOpen(false); }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -24,72 +27,64 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [open]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ''}`}>
-      <div className={styles.bar}>
-        <Link href="/" className={styles.logo} aria-label="ET Data Solutions home">
-          <span className={styles.logoMark}>
-            <span className={styles.logoDot} />
-          </span>
-          <span className={styles.logoText}>
-            ET Data <em>Solutions</em>
-          </span>
-        </Link>
+    <header
+      className={[
+        'sticky top-0 z-50 transition-all duration-300',
+        scrolled
+          ? 'bg-white/85 backdrop-blur border-b border-ink-100 shadow-[0_4px_20px_-12px_rgba(15,19,28,0.12)]'
+          : 'bg-transparent',
+      ].join(' ')}
+    >
+      <div className="container-x flex h-16 sm:h-20 items-center justify-between">
+        <Logo size={36} />
 
-        <nav className={styles.nav}>
-          {links.map(l => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`${styles.link} ${pathname === l.href ? styles.linkActive : ''}`}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className={styles.right}>
-          <Link href="/#contact" className={`btn btn-primary ${styles.cta}`}>
-            Get in touch
-          </Link>
-          <button
-            className={styles.menuBtn}
-            onClick={() => setOpen(!open)}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-          >
-            <span className={`${styles.menuIcon} ${open ? styles.menuIconOpen : ''}`}>
-              <span /><span />
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      {open && (
-        <div className={styles.mobileMenu}>
-          <nav className={styles.mobileNav}>
-            {links.map(l => (
+        <nav className="hidden md:flex items-center gap-1">
+          {links.map((l) => {
+            const active = pathname === l.href;
+            return (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`${styles.mobileLink} ${pathname === l.href ? styles.mobileLinkActive : ''}`}
+                className={[
+                  'relative px-4 py-2 text-sm font-medium rounded-full transition-colors',
+                  active ? 'text-brand-600' : 'text-ink-800 hover:text-brand-600',
+                ].join(' ')}
               >
                 {l.label}
-                <span className={styles.mobileArrow}>&rarr;</span>
+                {active && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 -z-10 rounded-full bg-brand-50"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Link>
-            ))}
-            <Link href="/#contact" className={`btn btn-primary ${styles.mobileCta}`}>
-              Get in touch
-            </Link>
-          </nav>
+            );
+          })}
+        </nav>
+
+        <div className="hidden md:block">
+          <Link href="/contact" className="btn-primary">
+            Book a call
+          </Link>
         </div>
-      )}
-    </header>
-  );
-}
+
+        <button
+          aria-label="Toggle menu"
+          className="md:hidden p-2 rounded-lg border border-ink-100 text-ink-800 bg-white"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transiti

@@ -1,44 +1,32 @@
 'use client';
-import { useEffect, useRef, useState, ReactNode } from 'react';
 
-interface Props {
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import type { ReactNode } from 'react';
+
+interface RevealProps {
   children: ReactNode;
   delay?: number;
-  as?: keyof React.JSX.IntrinsicElements;
+  y?: number;
   className?: string;
+  as?: 'div' | 'section' | 'article' | 'span';
 }
 
-/**
- * One animation, one purpose: fade up 16px when entering viewport.
- * No scale, no springs, no choreographed sequences.
- */
-export default function Reveal({ children, delay = 0, as = 'div', className = '' }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+export default function Reveal({ children, delay = 0, y = 24, className, as = 'div' }: RevealProps) {
+  const reduce = useReducedMotion();
+  const Tag = motion[as] as typeof motion.div;
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+  const variants: Variants = {
+    hidden:  { opacity: 0, y: reduce ? 0 : y },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay } },
+  };
 
-  const Tag = as as 'div';
   return (
     <Tag
-      // @ts-expect-error - ref typing across dynamic tag
-      ref={ref}
-      className={`reveal ${visible ? 'in-view' : ''} ${className}`}
-      style={delay ? { ['--reveal-delay' as string]: `${delay}ms` } : undefined}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-80px' }}
+      variants={variants}
+      className={className}
     >
       {children}
     </Tag>

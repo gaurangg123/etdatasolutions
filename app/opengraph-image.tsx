@@ -1,11 +1,11 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'ET Data Solutions — Staffing, Data, QA & Engineering';
+export const alt = 'ET Data Solutions — Operational excellence, delivered.';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default async function Image() {
+export default async function OG() {
   return new ImageResponse(
     (
       <div
@@ -15,71 +15,40 @@ export default async function Image() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          padding: '72px 80px',
-          background: '#FAFAFA',
+          padding: 80,
+          background: 'linear-gradient(135deg, #FFF7EE 0%, #FFFFFF 60%)',
           fontFamily: 'system-ui, sans-serif',
-          position: 'relative',
         }}
       >
-        {/* Top: brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '8px',
-            background: '#0A0A0A',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#E84A0C' }} />
-          </div>
-          <div style={{ fontSize: '18px', fontWeight: 600, color: '#0A0A0A', letterSpacing: '-0.01em' }}>
+            width: 56, height: 56, borderRadius: 16,
+            background: 'linear-gradient(135deg,#FF7A00,#FFA94D)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff', fontSize: 28, fontWeight: 800,
+          }}>ET</div>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#0F131C' }}>
             ET Data Solutions
           </div>
         </div>
 
-        {/* Main headline */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '900px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ fontSize: 64, fontWeight: 800, color: '#0F131C', lineHeight: 1.05 }}>
+            The operational backbone
+          </div>
           <div style={{
-            fontSize: '72px',
-            fontWeight: 600,
-            color: '#0A0A0A',
-            letterSpacing: '-0.035em',
-            lineHeight: 1.02,
+            fontSize: 64, fontWeight: 800, lineHeight: 1.05,
+            background: 'linear-gradient(135deg,#FF7A00,#FFA94D)',
+            backgroundClip: 'text', color: 'transparent',
           }}>
-            The work that <span style={{ fontStyle: 'italic' }}>slows you down</span> doesn't have to.
+            for growing businesses.
           </div>
-          <div style={{ fontSize: '22px', color: '#525252', fontWeight: 400, lineHeight: 1.5, maxWidth: '720px' }}>
-            Staffing, data entry, QA testing, and data engineering — handled quietly and accurately.
+          <div style={{ fontSize: 26, color: '#454C5A', marginTop: 24, maxWidth: 900 }}>
+            Staffing · Virtual assistants · Data entry · Custom workflows
           </div>
-        </div>
-
-        {/* Bottom: minimal stats row */}
-        <div style={{
-          display: 'flex',
-          gap: '48px',
-          paddingTop: '32px',
-          borderTop: '1px solid rgba(10,10,10,0.08)',
-        }}>
-          {[
-            ['99%', 'Accuracy'],
-            ['10+', 'Years'],
-            ['100+', 'Clients'],
-            ['7d', 'First delivery'],
-          ].map(([num, label]) => (
-            <div key={num as string} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div style={{ fontSize: '32px', fontWeight: 600, letterSpacing: '-0.03em', color: '#0A0A0A' }}>
-                {num}
-              </div>
-              <div style={{ fontSize: '12px', color: '#A3A3A3', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                {label}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    { ...size },
   );
 }

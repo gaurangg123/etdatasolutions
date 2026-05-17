@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// ── Simple in-memory rate limiter ─────────────────────────────────────────
+// ── Simple in-memory rate limiter ─────────────────────────
 const rateMap = new Map<string, { count: number; ts: number }>();
-const RATE_WINDOW_MS = 60_000; // 1 minute
-const RATE_LIMIT = 5;          // max 5 submissions per IP per minute
+const RATE_WINDOW_MS = 60_000;
+const RATE_LIMIT = 5;
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -17,22 +17,16 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
-// ── Input length limits ───────────────────────────────────────────────────
 const LIMITS = { name: 100, email: 254, company: 200, service: 100, message: 5000 };
-
-function sanitize(str: string, max: number): string {
+function sanitize(str: unknown, max: number): string {
   return String(str ?? '').trim().slice(0, max);
 }
 
 export async function POST(req: NextRequest) {
   try {
-    // Rate limiting
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
     if (isRateLimited(ip)) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again in a minute.' },
-        { status: 429 }
-      );
+      return NextResponse.json({ error: 'Too many requests. Please try again in a minute.' }, { status: 429 });
     }
 
     const body = await req.json().catch(() => null);
@@ -40,14 +34,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
     }
 
-    // Sanitise + enforce length limits
-    const name    = sanitize(body.name,    LIMITS.name);
-    const email   = sanitize(body.email,   LIMITS.email);
-    const company = sanitize(body.company, LIMITS.company);
-    const service = sanitize(body.service, LIMITS.service);
-    const message = sanitize(body.message, LIMITS.message);
+    const b = body as Record<string, unknown>;
+    const name    = sanitize(b.name,    LIMITS.name);
+    const email   = sanitize(b.email,   LIMITS.email);
+    const company = sanitize(b.company, LIMITS.company);
+    const service = sanitize(b.service, LIMITS.service);
+    const message = sanitize(b.message, LIMITS.message);
 
-    // Server-side validation
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
@@ -55,35 +48,44 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
     }
     if (message.length < 20) {
-      return NextResponse.json({ error: 'Message too short' }, { status: 400 });
+      return NextResponse.json({ error: 'Message is too short (minimum 20 characters).' }, { status: 400 });
     }
 
-    // ── Resend email delivery ─────────────────────────────────────────────
-    // 1. Sign up at resend.com (free — 3,000 emails/month)
-    // 2. Add & verify etdatasolutions.com domain
-    // 3. Set RESEND_API_KEY in Vercel → Settings → Environment Variables
-    // 4. Uncomment the block below + run: npm install resend
-    //
-    // const { Resend } = await import('resend');
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'ET Data Solutions <noreply@etdatasolutions.com>',
-    //   to: ['bobby@etdatasolutions.com'],
-    //   replyTo: email,
-    //   subject: `New enquiry from ${name}${company ? ` — ${company}` : ''}`,
-    //   text: [
-    //     `Name:    ${name}`,
-    //     `Email:   ${email}`,
-    //     `Company: ${company || '—'}`,
-    //     `Service: ${service || '—'}`,
-    //     ``,
-    //     `Message:`,
-    //     message,
-    //   ].join('\n'),
-    // });
+    // ── Resend delivery ───────────────────────────────────
+    const apiKey = process.env.RESEND_API_KEY;
+    const toAddress = process.env.CONTACT_TO_EMAIL || 'hello@etdatasolutions.com';
+    const fromAddress = process.env.CONTACT_FROM_EMAIL || 'ET Data Solutions <noreply@etdatasolutions.com>';
+
+    if (apiKey) {
+      const { Resend } = await import('resend');
+      const resend = new Resend(apiKey);
+      const { error } = await resend.emails.send({
+        from: fromAddress,
+        to: [toAddress],
+        replyTo: email,
+        subject: `New enquiry from ${name}${company ? ` — ${company}` : ''}`,
+        text: [
+          `Name:    ${name}`,
+          `Email:   ${email}`,
+          `Company: ${company || '—'}`,
+          `Service: ${service || '—'}`,
+          ``,
+          `Message:`,
+          message,
+        ].join('\n'),
+      });
+      if (error) {
+        console.error('Resend error:', error);
+        return NextResponse.json({ error: 'Failed to deliver message. Please try again.' }, { status: 502 });
+      }
+    } else {
+      // No API key: log and accept (dev mode).
+      console.warn('[contact] RESEND_API_KEY not set — message accepted but not delivered.', { name, email, company, service });
+    }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error('[contact] internal error', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
