@@ -39,7 +39,7 @@ export default function Navbar() {
       ].join(' ')}
     >
       <div className="container-x flex h-16 sm:h-20 items-center justify-between">
-        <Logo size={36} />
+        <Logo size={56} />
 
         <nav className="hidden md:flex items-center gap-1">
           {links.map((l) => {

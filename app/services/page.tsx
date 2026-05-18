@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageHeader from '@/components/ui/PageHeader';
 import CTABanner from '@/components/ui/CTABanner';
 import Reveal from '@/components/ui/Reveal';
+import SnapController from '@/components/ui/SnapController';
 import { services, process } from '@/lib/content';
 import {
   RecruitmentArt,
@@ -38,7 +39,10 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section >
+      <SnapController />
+
+      {/* Scene 1 — header */}
+      <section className="snap-section">
         <PageHeader
           eyebrow="Our services"
           title="Four offerings. One accountable team."
@@ -46,8 +50,9 @@ export default function ServicesPage() {
         />
       </section>
 
-      <section >
-        <div className="container-x section">
+      {/* Scene 2 — 4-card overview grid */}
+      <section className="snap-section">
+        <div className="container-x py-16 sm:py-20">
           <div className="grid md:grid-cols-2 gap-6">
             {services.map((s, i) => {
               const Art = artBySlug[s.slug];
@@ -57,11 +62,11 @@ export default function ServicesPage() {
                     href={`#${s.slug}`}
                     className="group relative block rounded-3xl border border-ink-100 bg-white overflow-hidden shadow-card hover:shadow-soft hover:-translate-y-1 hover:border-brand-300 transition-all duration-300 h-full"
                   >
-                    <div className="relative h-52 sm:h-56 bg-gradient-to-br from-brand-50 to-brand-100/60 overflow-hidden">
+                    <div className="relative h-44 sm:h-52 bg-gradient-to-br from-brand-50 to-brand-100/60 overflow-hidden">
                       <div className="absolute inset-0 grid place-items-center p-6">{Art && <Art />}</div>
                       <div aria-hidden className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-white/40 blur-2xl" />
                     </div>
-                    <div className="p-7">
+                    <div className="p-6">
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <span className="text-xs font-mono text-brand-600">{s.num}</span>
@@ -69,7 +74,7 @@ export default function ServicesPage() {
                         </div>
                         <ArrowUpRight className="w-5 h-5 text-ink-400 group-hover:text-brand-600 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
                       </div>
-                      <p className="mt-3 text-sm text-ink-600 leading-relaxed">{s.blurb}</p>
+                      <p className="mt-3 text-sm text-ink-600 leading-relaxed line-clamp-2">{s.blurb}</p>
                     </div>
                   </Link>
                 </Reveal>
@@ -79,12 +84,13 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Scenes 3-6 — one per service (each fullscreen) */}
       {services.map((s, i) => {
         const Art = artBySlug[s.slug];
         const reverse = i % 2 === 1;
         return (
-          <section key={`d-${s.slug}`} >
-            <div className="container-x section">
+          <section key={`d-${s.slug}`} className="snap-section">
+            <div className="container-x py-12">
               <Reveal>
                 <article
                   id={s.slug}
@@ -98,6 +104,7 @@ export default function ServicesPage() {
                       </div>
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{s.title}</h2>
                       <p className="text-ink-600 leading-relaxed">{s.blurb}</p>
+
                       <ul className="mt-6 space-y-2.5">
                         {s.capabilities.map((c) => (
                           <li key={c} className="flex items-start gap-2.5 text-sm text-ink-700">
@@ -106,6 +113,7 @@ export default function ServicesPage() {
                           </li>
                         ))}
                       </ul>
+
                       <div className="mt-7 flex flex-wrap gap-3">
                         <Link href="/contact" className="btn-primary">
                           Get a quote <ArrowRight className="w-4 h-4" />
@@ -115,6 +123,7 @@ export default function ServicesPage() {
                         </Link>
                       </div>
                     </div>
+
                     <div className="relative bg-gradient-to-br from-brand-50 to-brand-100/50 p-8 sm:p-12 grid place-items-center [direction:ltr]">
                       <div className="w-full max-w-md">{Art && <Art />}</div>
                     </div>
@@ -126,8 +135,9 @@ export default function ServicesPage() {
         );
       })}
 
-      <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
-        <div className="container-x section">
+      {/* Scene 7 — Process timeline */}
+      <section className="snap-section bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
+        <div className="container-x py-16 sm:py-20">
           <Reveal>
             <div className="section-header text-center mx-auto">
               <span className="pill mb-3">How we work</span>
@@ -157,13 +167,14 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section >
+      {/* Scene 8 — CTA */}
+      <div className="snap-section snap-loose">
         <CTABanner
           title="Need a customised engagement?"
           subtitle="If none of the above fits exactly, tell us what you need. We've built far stranger things."
           ctaLabel="Talk to us"
         />
-      </section>
+      </div>
     </>
   );
 }
