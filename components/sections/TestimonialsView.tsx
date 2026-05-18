@@ -1,163 +1,176 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
-import type { Testimonial } from '@/data/testimonials';
+import { Quote, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import type { FeaturedTestimonial, MiniTestimonial } from '@/data/testimonials';
 
-function Stars({ n = 5 }: { n?: number }) {
-  return (
-    <div className="flex gap-0.5" aria-label={`${n} of 5 stars`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          className={`w-4 h-4 ${i < n ? 'text-brand-500 fill-brand-500' : 'text-ink-200'}`}
-        />
-      ))}
-    </div>
-  );
-}
-
-/** Initials avatar in brand colors */
-function Avatar({ name }: { name: string }) {
-  const initials = name
+/** Generate initials for an avatar */
+function initials(name: string): string {
+  return name
     .split(/\s+/)
     .map((w) => w[0])
     .filter(Boolean)
     .slice(0, 2)
     .join('')
     .toUpperCase();
-  return (
-    <span
-      aria-hidden
-      className="grid place-items-center w-10 h-10 rounded-full text-white text-sm font-bold bg-brand-gradient shadow-soft"
-    >
-      {initials}
-    </span>
-  );
 }
 
-export function TestimonialCard({ t }: { t: Testimonial }) {
-  return (
-    <article className="relative rounded-2xl bg-white border border-ink-100 shadow-card p-6 h-full flex flex-col hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300 overflow-hidden">
-      {/* Decorative quote — large, soft, tucked into the bottom-right behind text */}
-      <Quote
-        aria-hidden
-        className="absolute -bottom-3 -right-2 w-20 h-20 text-brand-50 rotate-180 pointer-events-none"
-        strokeWidth={1.2}
-      />
-
-      <div className="relative z-10 flex items-center justify-between gap-3 mb-4">
-        <span className="inline-flex items-center rounded-full bg-brand-50 text-brand-700 text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 border border-brand-100">
-          {t.service}
-        </span>
-        <Stars n={t.rating ?? 5} />
-      </div>
-
-      <p className="relative z-10 text-ink-700 leading-relaxed flex-1 text-[15px]">
-        <span className="text-brand-400 text-xl leading-none mr-0.5">“</span>
-        {t.review}
-        <span className="text-brand-400 text-xl leading-none ml-0.5">”</span>
-      </p>
-
-      <div className="mt-5 flex items-center gap-3 pt-4 border-t border-ink-100">
-        <Avatar name={t.name} />
-        <div className="min-w-0">
-          <div className="font-semibold text-sm text-ink-900 truncate">{t.name}</div>
-          {t.company && (
-            <div className="text-xs text-ink-500 truncate">{t.company}</div>
-          )}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-/** Mobile-only swipeable carousel; auto-advances every 6s, pauses on hover */
-export function TestimonialsCarousel({ list }: { list: Testimonial[] }) {
+/* ───────────────────────────────────────────────────────────────
+   FEATURED SLIDER — auto-advancing 3-slide carousel on
+   the orange gradient card.
+   ─────────────────────────────────────────────────────────────── */
+export function FeaturedSlider({ list }: { list: FeaturedTestimonial[] }) {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const total = list.length;
 
   useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => setIdx((i) => (i + 1) % list.length), 6000);
+    if (paused || total < 2) return;
+    const id = setInterval(() => setIdx((i) => (i + 1) % total), 8000);
     return () => clearInterval(id);
-  }, [paused, list.length]);
+  }, [paused, total]);
 
-  // Swipe support
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    let startX = 0;
-    let dx = 0;
-    const onStart = (e: TouchEvent) => { startX = e.touches[0].clientX; dx = 0; };
-    const onMove = (e: TouchEvent) => { dx = e.touches[0].clientX - startX; };
-    const onEnd = () => {
-      if (Math.abs(dx) > 40) {
-        setIdx((i) => (dx > 0 ? (i - 1 + list.length) % list.length : (i + 1) % list.length));
-      }
-    };
-    el.addEventListener('touchstart', onStart, { passive: true });
-    el.addEventListener('touchmove', onMove, { passive: true });
-    el.addEventListener('touchend', onEnd);
-    return () => {
-      el.removeEventListener('touchstart', onStart);
-      el.removeEventListener('touchmove', onMove);
-      el.removeEventListener('touchend', onEnd);
-    };
-  }, [list.length]);
+  const go = (n: number) => setIdx(((n % total) + total) % total);
+
+  const t = list[idx];
 
   return (
     <div
-      className="relative"
+      className="relative rounded-3xl overflow-hidden text-white shadow-sunset"
+      style={{
+        background: 'linear-gradient(135deg, #F26A1E 0%, #FF5A48 50%, #E6296A 100%)',
+      }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div ref={trackRef} className="overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <TestimonialCard t={list[idx]} />
-          </motion.div>
-        </AnimatePresence>
-      </div>
+      {/* decorative orbs */}
+      <div aria-hidden className="absolute -top-24 -right-20 w-80 h-80 rounded-full bg-white/15 blur-3xl pointer-events-none" />
+      <div aria-hidden className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
-      <div className="mt-5 flex items-center justify-between">
-        <button
-          onClick={() => setIdx((i) => (i - 1 + list.length) % list.length)}
-          aria-label="Previous testimonial"
-          className="p-2 rounded-full border border-ink-200 text-ink-700 hover:border-brand-300 hover:text-brand-600 transition"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </button>
+      <div className="relative p-8 sm:p-12 lg:p-16">
+        {/* top row */}
+        <div className="flex items-start justify-between gap-4 mb-8">
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="inline-flex items-center rounded-full bg-white/20 text-white text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1 backdrop-blur border border-white/15">
+              {t.service}
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 text-white/90 text-xs font-semibold px-2.5 py-1 backdrop-blur border border-white/10">
+              <Clock className="w-3.5 h-3.5" /> {t.duration}
+            </span>
+          </div>
 
-        <div className="flex items-center gap-1.5">
-          {list.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIdx(i)}
-              aria-label={`Go to testimonial ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all ${
-                i === idx ? 'w-6 bg-brand-500' : 'w-1.5 bg-ink-200'
-              }`}
-            />
-          ))}
+          <div className="hidden sm:flex items-center gap-2 text-xs text-white/70">
+            <span className="font-mono">
+              {String(idx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </span>
+          </div>
         </div>
 
-        <button
-          onClick={() => setIdx((i) => (i + 1) % list.length)}
-          aria-label="Next testimonial"
-          className="p-2 rounded-full border border-ink-200 text-ink-700 hover:border-brand-300 hover:text-brand-600 transition"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </button>
+        <Quote aria-hidden className="w-10 h-10 text-white/35 mb-3" />
+
+        {/* sliding quote */}
+        <div className="min-h-[180px] sm:min-h-[200px] lg:min-h-[220px] relative">
+          <AnimatePresence mode="wait">
+            <motion.blockquote
+              key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="text-lg sm:text-xl lg:text-2xl font-medium leading-snug max-w-3xl"
+            >
+              “{t.review}”
+            </motion.blockquote>
+          </AnimatePresence>
+        </div>
+
+        {/* footer row: author + nav */}
+        <div className="mt-8 pt-6 border-t border-white/20 flex items-center justify-between gap-4 flex-wrap">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`author-${idx}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-3"
+            >
+              <span className="grid place-items-center w-12 h-12 rounded-full bg-white text-brand-700 text-base font-bold ring-2 ring-white/40 shrink-0">
+                {initials(t.name)}
+              </span>
+              <div>
+                <div className="font-semibold">{t.name}</div>
+                <div className="text-sm text-white/85">{t.service}</div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => go(idx - 1)}
+              aria-label="Previous testimonial"
+              className="grid place-items-center w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 backdrop-blur transition"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-1.5 mx-1">
+              {list.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => go(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === idx ? 'w-8 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/60'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => go(idx + 1)}
+              aria-label="Next testimonial"
+              className="grid place-items-center w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 backdrop-blur transition"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+  );
+}
+
+/* ───────────────────────────────────────────────────────────────
+   MINI CARD — compact testimonial showing name / service / duration
+   ─────────────────────────────────────────────────────────────── */
+export function MiniCard({ t }: { t: MiniTestimonial }) {
+  return (
+    <article className="group relative rounded-2xl bg-white border border-ink-100 shadow-card p-5 h-full hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300">
+      <div className="flex items-center gap-3">
+        <span
+          aria-hidden
+          className="grid place-items-center w-11 h-11 rounded-full text-white text-sm font-bold shrink-0"
+          style={{ background: 'linear-gradient(135deg, #F26A1E 0%, #FF5A48 50%, #E6296A 100%)' }}
+        >
+          {initials(t.name)}
+        </span>
+        <div className="min-w-0">
+          <div className="font-semibold text-ink-900 truncate">{t.name}</div>
+          <div className="text-xs text-ink-500 flex items-center gap-1.5">
+            <Clock className="w-3 h-3 text-brand-500" />
+            {t.duration}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-ink-100">
+        <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-brand-600 mb-1">
+          Service
+        </div>
+        <p className="text-sm text-ink-700 leading-snug">{t.service}</p>
+      </div>
+    </article>
   );
 }

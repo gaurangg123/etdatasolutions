@@ -1,87 +1,60 @@
 // ═══════════════════════════════════════════════════════════════
-//  TESTIMONIALS  —  edit this file to add/remove/update reviews
+//  TESTIMONIALS  —  edit this file to update reviews
 // ───────────────────────────────────────────────────────────────
-//  Each testimonial is just three required fields:
-//    • name    — client name
-//    • service — which service they're talking about (free text or one of
-//                "Recruitment & Staffing" | "Virtual Assistant" |
-//                "Data Entry & Macros" | "Data Engineering & Visualizations")
-//    • review  — the quote itself
-//
-//  Optional fields:
-//    • company — short company / industry tag shown under the name
-//    • rating  — 1–5 stars (defaults to 5)
-//    • featured — set true on ONE entry to highlight it in the hero
+//  TWO LISTS:
+//    • featured[]  → big detailed slider (orange gradient card)
+//    • mini[]      → compact grid below (just name + service + duration)
 // ═══════════════════════════════════════════════════════════════
 
-export interface Testimonial {
+export interface FeaturedTestimonial {
   name: string;
   service: string;
+  duration: string;
   review: string;
-  company?: string;
-  rating?: number;
-  featured?: boolean;
 }
 
-export const testimonials: Testimonial[] = [
+export interface MiniTestimonial {
+  name: string;
+  service: string;
+  duration: string;
+}
+
+/** Detailed reviews shown in the main orange gradient slider */
+export const featured: FeaturedTestimonial[] = [
   {
-    featured: true,
-    name: 'Sarah Marshall',
+    name: 'Thomas',
+    service: 'Recruitment',
+    duration: '7+ years',
+    review:
+      "Based on how well ET Data Solutions performed on our trial assignment, we are pleased to continue working with them on a longer-term contract. We've sincerely appreciated having ET Data on our contractor team. They took direction well, performed their responsibilities at or above our expectations, and were easy to communicate with. Committed to quality, collaborative, and reliable on fixed-price engagements.",
+  },
+  {
+    name: 'Greg',
     service: 'Virtual Assistant',
-    company: 'Logistics SaaS, UK',
+    duration: '5+ years',
     review:
-      'They became part of how our company operates. We stopped thinking of them as a vendor about three months in — they just know the work better than we do at this point.',
-    rating: 5,
+      'Responds very quickly and is willing to learn roles and domains beyond their initial expertise. A clear communicator and highly collaborative.',
   },
   {
-    name: 'Daniel Rao',
-    service: 'Data Entry & Macros',
-    company: 'Healthtech, US',
+    name: 'Warren',
+    service: 'Data Updation',
+    duration: '5+ years',
     review:
-      "99% accuracy isn't marketing — we audited a quarter's output and found three errors in 14,000 records.",
-    rating: 5,
-  },
-  {
-    name: 'Emma Nordstrom',
-    service: 'Recruitment & Staffing',
-    company: 'Fintech, AU',
-    review:
-      'Faster than hiring locally, half the cost, and the QA team flagged issues our devs had missed for months.',
-    rating: 5,
-  },
-  {
-    name: 'Michael Reeves',
-    service: 'Data Entry & Macros',
-    company: 'Apex Freight, US',
-    review: 'The invoice processing alone paid for the entire engagement within six weeks.',
-    rating: 5,
-  },
-  {
-    name: 'Priya Anand',
-    service: 'Data Engineering & Visualizations',
-    company: 'B2B SaaS, UK',
-    review:
-      'Our release confidence went from anxious to boring — in the best possible way. Zero P1 bugs in four straight launches.',
-    rating: 5,
-  },
-  {
-    name: 'James Whitaker',
-    service: 'Data Engineering & Visualizations',
-    company: 'Healthtech, AU',
-    review:
-      'They built in five weeks what our internal team had been scoping for eighteen months. Surfaced $2.3M in unbilled services in the first month.',
-    rating: 5,
-  },
-  {
-    name: 'Olivia Chen',
-    service: 'Virtual Assistant',
-    company: 'D2C Beauty, US',
-    review:
-      'Onboarding was painless. By week two, our VA was answering customer emails better than I do.',
-    rating: 5,
+      'Great job delivered with excellent accuracy and precision.',
   },
 ];
 
+/** Compact cards shown in the grid below the slider */
+export const mini: MiniTestimonial[] = [
+  { name: 'Paresh',  service: 'Recruitment / Virtual Assistant',     duration: '3+ years' },
+  { name: 'Stacy',   service: 'Recruitment / Virtual Assistant',     duration: '4+ years' },
+  { name: 'Chandan', service: 'Recruitment / Virtual Assistant',     duration: '4+ years' },
+  { name: 'Akshay',  service: 'Dashboard & N8N Sales Engine',        duration: '1+ year'  },
+  { name: 'Percy',   service: 'UI/UX Testing',                       duration: '2+ years' },
+  { name: 'Eusden',  service: 'Data Entry on Oracle Suite (E-Commerce)', duration: '5+ years' },
+];
+
+/** Case-highlight metric cards (still used on the testimonials page) */
 export const caseHighlights = [
   {
     metric: '$40K',
