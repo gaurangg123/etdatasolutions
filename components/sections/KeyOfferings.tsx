@@ -18,7 +18,7 @@ const artBySlug: Record<string, () => JSX.Element> = {
 
 export default function KeyOfferings() {
   return (
-    <section className="bg-gradient-to-b from-white via-brand-50/40 to-white">
+    <section className="snap-section bg-gradient-to-b from-white via-brand-50/40 to-white">
       <div className="container-x section">
         <Reveal>
           <div className="section-header text-center mx-auto">

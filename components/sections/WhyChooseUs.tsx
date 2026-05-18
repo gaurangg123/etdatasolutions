@@ -6,7 +6,7 @@ const iconMap = { wallet: Wallet, chart: TrendingUp, shield: ShieldCheck, bolt: 
 
 export default function WhyChooseUs() {
   return (
-    <section className="container-x section">
+    <section className="snap-section container-x section">
       <Reveal>
         <div className="section-header">
           <span className="pill mb-3">Why choose us</span>

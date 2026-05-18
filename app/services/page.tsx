@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="snap-section">
+      <section >
         <PageHeader
           eyebrow="Our services"
           title="Four offerings. One accountable team."
@@ -46,7 +46,7 @@ export default function ServicesPage() {
         />
       </section>
 
-      <section className="snap-section">
+      <section >
         <div className="container-x section">
           <div className="grid md:grid-cols-2 gap-6">
             {services.map((s, i) => {
@@ -83,7 +83,7 @@ export default function ServicesPage() {
         const Art = artBySlug[s.slug];
         const reverse = i % 2 === 1;
         return (
-          <section key={`d-${s.slug}`} className="snap-section">
+          <section key={`d-${s.slug}`} >
             <div className="container-x section">
               <Reveal>
                 <article
@@ -126,7 +126,7 @@ export default function ServicesPage() {
         );
       })}
 
-      <section className="snap-section bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
+      <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
         <div className="container-x section">
           <Reveal>
             <div className="section-header text-center mx-auto">
@@ -157,7 +157,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="snap-section snap-loose">
+      <section >
         <CTABanner
           title="Need a customised engagement?"
           subtitle="If none of the above fits exactly, tell us what you need. We've built far stranger things."

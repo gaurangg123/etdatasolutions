@@ -3,7 +3,7 @@ import Reveal from '@/components/ui/Reveal';
 
 export default function Snapshot() {
   return (
-    <section className="container-x py-16 sm:py-20">
+    <section className="snap-section container-x py-16 sm:py-20">
       <Reveal>
         <div className="grid lg:grid-cols-[1.2fr_2fr] gap-10 lg:gap-16 items-start">
           <div>

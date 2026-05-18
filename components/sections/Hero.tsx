@@ -7,7 +7,7 @@ import FloatingShapes from '@/components/ui/FloatingShapes';
 
 export default function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-brand-soft">
+    <section className="snap-section relative isolate overflow-hidden bg-brand-soft">
       <FloatingShapes />
 
       <div className="container-x relative pt-16 sm:pt-24 lg:pt-28 pb-20 sm:pb-24">

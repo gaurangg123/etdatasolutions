@@ -4,16 +4,20 @@ import Snapshot from '@/components/sections/Snapshot';
 import KeyOfferings from '@/components/sections/KeyOfferings';
 import WhyChooseUs from '@/components/sections/WhyChooseUs';
 import CTABanner from '@/components/ui/CTABanner';
+import SnapController from '@/components/ui/SnapController';
 
 export default function HomePage() {
   return (
     <>
-      <section className="snap-section"><Hero /></section>
-      <section className="snap-section"><MissionStatement /></section>
-      <section className="snap-section"><Snapshot /></section>
-      <section className="snap-section"><KeyOfferings /></section>
-      <section className="snap-section"><WhyChooseUs /></section>
-      <section className="snap-section snap-loose"><CTABanner /></section>
+      <SnapController />
+      <Hero />
+      <MissionStatement />
+      <Snapshot />
+      <KeyOfferings />
+      <WhyChooseUs />
+      <div className="snap-section snap-loose">
+        <CTABanner />
+      </div>
     </>
   );
 }

@@ -18,7 +18,7 @@ export default function TestimonialsPage() {
 
   return (
     <>
-      <section className="snap-section">
+      <section >
         <PageHeader
           eyebrow="Testimonials"
           title="What our clients say."
@@ -26,7 +26,7 @@ export default function TestimonialsPage() {
         />
       </section>
 
-      <section className="snap-section">
+      <section >
         <div className="container-x section">
           <Reveal>
             <div className="relative rounded-3xl bg-brand-gradient text-white p-8 sm:p-14 shadow-soft overflow-hidden">
@@ -60,7 +60,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      <section className="snap-section">
+      <section >
         <div className="container-x section">
           <Reveal>
             <div className="flex items-end justify-between flex-wrap gap-3 mb-8">
@@ -90,7 +90,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      <section className="snap-section bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
+      <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
         <div className="container-x section">
           <Reveal>
             <div className="section-header text-center mx-auto">
@@ -113,7 +113,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      <section className="snap-section snap-loose">
+      <section >
         <CTABanner
           title="Join our happy clients."
           subtitle="Most of our work starts with a short, no-obligation call. Let's see if we're a fit."

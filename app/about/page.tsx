@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="snap-section">
+      <section >
         <PageHeader
           eyebrow="About us"
           title="A trusted operating partner, not a vendor."
@@ -21,7 +21,7 @@ export default function AboutPage() {
         />
       </section>
 
-      <section className="snap-section">
+      <section >
         <div className="container-x section">
           <Reveal>
             <div className="max-w-3xl">
@@ -49,7 +49,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="snap-section bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
+      <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
         <div className="container-x section grid lg:grid-cols-2 gap-6">
           <Reveal>
             <div className="card p-8 h-full">
@@ -72,7 +72,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="snap-section">
+      <section >
         <div className="container-x section">
           <Reveal>
             <div className="section-header text-center mx-auto">
@@ -96,7 +96,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="snap-section snap-loose">
+      <section >
         <CTABanner
           title="Work with us."
           subtitle="Start with a 30-minute call. We'll listen, scope, and tell you honestly whether we're the right fit."

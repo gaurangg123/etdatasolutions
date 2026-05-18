@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════
-   ET Data Solutions — v2 Design System (refined)
+   ET Data Solutions — v2 Design System
    ══════════════════════════════════════════════════════════ */
 
 @tailwind base;
@@ -11,7 +11,7 @@
     --brand-50:  #FFF5EC;
     --brand-100: #FFE2C5;
     --brand-300: #FFB069;
-    --brand-500: #F26A1E;     /* refined primary — warmer & richer */
+    --brand-500: #F26A1E;
     --brand-600: #DC5A12;
     --brand-700: #B0440A;
     --ink: #0B0F1A;
@@ -20,10 +20,7 @@
     --bg-soft: #FFF9F2;
   }
 
-  html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-  }
+  html { scroll-behavior: smooth; }
   body {
     @apply bg-white text-ink-800 antialiased;
     font-feature-settings: 'ss01', 'ss02', 'cv11';
@@ -33,15 +30,16 @@
 
   h1, h2, h3, h4 { @apply font-display tracking-tight text-ink-900; }
 
-  /* Disable snap-mandatory on small heights (mobile keyboard etc) and on iframes */
-  @media (max-height: 640px) {
-    html { scroll-snap-type: y proximity; }
+  /* Proximity-based scroll snapping — snaps to a section when you're near one,
+     but never blocks scroll momentum. Use .snap-page on <main> via the snap-page utility
+     OR add data-snap="true" on <html> to enable. */
+  html[data-snap="true"] {
+    scroll-snap-type: y proximity;
   }
 
-  /* Each section that opts in snaps to top of viewport */
+  /* A single fullscreen scene */
   .snap-section {
     scroll-snap-align: start;
-    scroll-snap-stop: always;
     min-height: 100svh;
     min-height: 100vh;
     display: flex;
@@ -49,7 +47,7 @@
     justify-content: center;
   }
 
-  /* Footer / very tall sections shouldn't force snap */
+  /* For sections that should align to the top but don't need to fill the viewport */
   .snap-section.snap-loose {
     scroll-snap-align: start;
     min-height: auto;
@@ -64,13 +62,9 @@
            transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40
            focus-visible:ring-offset-2;
   }
-  .btn-primary {
-    @apply btn bg-brand-gradient text-white shadow-soft hover:shadow-glow hover:-translate-y-0.5;
-  }
-  .btn-secondary {
-    @apply btn bg-white text-ink-900 border border-ink-200 hover:border-brand-400 hover:text-brand-600;
-  }
-  .btn-ghost  { @apply btn text-ink-800 hover:text-brand-600; }
+  .btn-primary   { @apply btn bg-brand-gradient text-white shadow-soft hover:shadow-glow hover:-translate-y-0.5; }
+  .btn-secondary { @apply btn bg-white text-ink-900 border border-ink-200 hover:border-brand-400 hover:text-brand-600; }
+  .btn-ghost     { @apply btn text-ink-800 hover:text-brand-600; }
 
   .card {
     @apply rounded-2xl bg-white border border-ink-100 shadow-card transition-all duration-300
@@ -104,9 +98,8 @@
 .orb-a { background: radial-gradient(circle, #FFC089 0%, transparent 70%); }
 .orb-b { background: radial-gradient(circle, #F26A1E 0%, transparent 70%); opacity: 0.32; }
 
-/* Smooth scroll for users who haven't disabled it */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-snap-type: none; scroll-behavior: auto; }
+  html { scroll-snap-type: none !important; scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
