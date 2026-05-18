@@ -168,7 +168,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Scene 8 — CTA */}
-      <div className="snap-section snap-loose">
+      <div className="snap-section">
         <CTABanner
           title="Need a customised engagement?"
           subtitle="If none of the above fits exactly, tell us what you need. We've built far stranger things."

@@ -15,7 +15,7 @@ export default function HomePage() {
       <Snapshot />
       <KeyOfferings />
       <WhyChooseUs />
-      <div className="snap-section snap-loose">
+      <div className="snap-section">
         <CTABanner />
       </div>
     </>

@@ -39,17 +39,26 @@ function Avatar({ name }: { name: string }) {
 
 export function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <article className="relative rounded-2xl bg-white border border-ink-100 shadow-card p-6 h-full flex flex-col hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300">
-      <Quote aria-hidden className="absolute top-5 right-5 w-7 h-7 text-brand-100" />
+    <article className="relative rounded-2xl bg-white border border-ink-100 shadow-card p-6 h-full flex flex-col hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300 overflow-hidden">
+      {/* Decorative quote — large, soft, tucked into the bottom-right behind text */}
+      <Quote
+        aria-hidden
+        className="absolute -bottom-3 -right-2 w-20 h-20 text-brand-50 rotate-180 pointer-events-none"
+        strokeWidth={1.2}
+      />
 
-      <div className="flex items-center justify-between gap-3 mb-4">
-        <span className="inline-flex items-center rounded-full bg-brand-50 text-brand-700 text-[10px] font-bold tracking-wider uppercase px-2.5 py-1">
+      <div className="relative z-10 flex items-center justify-between gap-3 mb-4">
+        <span className="inline-flex items-center rounded-full bg-brand-50 text-brand-700 text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 border border-brand-100">
           {t.service}
         </span>
         <Stars n={t.rating ?? 5} />
       </div>
 
-      <p className="text-ink-700 leading-relaxed flex-1 text-[15px]">“{t.review}”</p>
+      <p className="relative z-10 text-ink-700 leading-relaxed flex-1 text-[15px]">
+        <span className="text-brand-400 text-xl leading-none mr-0.5">“</span>
+        {t.review}
+        <span className="text-brand-400 text-xl leading-none ml-0.5">”</span>
+      </p>
 
       <div className="mt-5 flex items-center gap-3 pt-4 border-t border-ink-100">
         <Avatar name={t.name} />
