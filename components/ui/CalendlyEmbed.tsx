@@ -41,7 +41,19 @@ export default function CalendlyEmbed() {
     const init = () => {
       attempts += 1;
       if (window.Calendly && containerRef.current) {
-        containerRef.current.innerHTML = '';
+        // replaceChildren() = same effect as innerHTML='' without invoking the HTML parser
+        containerRef.current.replaceChildren();
+        // Hard-validate the URL — only allow calendly.com origins
+        try {
+          const u = new URL(calendlyUrl);
+          if (u.hostname !== 'calendly.com' && !u.hostname.endsWith('.calendly.com')) {
+            setLoaded(true);
+            return;
+          }
+        } catch {
+          setLoaded(true);
+          return;
+        }
         window.Calendly.initInlineWidget({
           url: calendlyUrl,
           parentElement: containerRef.current,

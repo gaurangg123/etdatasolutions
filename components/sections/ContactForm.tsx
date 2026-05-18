@@ -13,6 +13,8 @@ export default function ContactForm() {
 
   const [form, setForm] = useState({
     name: '', email: '', company: '', service: preset, message: '',
+    /** Honeypot — humans never see this field; bots fill everything */
+    website: '',
   });
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -43,7 +45,7 @@ export default function ContactForm() {
         return;
       }
       setStatus('success');
-      setForm({ name: '', email: '', company: '', service: '', message: '' });
+      setForm({ name: '', email: '', company: '', service: '', message: '', website: '' });
     } catch {
       setStatus('error');
       setErrorMsg('Network error. Please try again.');
@@ -66,11 +68,29 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4" noValidate>
+      {/* Honeypot — hidden from humans, magnet for spam bots.
+          aria-hidden + tabIndex=-1 + autoComplete=off + off-screen styles.
+          The server silently 200s any submission where this is non-empty. */}
+      <div
+        aria-hidden="true"
+        style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}
+      >
+        <label htmlFor="website">Website (leave blank)</label>
+        <input
+          id="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website}
+          onChange={update('website')}
+        />
+      </div>
+
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label className="label" htmlFor="name">Name *</label>
-          <input id="name" className="input" required maxLength={100}
+          <input id="name" className="input" required maxLength={100} autoComplete="name"
                  value={form.name} onChange={update('name')} />
         </div>
         <div>
