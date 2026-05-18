@@ -171,6 +171,12 @@ export function MiniCard({ t }: { t: MiniTestimonial }) {
         </div>
         <p className="text-sm text-ink-700 leading-snug">{t.service}</p>
       </div>
+
+      <p className="mt-4 text-sm text-ink-600 leading-relaxed italic">
+        <span className="text-brand-400 font-bold not-italic mr-0.5">“</span>
+        {t.review}
+        <span className="text-brand-400 font-bold not-italic ml-0.5">”</span>
+      </p>
     </article>
   );
 }

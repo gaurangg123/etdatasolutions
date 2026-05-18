@@ -17,6 +17,7 @@ export interface MiniTestimonial {
   name: string;
   service: string;
   duration: string;
+  review: string;
 }
 
 /** Detailed reviews shown in the main orange gradient slider */
@@ -46,12 +47,42 @@ export const featured: FeaturedTestimonial[] = [
 
 /** Compact cards shown in the grid below the slider */
 export const mini: MiniTestimonial[] = [
-  { name: 'Paresh',  service: 'Recruitment / Virtual Assistant',     duration: '3+ years' },
-  { name: 'Stacy',   service: 'Recruitment / Virtual Assistant',     duration: '4+ years' },
-  { name: 'Chandan', service: 'Recruitment / Virtual Assistant',     duration: '4+ years' },
-  { name: 'Akshay',  service: 'Dashboard & N8N Sales Engine',        duration: '1+ year'  },
-  { name: 'Percy',   service: 'UI/UX Testing',                       duration: '2+ years' },
-  { name: 'Eusden',  service: 'Data Entry on Oracle Suite (E-Commerce)', duration: '5+ years' },
+  {
+    name: 'Paresh',
+    service: 'Recruitment / Virtual Assistant',
+    duration: '3+ years',
+    review: 'Reliable, sharp, and always one step ahead on the work I throw at the team.',
+  },
+  {
+    name: 'Stacy',
+    service: 'Recruitment / Virtual Assistant',
+    duration: '4+ years',
+    review: 'Seamlessly integrated into our processes — feels like part of the in-house team.',
+  },
+  {
+    name: 'Chandan',
+    service: 'Recruitment / Virtual Assistant',
+    duration: '4+ years',
+    review: 'Quick to respond, clear communication, and consistently strong output.',
+  },
+  {
+    name: 'Akshay',
+    service: 'Dashboard & N8N Sales Engine',
+    duration: '1+ year',
+    review: 'Built our automation stack end-to-end. Fast, thoughtful, and highly capable.',
+  },
+  {
+    name: 'Percy',
+    service: 'UI/UX Testing',
+    duration: '2+ years',
+    review: 'Catches issues our engineers miss. Methodical and reliable on every release.',
+  },
+  {
+    name: 'Eusden',
+    service: 'Data Entry on Oracle Suite (E-Commerce)',
+    duration: '5+ years',
+    review: 'Five years of clean, accurate work on a system that does not forgive mistakes.',
+  },
 ];
 
 /** Case-highlight metric cards — one per core service */

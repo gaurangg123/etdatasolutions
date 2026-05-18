@@ -16,7 +16,14 @@
     --bg-soft: #FFF9F2;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    /* Account for the sticky navbar (h-20 → 80px, sm: h-24 → 96px) when snapping */
+    scroll-padding-top: 80px;
+  }
+  @media (min-width: 640px) {
+    html { scroll-padding-top: 96px; }
+  }
   body {
     @apply bg-white text-ink-800 antialiased;
     font-feature-settings: 'ss01', 'ss02', 'cv11';
