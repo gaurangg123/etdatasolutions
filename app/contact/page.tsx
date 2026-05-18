@@ -29,17 +29,25 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="container-x section grid lg:grid-cols-[1.1fr_1fr] gap-8">
-        <Reveal>
-          <div className="rounded-3xl border border-ink-100 bg-white shadow-card p-6 sm:p-10">
-            <h2 className="text-2xl font-bold mb-1">Send us a message</h2>
-            <p className="text-sm text-ink-500 mb-6">All fields marked with * are required.</p>
-            <ContactForm />
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <CalendlyEmbed />
-        </Reveal>
+      {/* Form + Calendly — equal height via items-stretch + h-full */}
+      <section className="container-x section">
+        <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 items-stretch">
+          <Reveal className="h-full">
+            <div className="h-full flex flex-col rounded-3xl border border-ink-100 bg-white shadow-card p-6 sm:p-10">
+              <h2 className="text-2xl font-bold mb-1">Send us a message</h2>
+              <p className="text-sm text-ink-500 mb-6">All fields marked with * are required.</p>
+              <div className="flex-1">
+                <ContactForm />
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1} className="h-full">
+            <div className="h-full">
+              <CalendlyEmbed />
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       <section className="container-x pb-24">
@@ -66,7 +74,7 @@ function QuickCard({ icon: Icon, label, value, href }: {
   href?: string;
 }) {
   const inner = (
-    <div className="flex items-start gap-4 rounded-2xl border border-ink-100 bg-white p-5 h-full hover:border-brand-200 hover:shadow-card transition">
+    <div className="flex items-start gap-4 rounded-2xl border border-ink-100 bg-white p-5 h-full hover:border-coral-300 hover:shadow-card transition">
       <span className="grid place-items-center w-10 h-10 rounded-xl bg-brand-50 text-brand-600 shrink-0">
         <Icon className="w-5 h-5" />
       </span>

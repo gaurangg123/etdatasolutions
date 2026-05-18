@@ -13,10 +13,6 @@ declare global {
   }
 }
 
-/**
- * Inline Calendly embed.
- * Reads NEXT_PUBLIC_CALENDLY_URL (recommended) — set this in Vercel env vars.
- */
 export default function CalendlyEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
@@ -24,8 +20,6 @@ export default function CalendlyEmbed() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    // Inject script once
     const scriptId = 'calendly-widget-script';
     let script = document.getElementById(scriptId) as HTMLScriptElement | null;
     if (!script) {
@@ -35,8 +29,6 @@ export default function CalendlyEmbed() {
       script.async = true;
       document.body.appendChild(script);
     }
-
-    // Inject CSS once
     if (!document.getElementById('calendly-widget-css')) {
       const link = document.createElement('link');
       link.id = 'calendly-widget-css';
@@ -49,7 +41,7 @@ export default function CalendlyEmbed() {
     const init = () => {
       attempts += 1;
       if (window.Calendly && containerRef.current) {
-        containerRef.current.innerHTML = ''; // reset on remount
+        containerRef.current.innerHTML = '';
         window.Calendly.initInlineWidget({
           url: calendlyUrl,
           parentElement: containerRef.current,
@@ -59,12 +51,11 @@ export default function CalendlyEmbed() {
       }
       if (attempts < 50) setTimeout(init, 120);
     };
-
     init();
   }, [calendlyUrl]);
 
   return (
-    <div className="rounded-3xl border border-ink-100 bg-white shadow-card overflow-hidden">
+    <div className="h-full flex flex-col rounded-3xl border border-ink-100 bg-white shadow-card overflow-hidden">
       <div className="flex items-center justify-between gap-3 px-6 py-4 border-b border-ink-100 bg-gradient-to-r from-brand-50/60 to-white">
         <div className="flex items-center gap-3">
           <span className="grid place-items-center w-9 h-9 rounded-lg bg-brand-gradient text-white shadow-soft">
@@ -79,17 +70,17 @@ export default function CalendlyEmbed() {
           href={calendlyUrl}
           target="_blank"
           rel="noreferrer"
-          className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-brand-600 hover:text-brand-700"
+          className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-coral-600 hover:text-coral-700"
         >
           Open in new tab <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
 
-      {/* Calendly inline widget mount point */}
+      {/* The widget fills the remaining height of the card */}
       <div
         ref={containerRef}
-        className="calendly-inline-widget"
-        style={{ minWidth: '320px', height: '700px' }}
+        className="calendly-inline-widget flex-1"
+        style={{ minWidth: '320px', minHeight: '600px' }}
         data-url={calendlyUrl}
       />
 

@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════
-   ET Data Solutions — v2 Design System
+   ET Data Solutions — Sunset edition
    ══════════════════════════════════════════════════════════ */
 
 @tailwind base;
@@ -8,14 +8,10 @@
 
 @layer base {
   :root {
-    --brand-50:  #FFF5EC;
-    --brand-100: #FFE2C5;
-    --brand-300: #FFB069;
-    --brand-500: #F26A1E;
-    --brand-600: #DC5A12;
-    --brand-700: #B0440A;
+    --brand: #F26A1E;
+    --coral: #FF5A48;
+    --sunset: #E6296A;
     --ink: #0B0F1A;
-    --ink-soft: #3C4252;
     --bg: #FFFFFF;
     --bg-soft: #FFF9F2;
   }
@@ -26,18 +22,11 @@
     font-feature-settings: 'ss01', 'ss02', 'cv11';
   }
 
-  ::selection { background: #FFD5A8; color: #4D2200; }
-
+  ::selection { background: #FFD5A8; color: #4D1C03; }
   h1, h2, h3, h4 { @apply font-display tracking-tight text-ink-900; }
 
-  /* Proximity-based scroll snapping — snaps to a section when you're near one,
-     but never blocks scroll momentum. Use .snap-page on <main> via the snap-page utility
-     OR add data-snap="true" on <html> to enable. */
-  html[data-snap="true"] {
-    scroll-snap-type: y proximity;
-  }
+  html[data-snap="true"] { scroll-snap-type: y proximity; }
 
-  /* A single fullscreen scene */
   .snap-section {
     scroll-snap-align: start;
     min-height: 100svh;
@@ -46,12 +35,7 @@
     flex-direction: column;
     justify-content: center;
   }
-
-  /* For sections that should align to the top but don't need to fill the viewport */
-  .snap-section.snap-loose {
-    scroll-snap-align: start;
-    min-height: auto;
-  }
+  .snap-section.snap-loose { scroll-snap-align: start; min-height: auto; }
 }
 
 @layer components {
@@ -59,12 +43,21 @@
 
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
-           transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40
+           transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-500/40
            focus-visible:ring-offset-2;
   }
-  .btn-primary   { @apply btn bg-brand-gradient text-white shadow-soft hover:shadow-glow hover:-translate-y-0.5; }
-  .btn-secondary { @apply btn bg-white text-ink-900 border border-ink-200 hover:border-brand-400 hover:text-brand-600; }
-  .btn-ghost     { @apply btn text-ink-800 hover:text-brand-600; }
+  .btn-primary {
+    @apply btn text-white shadow-sunset hover:shadow-glow hover:-translate-y-0.5;
+    background: linear-gradient(135deg, #F26A1E 0%, #FF5A48 50%, #E6296A 100%);
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+    transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover { background-position: 100% 50%; }
+  .btn-secondary {
+    @apply btn bg-white text-ink-900 border border-ink-200 hover:border-coral-400 hover:text-coral-600;
+  }
+  .btn-ghost { @apply btn text-ink-800 hover:text-coral-600; }
 
   .card {
     @apply rounded-2xl bg-white border border-ink-100 shadow-card transition-all duration-300
@@ -76,11 +69,22 @@
            px-3 py-1 text-xs font-semibold tracking-wide uppercase border border-brand-100;
   }
 
+  /* Sunset gradient text */
   .grad-text {
-    background: linear-gradient(135deg, #F26A1E 0%, #FFB069 100%);
+    background: linear-gradient(135deg, #F26A1E 0%, #FF5A48 50%, #E6296A 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  /* Animated sunset shimmer for headlines / accents */
+  .shimmer-text {
+    background: linear-gradient(90deg, #F26A1E 0%, #FF5A48 25%, #E6296A 50%, #FF5A48 75%, #F26A1E 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 6s linear infinite;
   }
 
   .section { @apply py-20 sm:py-28; }
@@ -89,14 +93,16 @@
   .input {
     @apply w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-ink-900
            placeholder:text-ink-400 outline-none transition
-           focus:border-brand-400 focus:ring-4 focus:ring-brand-100;
+           focus:border-coral-400 focus:ring-4 focus:ring-coral-100;
   }
   .label { @apply block text-sm font-medium text-ink-800 mb-2; }
 }
 
+/* Floating decorative orbs — now sunset-tinted */
 .orb { position: absolute; border-radius: 9999px; filter: blur(60px); opacity: 0.55; pointer-events: none; }
 .orb-a { background: radial-gradient(circle, #FFC089 0%, transparent 70%); }
-.orb-b { background: radial-gradient(circle, #F26A1E 0%, transparent 70%); opacity: 0.32; }
+.orb-b { background: radial-gradient(circle, #FF5A48 0%, transparent 70%); opacity: 0.35; }
+.orb-c { background: radial-gradient(circle, #E6296A 0%, transparent 70%); opacity: 0.28; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-snap-type: none !important; scroll-behavior: auto; }
