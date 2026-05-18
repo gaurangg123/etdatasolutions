@@ -38,8 +38,8 @@ export default function Navbar() {
           : 'bg-transparent',
       ].join(' ')}
     >
-      <div className="container-x flex h-16 sm:h-20 items-center justify-between">
-        <Logo size={56} />
+      <div className="container-x flex h-20 sm:h-24 items-center justify-between">
+        <Logo size={80} />
 
         <nav className="hidden md:flex items-center gap-1">
           {links.map((l) => {

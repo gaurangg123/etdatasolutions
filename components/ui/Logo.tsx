@@ -39,12 +39,12 @@ export default function Logo({
 
   const wordmark = withWordmark && (
     <span className="font-display font-bold tracking-tight leading-none flex flex-col">
-      <span className="text-[1.1rem] sm:text-xl leading-none">
+      <span className="text-xl sm:text-2xl leading-none">
         <span style={{ color: etColor }}>ET </span>
         <span style={{ color: dataColor }}>DATA</span>
       </span>
       <span
-        className="text-[9px] sm:text-[10px] tracking-[0.32em] mt-1 font-semibold"
+        className="text-[10px] sm:text-[11px] tracking-[0.34em] mt-1.5 font-semibold"
         style={{ color: solColor }}
       >
         SOLUTIONS

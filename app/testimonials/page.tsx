@@ -52,23 +52,26 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* Case highlights */}
+      {/* Service highlights — one per core offering */}
       <section className="bg-gradient-to-b from-brand-50/40 to-white border-y border-ink-100">
         <div className="container-x section">
           <Reveal>
             <div className="section-header text-center mx-auto">
-              <span className="pill mb-3">Case highlights</span>
+              <span className="pill mb-3">By the service</span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Outcomes, not just hours.
+                Long-term partnerships, <span className="grad-text">across every offering.</span>
               </h2>
+              <p className="mt-4 text-base text-ink-600">
+                Clients don't just engage us once. They embed us — and stay.
+              </p>
             </div>
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {caseHighlights.map((c, i) => (
               <Reveal key={c.title} delay={i * 0.08}>
-                <div className="rounded-2xl bg-white border border-ink-100 shadow-card p-7 h-full hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300">
-                  <div className="text-4xl font-bold grad-text">{c.metric}</div>
-                  <div className="text-xs uppercase tracking-wider text-ink-400 mt-1">{c.sub}</div>
+                <div className="rounded-2xl bg-white border border-ink-100 shadow-card p-6 h-full hover:-translate-y-1 hover:shadow-soft hover:border-brand-200 transition-all duration-300">
+                  <div className="text-3xl sm:text-4xl font-bold grad-text">{c.metric}</div>
+                  <div className="text-[10px] uppercase tracking-[0.16em] text-ink-400 mt-1 font-semibold">{c.sub}</div>
                   <h3 className="mt-5 font-semibold text-ink-900">{c.title}</h3>
                   <p className="mt-2 text-sm text-ink-600 leading-relaxed">{c.desc}</p>
                 </div>

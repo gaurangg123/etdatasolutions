@@ -54,24 +54,30 @@ export const mini: MiniTestimonial[] = [
   { name: 'Eusden',  service: 'Data Entry on Oracle Suite (E-Commerce)', duration: '5+ years' },
 ];
 
-/** Case-highlight metric cards (still used on the testimonials page) */
+/** Case-highlight metric cards — one per core service */
 export const caseHighlights = [
   {
-    metric: '$40K',
-    sub: 'saved annually',
-    title: 'Logistics invoice processing',
-    desc: 'Reduced invoice turnaround from 14 days to 3 with zero errors across 4,800 invoices.',
+    metric: '7+ yrs',
+    sub: 'longest active partnership',
+    title: 'Recruitment',
+    desc: 'Long-running contractor placements across the US, Europe, and Australia — reliable, collaborative, on fixed-price engagements.',
   },
   {
-    metric: '0',
-    sub: 'P1 bugs on launch',
-    title: 'SaaS QA coverage',
-    desc: 'Zero critical bugs across 4 consecutive releases. 23 medium issues caught pre-release.',
+    metric: '5+ yrs',
+    sub: 'avg VA tenure',
+    title: 'Virtual Assistant',
+    desc: 'Dedicated VAs embedded in client workflows — quick responders, eager learners, clear communicators across roles and domains.',
   },
   {
-    metric: '$2.3M',
-    sub: 'surfaced in 30 days',
-    title: 'Healthtech billing reconciliation',
-    desc: 'ETL pipeline unified three billing systems and surfaced unbilled services in week one.',
+    metric: '99%',
+    sub: 'accuracy guaranteed',
+    title: 'Data Entry',
+    desc: 'High-volume, two-pass-QC data work — including Oracle Suite e-commerce engagements running 5+ years.',
+  },
+  {
+    metric: '2+ yrs',
+    sub: 'continuous QA coverage',
+    title: 'UI / UX Testing',
+    desc: 'Structured manual QA — test plans, cross-browser regression, release sign-off — embedded in client release cycles.',
   },
 ];
