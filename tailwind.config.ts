@@ -23,9 +23,14 @@ const config: Config = {
         },
         // Coral mid-tone (warm pink-orange)
         coral: {
+          50:  '#FFF1EE',
+          100: '#FFDCD5',
+          200: '#FFBAAE',
+          300: '#FF9785',
           400: '#FF7A6C',
           500: '#FF5A48',
           600: '#E3402E',
+          700: '#B22F1F',
         },
         // Magenta (sunset deep)
         sunset: {
