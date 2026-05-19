@@ -9,7 +9,7 @@ export default function WhyChooseUs() {
     <section className="snap-section container-x section">
       <Reveal>
         <div className="section-header">
-          <span className="pill mb-3">Why choose us</span>
+          <span className="pill mb-3">Why choose us?</span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
             The discipline of an in-house team. <span className="grad-text">The economics of one that isn’t.</span>
           </h2>

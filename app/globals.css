@@ -32,17 +32,34 @@
   ::selection { background: #FFD5A8; color: #4D1C03; }
   h1, h2, h3, h4 { @apply font-display tracking-tight text-ink-900; }
 
-  html[data-snap="true"] { scroll-snap-type: y proximity; }
-
-  .snap-section {
-    scroll-snap-align: start;
-    min-height: 100svh;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  /*  Scroll-snap is desktop-only.
+      It feels "forced" on touch devices (especially iOS Safari) because the
+      browser intercepts every flick and re-snaps it. We gate snap behind
+      `hover: hover` + `pointer: fine` (= real mouse), and a min width.
+      Phones / tablets get normal, fully fluid scrolling. */
+  @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+    html[data-snap="true"] {
+      scroll-snap-type: y proximity;
+    }
+    .snap-section {
+      scroll-snap-align: start;
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .snap-section.snap-loose {
+      scroll-snap-align: start;
+      min-height: auto;
+    }
   }
-  .snap-section.snap-loose { scroll-snap-align: start; min-height: auto; }
+  /* On touch / small screens, snap-section becomes a plain block — no min-height,
+     no snap, no forced viewport, no awkward gaps. */
+  .snap-section,
+  .snap-section.snap-loose {
+    /* nothing — pure flow */
+  }
 }
 
 @layer components {
@@ -72,8 +89,20 @@
   }
 
   .pill {
-    @apply inline-flex items-center gap-2 rounded-full bg-brand-50 text-brand-700
-           px-3 py-1 text-xs font-semibold tracking-wide uppercase border border-brand-100;
+    @apply inline-flex items-center gap-2 rounded-full
+           px-3.5 py-1.5 text-xs font-bold tracking-[0.18em] uppercase
+           border border-brand-200 shadow-[0_2px_8px_-4px_rgba(242,106,30,0.4)];
+    background: linear-gradient(135deg, #FFE2C5 0%, #FFCBC4 60%, #FFC8DA 100%);
+    color: #B0440A;
+  }
+  .pill::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #F26A1E, #E6296A);
+    box-shadow: 0 0 0 2px rgba(242, 106, 30, 0.18);
   }
 
   /* Sunset gradient text */

@@ -140,7 +140,7 @@ export default function ServicesPage() {
         <div className="container-x py-16 sm:py-20">
           <Reveal>
             <div className="section-header text-center mx-auto">
-              <span className="pill mb-3">How we work</span>
+              <span className="pill mb-3">How we work?</span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
                 A four-step process. <span className="grad-text">No surprises.</span>
               </h2>
